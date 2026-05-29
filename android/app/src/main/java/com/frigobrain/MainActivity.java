@@ -17,8 +17,6 @@ import com.frigobrain.ui.stats.NutritionActivity;
 import com.frigobrain.util.DateUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.concurrent.Executors;
-
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
@@ -80,42 +78,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadDashboard() {
-        Executors.newSingleThreadExecutor().execute(() -> {
-            var foods = db.foodItemDao().getActiveByUser(userId);
-            foods.observe(this, list -> {
-                int total = list != null ? list.size() : 0;
-                tvTotalCount.setText(String.valueOf(total));
+        db.foodItemDao().getActiveByUser(userId).observe(this, list -> {
+            int total = list != null ? list.size() : 0;
+            tvTotalCount.setText(String.valueOf(total));
 
-                // Count expiring
-                int expiring = 0;
-                if (list != null) {
-                    long now = System.currentTimeMillis();
-                    long threshold = DateUtils.daysFromNow(3);
-                    for (var f : list) {
-                        if (f.getExpiryDate() <= threshold && f.getExpiryDate() >= now) expiring++;
-                    }
+            int expiring = 0;
+            if (list != null) {
+                long now = System.currentTimeMillis();
+                long threshold = DateUtils.daysFromNow(3);
+                for (var f : list) {
+                    if (f.getExpiryDate() <= threshold && f.getExpiryDate() >= now) expiring++;
                 }
-                tvExpiringCount.setText(String.valueOf(expiring));
-                if (expiring > 0) {
-                    bannerExpiry.setVisibility(View.VISIBLE);
-                    tvExpiryAlert.setText(expiring + " 种食材将在3天内过期");
-                } else {
-                    bannerExpiry.setVisibility(View.GONE);
-                }
+            }
+            tvExpiringCount.setText(String.valueOf(expiring));
+            if (expiring > 0) {
+                bannerExpiry.setVisibility(View.VISIBLE);
+                tvExpiryAlert.setText(expiring + " 种食材将在3天内过期");
+            } else {
+                bannerExpiry.setVisibility(View.GONE);
+            }
 
-                // Food list text
-                if (list != null && !list.isEmpty()) {
-                    StringBuilder sb = new StringBuilder();
-                    for (var f : list) {
-                        int days = DateUtils.daysUntil(f.getExpiryDate());
-                        String status = days < 0 ? "🔴" : days <= 3 ? "🟡" : "🟢";
-                        sb.append(status).append(" ").append(f.getName())
-                          .append("  ").append(f.getQuantity()).append(f.getUnit())
-                          .append("  ").append(days).append("天\n");
-                    }
-                    tvFoodList.setText(sb.toString().trim());
+            if (list != null && !list.isEmpty()) {
+                StringBuilder sb = new StringBuilder();
+                for (var f : list) {
+                    int days = DateUtils.daysUntil(f.getExpiryDate());
+                    String status = days < 0 ? "🔴" : days <= 3 ? "🟡" : "🟢";
+                    sb.append(status).append(" ").append(f.getName())
+                      .append("  ").append(f.getQuantity()).append(f.getUnit())
+                      .append("  ").append(days).append("天\n");
                 }
-            });
+                tvFoodList.setText(sb.toString().trim());
+            }
         });
 
         // Weekly calories
