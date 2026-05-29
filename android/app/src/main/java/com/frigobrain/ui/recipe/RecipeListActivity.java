@@ -1,9 +1,9 @@
 package com.frigobrain.ui.recipe;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,34 +16,44 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-
 import com.frigobrain.FrigoBrainApp;
 import com.frigobrain.MainActivity;
 import com.frigobrain.R;
 import com.frigobrain.adapter.RecipeAdapter;
 import com.frigobrain.data.db.AppDatabase;
 import com.frigobrain.data.db.entity.Recipe;
-import com.frigobrain.data.db.entity.ShoppingList;
 import com.frigobrain.util.RecipeApiClient;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 
 public class RecipeListActivity extends AppCompatActivity {
 
     private EditText etSearch;
     private Button btnSearchApi;
-    private LinearLayout tabs;
+    private LinearLayout suggestionsArea, suggestionsGrid;
+    private TextView tvSectionTitle, tvHistoryTitle, tvHistory;
     private RecyclerView rvRecipes;
     private ProgressBar progress;
     private RecipeAdapter adapter;
     private AppDatabase db;
     private RecipeApiClient apiClient;
     private long userId;
+    private SharedPreferences prefs;
+    private Set<String> historySet;
 
-    private String currentTab = "推荐"; // 推荐 / 搜索 / 收藏
+    private static final String PREFS_NAME = "recipe_search_prefs";
+    private static final String KEY_HISTORY = "search_history";
+
+    private static final String[] SUGGESTIONS = {
+        "番茄炒蛋", "麻婆豆腐", "宫保鸡丁", "红烧排骨", "清蒸鲈鱼",
+        "青椒肉丝", "糖醋里脊", "冬瓜排骨汤", "鸡蛋羹", "土豆炖牛肉",
+        "酸菜鱼", "回锅肉", "水煮肉片", "鱼香肉丝", "可乐鸡翅"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +64,16 @@ public class RecipeListActivity extends AppCompatActivity {
         db = AppDatabase.getInstance(this);
         apiClient = new RecipeApiClient();
         userId = FrigoBrainApp.getCurrentUserId();
+        prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        historySet = prefs.getStringSet(KEY_HISTORY, new HashSet<>());
 
         etSearch = findViewById(R.id.et_search);
         btnSearchApi = findViewById(R.id.btn_search_api);
-        tabs = findViewById(R.id.tabs);
+        suggestionsArea = findViewById(R.id.suggestions_area);
+        suggestionsGrid = findViewById(R.id.suggestions_grid);
+        tvSectionTitle = findViewById(R.id.tv_section_title);
+        tvHistoryTitle = findViewById(R.id.tv_history_title);
+        tvHistory = findViewById(R.id.tv_history);
         rvRecipes = findViewById(R.id.rv_recipes);
         progress = findViewById(R.id.progress);
 
@@ -65,131 +81,110 @@ public class RecipeListActivity extends AppCompatActivity {
         rvRecipes.setLayoutManager(new LinearLayoutManager(this));
         rvRecipes.setAdapter(adapter);
 
-        // Category tabs
-        addTab("推荐", "推荐");
-        addTab("中式", "中式");
-        addTab("快手", "快手");
-        addTab("汤品", "汤品");
+        // Search with animation
+        etSearch.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                showSuggestions();
+                suggestionsArea.setVisibility(View.VISIBLE);
+                rvRecipes.setVisibility(View.GONE);
+            }
+        });
+        etSearch.setOnClickListener(v -> {
+            showSuggestions();
+            suggestionsArea.setVisibility(View.VISIBLE);
+            rvRecipes.setVisibility(View.GONE);
+        });
 
-        // Load local recipes
-        loadLocalRecipes("推荐");
-
-        // Search button - use Juhui API
         btnSearchApi.setOnClickListener(v -> {
             String keyword = etSearch.getText().toString().trim();
-            if (keyword.isEmpty()) {
-                Toast.makeText(this, "请输入食材或菜名搜索", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            if (keyword.isEmpty()) return;
+            addToHistory(keyword);
             progress.setVisibility(View.VISIBLE);
+            suggestionsArea.setVisibility(View.GONE);
             searchFromApi(keyword);
         });
 
-        // Local search
-        etSearch.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) searchLocalRecipes(s.toString());
-                else loadLocalRecipes(currentTab);
+        // Show suggestions on load
+        showSuggestions();
+        loadMatchedRecipes();
+    }
+
+    private void showSuggestions() {
+        // Build suggestion chips
+        suggestionsGrid.removeAllViews();
+        for (String sug : SUGGESTIONS) {
+            TextView chip = new TextView(this);
+            chip.setText(sug);
+            chip.setPadding(20, 10, 20, 10);
+            chip.setTextSize(13f);
+            chip.setTextColor(getColor(R.color.primary));
+            chip.setBackgroundColor(getColor(R.color.primaryLight));
+            chip.setClickable(true);
+            chip.setFocusable(true);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, 0, 10, 10);
+            chip.setLayoutParams(lp);
+            chip.setOnClickListener(v -> {
+                etSearch.setText(sug);
+                addToHistory(sug);
+                progress.setVisibility(View.VISIBLE);
+                suggestionsArea.setVisibility(View.GONE);
+                searchFromApi(sug);
+            });
+            suggestionsGrid.addView(chip);
+        }
+
+        // History
+        if (historySet != null && !historySet.isEmpty()) {
+            tvHistoryTitle.setVisibility(View.VISIBLE);
+            tvHistory.setVisibility(View.VISIBLE);
+            StringBuilder sb = new StringBuilder();
+            for (String h : historySet) {
+                sb.append("🔍 ").append(h).append("\n");
             }
-            @Override public void afterTextChanged(Editable s) {}
-        });
+            tvHistory.setText(sb.toString().trim());
+        } else {
+            tvHistoryTitle.setVisibility(View.GONE);
+            tvHistory.setVisibility(View.GONE);
+        }
     }
 
-    private void addTab(String label, String tag) {
-        TextView tab = new TextView(this);
-        tab.setText(label);
-        tab.setPadding(20, 10, 20, 10);
-        tab.setTextSize(13);
-        boolean selected = currentTab.equals(tag);
-        tab.setTextColor(selected
-                ? getResources().getColor(android.R.color.white, null)
-                : getResources().getColor(R.color.primary, null));
-        if (selected) tab.setBackgroundTintList(getResources().getColorStateList(R.color.primary, null));
-
-        tab.setOnClickListener(v -> {
-            currentTab = tag;
-            tabs.removeAllViews();
-            addTab("推荐", "推荐");
-            addTab("中式", "中式");
-            addTab("快手", "快手");
-            addTab("汤品", "汤品");
-            loadLocalRecipes(tag);
-        });
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        params.setMargins(4, 0, 4, 0);
-        tabs.addView(tab, params);
+    private void addToHistory(String keyword) {
+        if (historySet == null) historySet = new HashSet<>();
+        historySet.add(keyword);
+        prefs.edit().putStringSet(KEY_HISTORY, historySet).apply();
     }
 
-    private void loadLocalRecipes(String filter) {
+    private void loadMatchedRecipes() {
         Executors.newSingleThreadExecutor().execute(() -> {
-            List<Recipe> recipes;
-            switch (filter) {
-                case "中式":
-                    recipes = db.recipeDao().getByCuisine("中式").getValue();
-                    break;
-                case "快手":
-                    recipes = db.recipeDao().getByTag("快手").getValue();
-                    break;
-                case "汤品":
-                    recipes = db.recipeDao().getByTag("汤品").getValue();
-                    break;
-                default:
-                    // "推荐" = smart match based on fridge inventory
-                    var matched = db.recipeDao().getMatchedRecipes(userId).getValue();
-                    recipes = new ArrayList<>();
-                    if (matched != null) {
-                        for (var row : matched) {
-                            Recipe r = db.recipeDao().getByIdSync(row.recipeId);
-                            if (r != null) {
-                                r.setTags(r.getTags() + " | 匹配" + (int)(row.matchRate * 100) + "%");
-                                recipes.add(r);
-                            }
-                        }
-                    }
-                    // Fallback to all recipes if no matches
-                    if (recipes == null || recipes.isEmpty()) {
-                        recipes = db.recipeDao().getAllSync();
-                    }
-                    break;
-            }
-
+            List<Recipe> recipes = db.recipeDao().getAllSync();
             if (recipes == null) recipes = new ArrayList<>();
-            final List<Recipe> finalRecipes = recipes;
-            runOnUiThread(() -> adapter.setRecipes(finalRecipes));
+            runOnUiThread(() -> adapter.setRecipes(recipes));
         });
     }
 
-    private void searchLocalRecipes(String query) {
-        db.recipeDao().search(query).observe(this, recipes -> {
-            if (recipes != null) adapter.setRecipes(recipes);
-        });
-    }
-
-    /** 用聚合数据API搜索菜谱 */
     private void searchFromApi(String keyword) {
         apiClient.searchRecipes(keyword, 10, new RecipeApiClient.Callback() {
             @Override
             public void onSuccess(List<RecipeApiClient.ApiRecipe> apiRecipes) {
                 runOnUiThread(() -> {
                     progress.setVisibility(View.GONE);
+                    rvRecipes.setVisibility(View.VISIBLE);
                     List<Recipe> recipes = new ArrayList<>();
-                    for (RecipeApiClient.ApiRecipe ar : apiRecipes) {
+                    for (var ar : apiRecipes) {
                         Recipe r = new Recipe(ar.name, ar.toInstructions(),
                                 apiClient.estimateCalories(ar), 15.0, 10.0, 20.0);
                         r.setCuisineType(ar.category != null ? ar.category : "");
                         r.setDifficulty("中等");
-                        r.setTags("API搜索");
-                        r.setIsSystem(2); // Mark as API result
+                        r.setTags("网络搜索");
+                        r.setIsSystem(2);
                         recipes.add(r);
                     }
                     adapter.setRecipes(recipes);
                     Toast.makeText(RecipeListActivity.this,
-                            "从网络找到 " + apiRecipes.size() + " 道菜谱", Toast.LENGTH_SHORT).show();
+                            "找到 " + apiRecipes.size() + " 道菜谱", Toast.LENGTH_SHORT).show();
                 });
             }
 
@@ -197,7 +192,16 @@ public class RecipeListActivity extends AppCompatActivity {
             public void onError(String message) {
                 runOnUiThread(() -> {
                     progress.setVisibility(View.GONE);
-                    Toast.makeText(RecipeListActivity.this, message, Toast.LENGTH_SHORT).show();
+                    // Fallback to local
+                    Executors.newSingleThreadExecutor().execute(() -> {
+                        List<Recipe> local = db.recipeDao().getAllSync();
+                        runOnUiThread(() -> {
+                            rvRecipes.setVisibility(View.VISIBLE);
+                            adapter.setRecipes(local != null ? local : new ArrayList<>());
+                            Toast.makeText(RecipeListActivity.this,
+                                    "网络查询失败，显示本地菜谱", Toast.LENGTH_SHORT).show();
+                        });
+                    });
                 });
             }
         });
