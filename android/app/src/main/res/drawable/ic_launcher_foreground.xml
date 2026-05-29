@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Simple fridge icon: rectangle body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M34,24 L74,24 L74,28 L39,28 L39,78 L69,78 L69,28 L74,28 L74,82 L34,82 Z" />
+    <!-- Freezer compartment line -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M34,48 L74,48 L74,50 L34,50 Z" />
+    <!-- Handle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,38 L34,38 L34,68 L30,68 Z" />
+</vector>
