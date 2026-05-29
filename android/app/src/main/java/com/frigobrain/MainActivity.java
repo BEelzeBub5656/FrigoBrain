@@ -1,6 +1,8 @@
 package com.frigobrain;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,7 +16,9 @@ import com.frigobrain.ui.inventory.FoodAddActivity;
 import com.frigobrain.ui.inventory.InventoryActivity;
 import com.frigobrain.ui.recipe.RecipeListActivity;
 import com.frigobrain.ui.stats.NutritionActivity;
+import com.frigobrain.data.db.entity.Recipe;
 import com.frigobrain.util.DateUtils;
+import com.frigobrain.util.RecipeHolder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             View btnNutrition = findViewById(R.id.btn_quick_nutrition);
             if (btnAdd != null) btnAdd.setOnClickListener(v -> startActivity(new Intent(this, FoodAddActivity.class)));
             if (btnRecipe != null) btnRecipe.setOnClickListener(v -> navigateTo(RecipeListActivity.class));
-            if (btnNutrition != null) btnNutrition.setOnClickListener(v -> navigateTo(NutritionActivity.class));
+            if (btnNutrition != null) btnNutrition.setOnClickListener(v -> navigateTo(InventoryActivity.class));
 
             // Bottom nav
             if (bottomNav != null) {
@@ -58,6 +62,12 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "仪表盘加载失败: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
+        // Dynamic version
+        try {
+            PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), 0);
+            TextView tvVer = findViewById(R.id.tv_version);
+            if (tvVer != null) tvVer.setText("v" + pi.versionName);
+        } catch (PackageManager.NameNotFoundException ignored) {}
     }
 
     private void navigateTo(Class<?> target) {
@@ -71,6 +81,20 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressWarnings("unchecked")
     private void refreshDashboard() {
+        // Show mounted recipe if available
+        Recipe recipe = RecipeHolder.selected;
+        if (recipe != null) {
+            TextView tvFood = findViewById(R.id.tv_food_list);
+            if (tvFood != null) {
+                tvFood.setText("🍳 " + recipe.getName() + "\n"
+                    + recipe.getCalories() + "kcal | 蛋白" + (int)recipe.getProtein()
+                    + "g | 脂肪" + (int)recipe.getFat() + "g | 碳水" + (int)recipe.getCarbs() + "g\n\n"
+                    + recipe.getInstructions());
+                tvFood.setTextColor(0xFF263238);
+            }
+            RecipeHolder.selected = null; // consume once
+            return;
+        }
         try {
             // Food stats
             db.foodItemDao().getActiveByUser(userId).observe(this, list -> {

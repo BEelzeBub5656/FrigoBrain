@@ -1,5 +1,7 @@
 package com.frigobrain.adapter;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.widget.Toast;
 import android.view.View;
@@ -9,8 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.frigobrain.MainActivity;
 import com.frigobrain.R;
 import com.frigobrain.data.db.entity.Recipe;
+import com.frigobrain.util.RecipeHolder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,9 +65,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 (int)recipe.getProtein() + "g | 碳水" + (int)recipe.getCarbs() + "g");
 
         holder.itemView.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(),
-                recipe.getName() + " · " + recipe.getCalories() + "kcal",
-                Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(v.getContext())
+                .setTitle(recipe.getName())
+                .setMessage(recipe.getCalories() + "kcal | 蛋白" + (int)recipe.getProtein()
+                    + "g | 碳水" + (int)recipe.getCarbs() + "g\n\n已挂载到主页")
+                .setPositiveButton("查看主页", (d, w) -> {
+                    RecipeHolder.selected = recipe;
+                    Intent i = new Intent(v.getContext(), MainActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    v.getContext().startActivity(i);
+                })
+                .setNegativeButton("取消", null)
+                .show();
         });
     }
 

@@ -25,7 +25,7 @@
             android:id="@+id/tv_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="v0.0.4"
+            android:text=""
             android:textColor="#AAFFFFFF"
             android:textSize="11sp" />
     </LinearLayout>
@@ -244,13 +244,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="📊"
+                        android:text="📦"
                         android:textSize="32sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="营养报告"
+                        android:text="冰箱总览"
                         android:textColor="@color/onBackground"
                         android:textSize="14sp" />
                 </LinearLayout>
