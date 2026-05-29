@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="录入新食材"
+            android:textColor="@color/onBackground"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Food Name with Autocomplete -->
+        <AutoCompleteTextView
+            android:id="@+id/actv_food_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:completionThreshold="1"
+            android:dropDownHeight="200dp"
+            android:hint="@string/hint_food_name"
+            android:padding="14dp"
+            android:background="@drawable/edit_bg" />
+
+        <!-- Category Spinner -->
+        <Spinner
+            android:id="@+id/spinner_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="14dp"
+            android:background="@drawable/edit_bg" />
+
+        <!-- Quantity -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_quantity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:hint="@string/hint_quantity"
+                android:inputType="numberDecimal"
+                android:padding="14dp"
+                android:background="@drawable/edit_bg" />
+
+            <Spinner
+                android:id="@+id/spinner_unit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:padding="14dp"
+                android:background="@drawable/edit_bg" />
+        </LinearLayout>
+
+        <!-- Purchase Date -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/label_purchase_date"
+            android:textColor="#666"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_purchase_date"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="4dp"
+            android:text="选择购买日期"
+            android:textAllCaps="false"
+            android:backgroundTint="#757575" />
+
+        <!-- Expiry Days -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="保质期（天）"
+            android:textColor="#666"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_expiry_days"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:hint="如：5"
+            android:inputType="number"
+            android:padding="14dp"
+            android:background="@drawable/edit_bg" />
+
+        <!-- Price (optional) -->
+        <EditText
+            android:id="@+id/et_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/hint_price"
+            android:inputType="numberDecimal"
+            android:padding="14dp"
+            android:background="@drawable/edit_bg" />
+
+        <!-- Notes (optional) -->
+        <EditText
+            android:id="@+id/et_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/hint_notes"
+            android:padding="14dp"
+            android:background="@drawable/edit_bg" />
+
+        <!-- Buttons -->
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="24dp"
+            android:text="确认入库"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:backgroundTint="@color/primary" />
+
+        <Button
+            android:id="@+id/btn_scan"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/btn_scan"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/accent" />
+
+    </LinearLayout>
+</ScrollView>

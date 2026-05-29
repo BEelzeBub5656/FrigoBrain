@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- 网络权限（华为云 IoT 通信） -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- 相机权限（扫码录入） -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <!-- 后台服务权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- 文件读写 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- 闹钟定时 -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <application
+        android:name=".FrigoBrainApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.FrigoBrain"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="34">
+
+        <!-- 启动页 -->
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FrigoBrain.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 主仪表盘 -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="@string/title_main" />
+
+        <!-- 食材库存 -->
+        <activity
+            android:name=".ui.inventory.InventoryActivity"
+            android:exported="false"
+            android:label="@string/title_inventory" />
+        <activity
+            android:name=".ui.inventory.FoodAddActivity"
+            android:exported="false"
+            android:label="@string/title_add_food" />
+        <activity
+            android:name=".ui.inventory.FoodDetailActivity"
+            android:exported="false"
+            android:label="@string/title_food_detail" />
+
+        <!-- 菜谱 -->
+        <activity
+            android:name=".ui.recipe.RecipeListActivity"
+            android:exported="false"
+            android:label="@string/title_recipes" />
+        <activity
+            android:name=".ui.recipe.RecipeDetailActivity"
+            android:exported="false"
+            android:label="@string/title_recipe_detail" />
+
+        <!-- 膳食计划 -->
+        <activity
+            android:name=".ui.mealplan.MealPlanActivity"
+            android:exported="false"
+            android:label="@string/title_meal_plan" />
+
+        <!-- 统计 -->
+        <activity
+            android:name=".ui.stats.WasteStatsActivity"
+            android:exported="false"
+            android:label="@string/title_waste_stats" />
+        <activity
+            android:name=".ui.stats.NutritionActivity"
+            android:exported="false"
+            android:label="@string/title_nutrition" />
+
+        <!-- 用户/偏好 -->
+        <activity
+            android:name=".ui.profile.UserProfileActivity"
+            android:exported="false"
+            android:label="@string/title_profile" />
+        <activity
+            android:name=".ui.profile.PreferenceActivity"
+            android:exported="false"
+            android:label="@string/title_preferences" />
+
+        <!-- 设置 -->
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_settings" />
+
+        <!-- 后台服务 -->
+        <service
+            android:name=".service.IotDataSyncService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        <service
+            android:name=".service.ExpiryCheckService"
+            android:exported="false" />
+
+        <!-- 广播接收器 -->
+        <receiver
+            android:name=".broadcast.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".broadcast.AlarmReceiver"
+            android:exported="false" />
+
+    </application>
+</manifest>

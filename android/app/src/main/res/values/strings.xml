@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FrigoBrain</string>
+    <string name="app_name_cn">智能冰箱管家</string>
+
+    <!-- Activity Titles -->
+    <string name="title_main">冰箱总览</string>
+    <string name="title_inventory">食材库存</string>
+    <string name="title_add_food">录入食材</string>
+    <string name="title_food_detail">食材详情</string>
+    <string name="title_recipes">智能菜谱</string>
+    <string name="title_recipe_detail">菜谱详情</string>
+    <string name="title_meal_plan">膳食计划</string>
+    <string name="title_waste_stats">浪费统计</string>
+    <string name="title_nutrition">营养报告</string>
+    <string name="title_profile">个人中心</string>
+    <string name="title_preferences">膳食偏好</string>
+    <string name="title_settings">系统设置</string>
+
+    <!-- Categories -->
+    <string name="cat_vegetable">蔬菜</string>
+    <string name="cat_fruit">水果</string>
+    <string name="cat_meat">肉类</string>
+    <string name="cat_dairy">乳制品</string>
+    <string name="cat_other">其他</string>
+
+    <!-- Food Status -->
+    <string name="status_fresh">新鲜</string>
+    <string name="status_expiring_soon">即将过期</string>
+    <string name="status_expired">已过期</string>
+
+    <!-- Navigation -->
+    <string name="nav_fridge">冰箱</string>
+    <string name="nav_recipes">菜谱</string>
+    <string name="nav_plan">计划</string>
+    <string name="nav_stats">统计</string>
+    <string name="nav_profile">我的</string>
+
+    <!-- Actions -->
+    <string name="btn_add_food">录入食材</string>
+    <string name="btn_save">保存</string>
+    <string name="btn_delete">删除</string>
+    <string name="btn_edit">编辑</string>
+    <string name="btn_scan">扫码录入</string>
+    <string name="btn_add_to_cart">加入购物清单</string>
+    <string name="btn_generate_list">生成采购清单</string>
+    <string name="btn_search">搜索</string>
+
+    <!-- Food Add Fields -->
+    <string name="hint_food_name">食材名称</string>
+    <string name="hint_quantity">数量</string>
+    <string name="hint_unit">单位</string>
+    <string name="hint_price">价格（元，选填）</string>
+    <string name="hint_notes">备注</string>
+    <string name="label_category">分类</string>
+    <string name="label_purchase_date">购买日期</string>
+    <string name="label_expiry_date">过期日期</string>
+
+    <!-- Huawei IoT -->
+    <string name="iot_device_id_hint">华为云设备ID</string>
+    <string name="iot_secret_hint">设备密钥</string>
+    <string name="iot_connect">连接华为云</string>
+    <string name="iot_connected">已连接</string>
+    <string name="iot_disconnected">未连接</string>
+    <string name="iot_syncing">同步中…</string>
+</resources>

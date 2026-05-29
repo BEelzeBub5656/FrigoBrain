@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView android:id="@+id/tv_status"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:textSize="18sp" android:textStyle="bold" />
+
+        <TextView android:id="@+id/tv_name"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" android:textColor="@color/onBackground"
+            android:textSize="22sp" android:textStyle="bold" />
+
+        <TextView android:id="@+id/tv_category"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" android:textColor="#999" android:textSize="14sp" />
+
+        <TextView android:id="@+id/tv_quantity"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" android:textColor="@color/onBackground"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:orientation="horizontal">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="购买日期：" android:textColor="#666" android:textSize="14sp" />
+            <TextView android:id="@+id/tv_purchase_date"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="@color/onBackground" android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" android:orientation="horizontal">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="过期日期：" android:textColor="#666" android:textSize="14sp" />
+            <TextView android:id="@+id/tv_expiry_date"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="@color/onBackground" android:textSize="14sp" />
+        </LinearLayout>
+
+        <Button android:id="@+id/btn_mark_consumed"
+            android:layout_width="match_parent" android:layout_height="50dp"
+            android:layout_marginTop="32dp" android:text="标记已消耗"
+            android:textColor="@android:color/white" android:backgroundTint="@color/primary" />
+
+        <Button android:id="@+id/btn_delete"
+            android:layout_width="match_parent" android:layout_height="50dp"
+            android:layout_marginTop="8dp" android:text="删除并记录浪费"
+            android:textColor="@android:color/white" android:backgroundTint="@color/statusExpired" />
+
+    </LinearLayout>
+</ScrollView>

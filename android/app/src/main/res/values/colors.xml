@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary: Mint Green -->
+    <color name="primary">#4CAF50</color>
+    <color name="primaryDark">#388E3C</color>
+    <color name="primaryLight">#C8E6C9</color>
+    <color name="accent">#FF9800</color>
+
+    <!-- Background -->
+    <color name="background">#F5F5F5</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="onBackground">#212121</color>
+
+    <!-- Food Status -->
+    <color name="statusFresh">#4CAF50</color>
+    <color name="statusExpiringSoon">#FFC107</color>
+    <color name="statusExpired">#F44336</color>
+
+    <!-- Nutrition -->
+    <color name="calorie">#FF5722</color>
+    <color name="protein">#2196F3</color>
+    <color name="fat">#FF9800</color>
+    <color name="carbs">#8BC34A</color>
+
+    <!-- Chart -->
+    <color name="chartFill">#4CAF50</color>
+    <color name="chartLine">#388E3C</color>
+</resources>
