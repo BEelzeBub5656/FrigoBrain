@@ -364,16 +364,13 @@ public class MealPlanActivity extends AppCompatActivity {
         Toast.makeText(this, "正在生成采购清单...", Toast.LENGTH_SHORT).show();
 
         Executors.newSingleThreadExecutor().execute(() -> {
-            List<Object[]> result = db.mealPlanDao().generateShoppingList(userId, planId);
+            List<com.frigobrain.data.model.ShoppingItemResult> result =
+                db.mealPlanDao().generateShoppingList(userId, planId);
             List<ShoppingItem> items = new ArrayList<>();
             if (result != null) {
-                for (Object[] row : result) {
-                    String name = (String) row[0];
-                    double needed = row[1] instanceof Number ? ((Number) row[1]).doubleValue() : 0;
-                    String unit = (String) row[2];
-                    double inFridge = row[3] instanceof Number ? ((Number) row[3]).doubleValue() : 0;
-                    double toBuy = row[4] instanceof Number ? ((Number) row[4]).doubleValue() : 0;
-                    items.add(new ShoppingItem(name, needed, unit, inFridge, toBuy));
+                for (var row : result) {
+                    items.add(new ShoppingItem(row.foodName, row.totalNeeded,
+                            row.unit, row.inFridge, row.toBuy));
                 }
             }
 

@@ -8,6 +8,7 @@ import androidx.room.Query;
 import com.frigobrain.data.db.entity.MealPlan;
 import com.frigobrain.data.db.entity.MealPlanRecipe;
 
+import com.frigobrain.data.model.ShoppingItemResult;
 import java.util.List;
 
 @Dao
@@ -47,5 +48,5 @@ public interface MealPlanDao {
            "GROUP BY ri.food_name " +
            "HAVING to_buy > 0 " +
            "ORDER BY to_buy DESC")
-    List<Object[]> generateShoppingList(long userId, long planId);
+    List<ShoppingItemResult> generateShoppingList(long userId, long planId);
 }

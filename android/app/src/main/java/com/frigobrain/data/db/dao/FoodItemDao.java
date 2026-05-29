@@ -11,6 +11,7 @@ import com.frigobrain.data.db.entity.FoodItem;
 import com.frigobrain.data.model.CategoryCount;
 import com.frigobrain.data.model.FoodWithCategory;
 
+import com.frigobrain.data.model.ExpiringFoodWithRecipe;
 import java.util.List;
 
 @Dao
@@ -64,7 +65,7 @@ public interface FoodItemDao {
            "AND fi.expiry_date BETWEEN :today AND :threeDaysLater " +
            "AND fi.user_id = :userId " +
            "ORDER BY fi.expiry_date ASC")
-    LiveData<List<Object[]>> getExpiringFoodsWithRecipes(long userId, long today, long threeDaysLater);
+    LiveData<List<ExpiringFoodWithRecipe>> getExpiringFoodsWithRecipes(long userId, long today, long threeDaysLater);
 
     /** 分类统计 */
     @Query("SELECT fc.name, COUNT(fi.food_id) AS count " +

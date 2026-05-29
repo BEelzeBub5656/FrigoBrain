@@ -139,11 +139,12 @@ public class RecipeListActivity extends AppCompatActivity {
                     var matched = db.recipeDao().getMatchedRecipes(userId).getValue();
                     recipes = new ArrayList<>();
                     if (matched != null) {
-                        for (Object[] row : matched) {
-                            Recipe r = (Recipe) row[0];
-                            double matchRate = (double) row[3];
-                            r.setTags(r.getTags() + " | 匹配" + (int)(matchRate * 100) + "%");
-                            recipes.add(r);
+                        for (var row : matched) {
+                            Recipe r = db.recipeDao().getByIdSync(row.recipeId);
+                            if (r != null) {
+                                r.setTags(r.getTags() + " | 匹配" + (int)(row.matchRate * 100) + "%");
+                                recipes.add(r);
+                            }
                         }
                     }
                     // Fallback to all recipes if no matches

@@ -8,6 +8,7 @@ import androidx.room.Query;
 import com.frigobrain.data.db.entity.Recipe;
 import com.frigobrain.data.db.entity.RecipeIngredient;
 
+import com.frigobrain.data.model.MatchedRecipeResult;
 import java.util.List;
 
 @Dao
@@ -70,5 +71,5 @@ public interface RecipeDao {
            "GROUP BY r.recipe_id " +
            "HAVING match_rate >= 0.5 " +
            "ORDER BY match_rate DESC")
-    LiveData<List<Object[]>> getMatchedRecipes(long userId);
+    LiveData<List<MatchedRecipeResult>> getMatchedRecipes(long userId);
 }

@@ -8,6 +8,7 @@ import androidx.room.Query;
 import com.frigobrain.data.db.entity.NutritionLog;
 import com.frigobrain.data.model.NutritionSummary;
 
+import com.frigobrain.data.model.DailyCalorie;
 import java.util.List;
 
 @Dao
@@ -38,5 +39,5 @@ public interface NutritionLogDao {
     @Query("SELECT log_date, SUM(calories) AS dailyCal FROM nutrition_logs " +
            "WHERE user_id = :userId AND log_date BETWEEN :start AND :end " +
            "GROUP BY log_date ORDER BY log_date ASC")
-    LiveData<List<Object[]>> getDailyCalorieTrend(long userId, long start, long end);
+    LiveData<List<DailyCalorie>> getDailyCalorieTrend(long userId, long start, long end);
 }
