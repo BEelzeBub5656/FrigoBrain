@@ -106,7 +106,7 @@ public class PreferenceActivity extends AppCompatActivity {
         String maxCalStr = etMaxCalories.getText().toString().trim();
         String allergy = etAllergyInfo.getText().toString().trim();
 
-        int maxCal = 0;
+        final int maxCal;
         if (!TextUtils.isEmpty(maxCalStr)) {
             try {
                 maxCal = Integer.parseInt(maxCalStr);
@@ -114,9 +114,11 @@ public class PreferenceActivity extends AppCompatActivity {
                 Toast.makeText(this, "请输入有效的热量值", Toast.LENGTH_SHORT).show();
                 return;
             }
+        } else {
+            maxCal = 0;
         }
 
-        long now = System.currentTimeMillis();
+        final long now = System.currentTimeMillis();
         Executors.newSingleThreadExecutor().execute(() -> {
             int count = db.dietaryPreferenceDao().countByUser(userId);
             if (count > 0) {
