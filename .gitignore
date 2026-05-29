@@ -1,19 +1,21 @@
 # === Dependencies ===
 node_modules/
 .gradle/
-gradle/gradle-*.zip
+gradle/
 
 # === IDE & Tools ===
 .idea/
 *.iml
 .claude/
 .playwright-mcp/
+.vscode/
 
 # === Temp Files ===
 *.tmp
 *.log
 *.swp
 ~$*
+*.zip
 doc_output.txt
 extract_doc_text.py
 
@@ -22,6 +24,10 @@ android/.gradle/
 android/app/build/
 android/build/
 android/local.properties
+android/gradle/
+android/gradlew
+android/gradlew.bat
+android/*/build/
 *.apk
 *.aab
 *.hprof
