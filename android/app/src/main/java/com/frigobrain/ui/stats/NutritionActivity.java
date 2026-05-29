@@ -47,12 +47,6 @@ public class NutritionActivity extends AppCompatActivity {
             tvFat = findViewById(R.id.tv_fat);
             tvCarbs = findViewById(R.id.tv_carbs);
 
-            // Set defaults immediately
-            tvCalories.setText("0 kcal");
-            tvProtein.setText("0 g");
-            tvFat.setText("0 g");
-            tvCarbs.setText("0 g");
-
             loadWeekSummary();
             setupRadarChart();
             setupTrendChart();

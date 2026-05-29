@@ -14,9 +14,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.frigobrain.FrigoBrainApp;
 import com.frigobrain.R;
 import com.frigobrain.data.db.AppDatabase;
@@ -42,40 +39,23 @@ public class MealPlanActivity extends AppCompatActivity {
 
     private TableLayout weekGrid;
     private Button btnGenerateList;
-    private RecyclerView rvShoppingList;
+    private TextView tvShoppingList;
 
     private MealPlan currentPlan;
     private long planId;
 
-    // Days of week labels (Chinese)
     private static final String[] DAY_NAMES = {"周一", "周二", "周三", "周四", "周五", "周六", "周日"};
-    // Meal time labels (Chinese)
     private static final String[] MEAL_TIMES = {"早餐", "午餐", "晚餐"};
-    // Meal time label -> DB constant
     private static final Map<String, String> MEAL_LABEL_TO_CONST = new HashMap<>();
     static {
         MEAL_LABEL_TO_CONST.put("早餐", Constants.MEAL_BREAKFAST);
         MEAL_LABEL_TO_CONST.put("午餐", Constants.MEAL_LUNCH);
         MEAL_LABEL_TO_CONST.put("晚餐", Constants.MEAL_DINNER);
     }
-    // DB constant -> Meal time label
-    private static final Map<String, String> MEAL_CONST_TO_LABEL = new HashMap<>();
-    static {
-        MEAL_CONST_TO_LABEL.put(Constants.MEAL_BREAKFAST, "早餐");
-        MEAL_CONST_TO_LABEL.put(Constants.MEAL_LUNCH, "午餐");
-        MEAL_CONST_TO_LABEL.put(Constants.MEAL_DINNER, "晚餐");
-    }
 
-    // slotContents: dayOfWeek (1=Monday..7=Sunday) -> mealTime -> recipeId
     private Map<Integer, Map<String, Long>> slotContents = new HashMap<>();
-    // recipeId -> recipeName cache
     private Map<Long, String> recipeNameCache = new HashMap<>();
-    // All recipe id -> name mapping
     private List<Recipe> allRecipes = new ArrayList<>();
-
-    // Shopping list adapter
-    private ShoppingListAdapter shoppingAdapter;
-    private List<ShoppingItem> shoppingItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,12 +68,7 @@ public class MealPlanActivity extends AppCompatActivity {
 
             weekGrid = findViewById(R.id.week_grid);
             btnGenerateList = findViewById(R.id.btn_generate_shopping_list);
-            rvShoppingList = findViewById(R.id.rv_shopping_list);
-
-            // Setup shopping list RecyclerView
-            shoppingAdapter = new ShoppingListAdapter(shoppingItems);
-            rvShoppingList.setLayoutManager(new LinearLayoutManager(this));
-            rvShoppingList.setAdapter(shoppingAdapter);
+            tvShoppingList = findViewById(R.id.tv_shopping_list);
 
             // Initialize slot contents
             for (int d = 1; d <= 7; d++) {
@@ -382,80 +357,38 @@ public class MealPlanActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 shoppingItems.clear();
                 shoppingItems.addAll(items);
-                shoppingAdapter.notifyDataSetChanged();
-
-                if (items.isEmpty()) {
-                    Toast.makeText(MealPlanActivity.this,
-                            "所有食材冰箱里都有，无需采购！", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MealPlanActivity.this,
-                            "需要采购 " + items.size() + " 种食材", Toast.LENGTH_SHORT).show();
+                // Build text for TextView display
+                StringBuilder sb = new StringBuilder();
+                for (ShoppingItem item : items) {
+                    sb.append("☐ ").append(item.name)
+                      .append("  x").append(item.needed).append(item.unit)
+                      .append("  (需购: ").append(item.toBuy).append(item.unit)
+                      .append(")\n");
                 }
+                final String text = sb.toString();
+                runOnUiThread(() -> {
+                    tvShoppingList.setText(text);
+                    if (items.isEmpty()) {
+                        Toast.makeText(MealPlanActivity.this,
+                                "所有食材冰箱里都有，无需采购！", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MealPlanActivity.this,
+                                "需要采购 " + items.size() + " 种食材", Toast.LENGTH_SHORT).show();
+                    }
+                });
             });
         });
     }
 
-    // ========== Inner Classes ==========
-
-    /**
-     * Shopping list item data class
-     */
     private static class ShoppingItem {
         String name;
         double needed;
         String unit;
         double inFridge;
         double toBuy;
-
         ShoppingItem(String name, double needed, String unit, double inFridge, double toBuy) {
-            this.name = name;
-            this.needed = needed;
-            this.unit = unit;
-            this.inFridge = inFridge;
-            this.toBuy = toBuy;
-        }
-    }
-
-    /**
-     * RecyclerView adapter for shopping list display
-     */
-    private static class ShoppingListAdapter
-            extends RecyclerView.Adapter<ShoppingListAdapter.ViewHolder> {
-
-        private List<ShoppingItem> items;
-
-        ShoppingListAdapter(List<ShoppingItem> items) {
-            this.items = items;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            TextView tv = new TextView(parent.getContext());
-            tv.setPadding(12, 14, 12, 14);
-            tv.setTextSize(14f);
-            tv.setLayoutParams(new RecyclerView.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
-            return new ViewHolder(tv);
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            ShoppingItem item = items.get(position);
-            String text = item.name + "  x " + item.needed + item.unit
-                    + "   (需购: " + item.toBuy + item.unit + ")";
-            ((TextView) holder.itemView).setText(text);
-        }
-
-        @Override
-        public int getItemCount() {
-            return items.size();
-        }
-
-        static class ViewHolder extends RecyclerView.ViewHolder {
-            ViewHolder(View itemView) {
-                super(itemView);
-            }
+            this.name = name; this.needed = needed; this.unit = unit;
+            this.inFridge = inFridge; this.toBuy = toBuy;
         }
     }
 }

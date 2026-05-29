@@ -91,10 +91,11 @@
             android:textColor="@color/primaryDark" android:textSize="16sp"
             android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_shopping"
+        <TextView
+            android:id="@+id/tv_shopping_text"
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" android:background="@color/surface" />
+            android:layout_marginTop="8dp" android:background="@color/surface"
+            android:padding="12dp" android:text="暂无购物项" android:textColor="#999" />
 
     </LinearLayout>
 </ScrollView>
