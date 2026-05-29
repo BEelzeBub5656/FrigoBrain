@@ -5,20 +5,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- Top Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:background="@color/primaryDark"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:paddingHorizontal="16dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="FrigoBrain · 仪表盘"
+            android:text="FrigoBrain"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -27,12 +25,11 @@
             android:id="@+id/tv_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="v0.0.3"
+            android:text="v0.0.4"
             android:textColor="#AAFFFFFF"
             android:textSize="11sp" />
     </LinearLayout>
 
-    <!-- Expiry Alert -->
     <LinearLayout
         android:id="@+id/banner_expiry"
         android:layout_width="match_parent"
@@ -57,7 +54,8 @@
             android:layout_height="30dp"
             android:background="#FF9800"
             android:gravity="center"
-            android:paddingHorizontal="12dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
             android:text="查看"
             android:textColor="@android:color/white"
             android:textSize="12sp" />
@@ -75,7 +73,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Quick Stats Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -90,10 +87,22 @@
                     android:background="@color/surface"
                     android:gravity="center"
                     android:orientation="vertical">
-                    <TextView android:id="@+id/tv_total_count"
-                        android:text="0" android:textColor="@color/primary"
-                        android:textSize="28sp" android:textStyle="bold" />
-                    <TextView android:text="食材总数" android:textColor="#999" android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/primary"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="食材总数"
+                        android:textColor="#999"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -106,10 +115,22 @@
                     android:background="@color/surface"
                     android:gravity="center"
                     android:orientation="vertical">
-                    <TextView android:id="@+id/tv_expiring_count"
-                        android:text="0" android:textColor="#FF9800"
-                        android:textSize="28sp" android:textStyle="bold" />
-                    <TextView android:text="即将过期" android:textColor="#999" android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_expiring_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#FF9800"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="即将过期"
+                        android:textColor="#999"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -121,14 +142,25 @@
                     android:background="@color/surface"
                     android:gravity="center"
                     android:orientation="vertical">
-                    <TextView android:id="@+id/tv_weekly_cal"
-                        android:text="0" android:textColor="@color/protein"
-                        android:textSize="28sp" android:textStyle="bold" />
-                    <TextView android:text="本周热量" android:textColor="#999" android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_weekly_cal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/protein"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="本周热量"
+                        android:textColor="#999"
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Feature Buttons -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -153,11 +185,21 @@
                     android:background="@color/surface"
                     android:gravity="center"
                     android:orientation="vertical"
-android:clickable="true"
+                    android:clickable="true"
                     android:focusable="true">
-                    <TextView android:text="📷" android:textSize="32sp" />
-                    <TextView android:text="录入食材" android:textColor="@color/onBackground"
-                        android:textSize="14sp" android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📷"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="录入食材"
+                        android:textColor="@color/onBackground"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -170,11 +212,21 @@ android:clickable="true"
                     android:background="@color/surface"
                     android:gravity="center"
                     android:orientation="vertical"
-android:clickable="true"
+                    android:clickable="true"
                     android:focusable="true">
-                    <TextView android:text="🍳" android:textSize="32sp" />
-                    <TextView android:text="智能菜谱" android:textColor="@color/onBackground"
-                        android:textSize="14sp" android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🍳"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="智能菜谱"
+                        android:textColor="@color/onBackground"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -186,15 +238,24 @@ android:clickable="true"
                     android:background="@color/surface"
                     android:gravity="center"
                     android:orientation="vertical"
-android:clickable="true"
+                    android:clickable="true"
                     android:focusable="true">
-                    <TextView android:text="📊" android:textSize="32sp" />
-                    <TextView android:text="营养报告" android:textColor="@color/onBackground"
-                        android:textSize="14sp" android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📊"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="营养报告"
+                        android:textColor="@color/onBackground"
+                        android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Recent Foods -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -211,14 +272,13 @@ android:clickable="true"
                 android:layout_marginTop="8dp"
                 android:background="@color/surface"
                 android:padding="12dp"
-                android:text="暂无食材，点击上方录入"
+                android:text="暂无食材"
                 android:textColor="#999"
                 android:textSize="14sp" />
 
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Nav -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
