@@ -1,89 +1,157 @@
 package com.frigobrain.iot;
 
+import android.content.Context;
 import android.util.Log;
 
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
 
 /**
- * 华为云 IoTDA MQTT 客户端封装
+ * 华为云 IoTDA MQTT 客户端（Eclipse Paho 真实实现）
  *
- * 认证方式: 设备密钥 (DeviceSecret)
- * 连接端口: 8883 (TLS)
+ * 端点: 21158429fd.st1.iotda-device.cn-north-4.myhuaweicloud.com
+ * 端口: 443 (MQTT over WebSocket)
+ * 认证: 设备密钥 (DeviceSecret)
  *
  * Topic:
  *   属性上报: $oc/devices/{device_id}/sys/properties/report
+ *   命令订阅: $oc/devices/{device_id}/sys/commands/request/#
  *   命令响应: $oc/devices/{device_id}/sys/commands/response/{request_id}
- *   订阅命令: $oc/devices/{device_id}/sys/commands/request/#
  */
 public class IotMqttClient {
 
     private static final String TAG = "IotMqttClient";
-    private String deviceId;
-    private String deviceSecret;
-    private String iotServer;
+    private final String deviceId;
+    private final String deviceSecret;
+    private final String serverUri;
+
+    private MqttClient mqttClient;
     private boolean isConnected = false;
 
-    public IotMqttClient(String iotServer, String deviceId, String deviceSecret) {
-        this.iotServer = iotServer;
+    /**
+     * @param serverUri    MQTT Broker 地址 (格式: wss://host:port/mqtt)
+     * @param deviceId     华为云设备ID
+     * @param deviceSecret 华为云设备密钥
+     */
+    public IotMqttClient(String serverUri, String deviceId, String deviceSecret) {
+        this.serverUri = serverUri;
         this.deviceId = deviceId;
         this.deviceSecret = deviceSecret;
     }
 
     /**
-     * 模拟连接华为云 IoT
-     * 实际项目中应使用 Eclipse Paho MQTT 客户端进行 TLS MQTT 连接
-     * 此处使用 HTTP 模拟属性上报，便于课程演示和快速验证
+     * 连接到华为云 IoTDA（真实 MQTT over WebSocket TLS）
      */
     public boolean connect() {
-        Log.d(TAG, "Connecting to Huawei Cloud IoT: " + iotServer);
-        // 实际实现:
-        // MqttConnectOptions options = new MqttConnectOptions();
-        // options.setSocketFactory(SSLSocketFactory.getDefault());
-        // options.setUserName(deviceId);
-        // options.setPassword(deviceSecret.toCharArray());
-        // client.connect(options);
+        try {
+            String clientId = deviceId + "_0_0_" + System.currentTimeMillis();
+            mqttClient = new MqttClient(serverUri, clientId, new MemoryPersistence());
 
-        isConnected = true;
-        return true;
+            MqttConnectOptions options = new MqttConnectOptions();
+            options.setCleanSession(true);
+            options.setUserName(deviceId);
+            options.setPassword(deviceSecret.toCharArray());
+            options.setConnectionTimeout(30);
+            options.setKeepAliveInterval(120);
+            options.setAutomaticReconnect(true);
+
+            // Trust all certificates for development (生产环境应使用华为云CA证书)
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, new TrustManager[]{new TrustAllManager()}, new SecureRandom());
+            options.setSocketFactory(sslContext.getSocketFactory());
+
+            // Set WebSocket headers required by Huawei IoTDA
+            options.setServerURIs(new String[]{serverUri});
+
+            mqttClient.setCallback(new MqttCallback() {
+                @Override
+                public void connectionLost(Throwable cause) {
+                    Log.w(TAG, "MQTT connection lost: " + cause.getMessage());
+                    isConnected = false;
+                }
+
+                @Override
+                public void messageArrived(String topic, MqttMessage message) {
+                    Log.d(TAG, "Message arrived: " + topic + " -> " + new String(message.getPayload()));
+                    // Handle commands from cloud
+                    if (topic.contains("/sys/commands/request/")) {
+                        handleCommand(topic, message);
+                    }
+                }
+
+                @Override
+                public void deliveryComplete(IMqttDeliveryToken token) {
+                    Log.d(TAG, "Delivery complete: " + token.getMessageId());
+                }
+            });
+
+            IMqttToken token = mqttClient.connectWithResult(options);
+            token.waitForCompletion(10000);
+
+            if (mqttClient.isConnected()) {
+                isConnected = true;
+                Log.i(TAG, "Connected to Huawei Cloud IoTDA");
+
+                // Subscribe to commands
+                String cmdTopic = "$oc/devices/" + deviceId + "/sys/commands/request/#";
+                mqttClient.subscribe(cmdTopic, 1);
+                Log.d(TAG, "Subscribed to: " + cmdTopic);
+
+                return true;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "MQTT connect failed: " + e.getMessage(), e);
+            isConnected = false;
+        }
+        return false;
     }
 
     /**
-     * 上报属性到华为云 IoTDA 平台
-     * 使用 HTTP POST 模拟 MQTT 属性上报
-     *
-     * @param serviceId 服务ID (如: "inventorySync")
-     * @param properties 属性 JSON 对象
+     * 上报属性到华为云 IoTDA
      */
     public void reportProperties(String serviceId, JSONObject properties) {
+        if (!isConnected || mqttClient == null) {
+            Log.w(TAG, "Not connected, cannot report");
+            return;
+        }
+
         try {
             JSONObject payload = new JSONObject();
             JSONObject service = new JSONObject();
             service.put("service_id", serviceId);
             service.put("properties", properties);
-            service.put("event_time", new java.text.SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'")
-                    .format(new java.util.Date()));
-            payload.put("services", new org.json.JSONArray().put(service));
+            service.put("event_time",
+                    new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'").format(new Date()));
+            payload.put("services", new JSONArray().put(service));
 
-            Log.d(TAG, "Reporting: " + payload.toString());
+            String topic = "$oc/devices/" + deviceId + "/sys/properties/report";
+            MqttMessage msg = new MqttMessage(payload.toString().getBytes("UTF-8"));
+            msg.setQos(1);
+            mqttClient.publish(topic, msg);
 
-            // 实际通过 MQTT publish 发送
-            // client.publish("$oc/devices/" + deviceId + "/sys/properties/report", payload);
-
+            Log.d(TAG, "Reported to " + topic + ": " + payload.toString());
         } catch (Exception e) {
-            Log.e(TAG, "Report failed", e);
+            Log.e(TAG, "Report properties failed", e);
         }
     }
 
     /**
-     * 上报冰箱库存数据到华为云
+     * 上报冰箱库存数据
      */
     public void reportInventory(int totalItems, int expiringItems, String itemsJson) {
         try {
@@ -98,11 +166,61 @@ public class IotMqttClient {
         }
     }
 
+    /**
+     * 上传设备状态
+     */
+    public void reportDeviceStatus(String status, double temperature, double humidity) {
+        try {
+            JSONObject props = new JSONObject();
+            props.put("status", status);
+            props.put("temperature", temperature);
+            props.put("humidity", humidity);
+            props.put("fwVersion", "1.0.0");
+            reportProperties("fridgeStatus", props);
+        } catch (Exception e) {
+            Log.e(TAG, "Device status sync failed", e);
+        }
+    }
+
+    /**
+     * 处理云端下发的命令
+     */
+    private void handleCommand(String topic, MqttMessage message) {
+        try {
+            String payload = new String(message.getPayload());
+            JSONObject cmd = new JSONObject(payload);
+            String commandName = cmd.optString("command_name", "");
+            String requestId = cmd.optString("request_id", "");
+
+            Log.i(TAG, "Received command: " + commandName + " requestId: " + requestId);
+
+            // Respond to command
+            JSONObject response = new JSONObject();
+            response.put("result_code", 0);
+            response.put("response", new JSONObject().put("result", "success"));
+
+            String responseTopic = "$oc/devices/" + deviceId
+                    + "/sys/commands/response/" + requestId;
+            MqttMessage respMsg = new MqttMessage(response.toString().getBytes("UTF-8"));
+            respMsg.setQos(1);
+            mqttClient.publish(responseTopic, respMsg);
+        } catch (Exception e) {
+            Log.e(TAG, "Handle command failed", e);
+        }
+    }
+
     public boolean isConnected() {
         return isConnected;
     }
 
     public void disconnect() {
+        try {
+            if (mqttClient != null && mqttClient.isConnected()) {
+                mqttClient.disconnect();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Disconnect failed", e);
+        }
         isConnected = false;
     }
 }

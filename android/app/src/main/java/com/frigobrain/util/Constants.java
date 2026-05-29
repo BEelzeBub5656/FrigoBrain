@@ -51,9 +51,9 @@ public final class Constants {
     public static final String CHANNEL_EXPIRY = "frigobrain_expiry";
     public static final int NOTIFY_EXPIRY_ID = 1001;
 
-    // Huawei IoT
-    public static final String IOT_MQTT_HOST = "iot-mqtts.cn-north-4.myhuaweicloud.com";
-    public static final int IOT_MQTT_PORT = 8883;
+    // Huawei IoT (已确认真实端点)
+    public static final String IOT_MQTT_HOST = "21158429fd.st1.iotda-device.cn-north-4.myhuaweicloud.com";
+    public static final int IOT_MQTT_PORT = 443; // WebSocket
     public static final long SYNC_INTERVAL_MS = 30 * 60 * 1000; // 30 minutes
 
     // Date format

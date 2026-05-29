@@ -1,0 +1,45 @@
+# === Dependencies ===
+node_modules/
+.gradle/
+gradle/gradle-*.zip
+
+# === IDE & Tools ===
+.idea/
+*.iml
+.claude/
+.playwright-mcp/
+
+# === Temp Files ===
+*.tmp
+*.log
+*.swp
+~$*
+doc_output.txt
+extract_doc_text.py
+
+# === Android Build ===
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+*.apk
+*.aab
+*.hprof
+.cxx/
+.externalNativeBuild/
+/captures
+
+# === Web Backend ===
+web/backend/target/
+web/backend/*.log
+
+# === Web Frontend ===
+web/frontend/dist/
+web/frontend/node_modules/
+
+# === Gradle Wrapper ===
+gradle/wrapper/gradle-wrapper.jar
+
+# === OS ===
+.DS_Store
+Thumbs.db

@@ -84,19 +84,16 @@ public class MainActivity extends AppCompatActivity {
         long now = System.currentTimeMillis();
         long threeDaysLater = DateUtils.daysFromNow(3);
 
-        Executors.newSingleThreadExecutor().execute(() -> {
-            var items = db.foodItemDao().getExpiringFoodsWithRecipes(userId, now, threeDaysLater);
-            db.foodItemDao().getExpiringFoodsWithRecipes(userId, now, threeDaysLater)
-                    .observe(this, foods -> {
-                        if (foods != null && !foods.isEmpty()) {
-                            bannerExpiry.setVisibility(View.VISIBLE);
-                            tvExpiryAlert.setText(foods.size() + " 种食材将在3天内过期，建议尽快使用");
-                            bannerExpiry.setOnClickListener(v ->
-                                    startActivity(new Intent(this, InventoryActivity.class))
-                            );
-                        }
-                    });
-        });
+        db.foodItemDao().getExpiringFoodsWithRecipes(userId, now, threeDaysLater)
+                .observe(this, foods -> {
+                    if (foods != null && !foods.isEmpty()) {
+                        bannerExpiry.setVisibility(View.VISIBLE);
+                        tvExpiryAlert.setText(foods.size() + " 种食材将在3天内过期，建议尽快使用");
+                        bannerExpiry.setOnClickListener(v ->
+                                startActivity(new Intent(this, InventoryActivity.class))
+                        );
+                    }
+                });
     }
 
     @Override
