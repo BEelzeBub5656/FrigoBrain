@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__filesystem__directory_tree",
+      "Bash(npm --version)",
+      "Bash(git --version)",
+      "Bash(java -version)",
+      "Bash(mvn --version)",
+      "Bash(mysql --version)",
+      "Bash(pandoc *)",
+      "Bash(python *)",
+      "Bash(where soffice *)",
+      "Bash(where libreoffice *)",
+      "Bash(where winword *)",
+      "PowerShell($word = New-Object -ComObject Word.Application; $word.Visible = $false; $doc = $word.Documents.Open\\(\"D:\\\\AAAend\\\\lllen\\\\Web开发\\\\物联网工程应用期末作品、考核形式、设计文档模板\\(2026\\).doc\"\\); $doc.Content.Text; $doc.Close\\(\\); $word.Quit\\(\\))",
+      "Bash(pip list *)",
+      "PowerShell(python -c \"import olefile; ole = olefile.OleFileIO\\(r'D:\\\\AAAend\\\\lllen\\\\Web开发\\\\物联网工程应用期末作品、考核形式、设计文档模板\\(2026\\).doc'\\); [print\\('/'.join\\(s\\)\\) for s in ole.listdir\\(\\)]; ole.close\\(\\)\")",
+      "PowerShell(python -c \"print\\('hello'\\)\")",
+      "PowerShell(Test-Path \"D:\\\\AAAend\\\\lllen\\\\Web开发\\\\物联网工程应用期末作品、考核形式、设计文档模板\\(2026\\).doc\"; if \\(Test-Path \"D:\\\\AAAend\\\\lllen\\\\Web开发\\\\物联网工程应用期末作品、考核形式、设计文档模板\\(2026\\).doc\"\\) { \\(Get-Item \"D:\\\\AAAend\\\\lllen\\\\Web开发\\\\物联网工程应用期末作品、考核形式、设计文档模板\\(2026\\).doc\"\\).Length })",
+      "PowerShell(python \"D:\\\\AAAend\\\\lllen\\\\Web开发\\\\extract_doc_text.py\" 2>&1)",
+      "PowerShell(py *)"
+    ]
+  }
+}

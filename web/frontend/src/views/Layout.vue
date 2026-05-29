@@ -20,27 +20,27 @@
       >
         <el-menu-item index="/dashboard">
           <el-icon><Odometer /></el-icon>
-          <span>Dashboard</span>
+          <span>仪表盘</span>
         </el-menu-item>
         <el-menu-item index="/inventory">
           <el-icon><Goods /></el-icon>
-          <span>Inventory</span>
+          <span>库存管理</span>
         </el-menu-item>
         <el-menu-item index="/nutrition">
           <el-icon><DataLine /></el-icon>
-          <span>Nutrition</span>
+          <span>营养仪表盘</span>
         </el-menu-item>
         <el-menu-item index="/recipes">
           <el-icon><Notebook /></el-icon>
-          <span>Recipes</span>
+          <span>菜谱库</span>
         </el-menu-item>
         <el-menu-item index="/waste">
           <el-icon><TrendCharts /></el-icon>
-          <span>Waste Report</span>
+          <span>浪费报告</span>
         </el-menu-item>
         <el-menu-item index="/devices">
           <el-icon><Monitor /></el-icon>
-          <span>Devices</span>
+          <span>设备管理</span>
         </el-menu-item>
       </el-menu>
 
@@ -59,7 +59,7 @@
           <h2 class="topbar-title">{{ pageTitle }}</h2>
         </div>
         <div class="topbar-right">
-          <el-tooltip content="Notifications" placement="bottom">
+          <el-tooltip content="通知" placement="bottom">
             <el-badge :value="3" class="notification-badge">
               <el-icon :size="20" class="topbar-icon"><Bell /></el-icon>
             </el-badge>
@@ -75,13 +75,13 @@
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item command="profile">
-                  <el-icon><User /></el-icon> Profile
+                  <el-icon><User /></el-icon> 个人中心
                 </el-dropdown-item>
                 <el-dropdown-item command="settings">
-                  <el-icon><Setting /></el-icon> Settings
+                  <el-icon><Setting /></el-icon> 设置
                 </el-dropdown-item>
                 <el-dropdown-item divided command="logout">
-                  <el-icon><SwitchButton /></el-icon> Logout
+                  <el-icon><SwitchButton /></el-icon> 退出登录
                 </el-dropdown-item>
               </el-dropdown-menu>
             </template>
@@ -97,8 +97,9 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import gsap from 'gsap'
 import {
   ColdDrink, Odometer, Goods, DataLine, Notebook,
   TrendCharts, Monitor, Fold, Expand, Bell,
@@ -111,7 +112,7 @@ const isCollapsed = ref(false)
 
 const activeMenu = computed(() => route.path)
 
-const pageTitle = computed(() => route.meta?.title || 'Dashboard')
+const pageTitle = computed(() => route.meta?.title || '仪表盘')
 
 const userStr = localStorage.getItem('fb_user')
 const userData = userStr ? JSON.parse(userStr) : { username: 'Admin' }
@@ -125,6 +126,20 @@ function handleCommand(command) {
     router.push('/login')
   }
 }
+
+// GSAP page transition on route change
+watch(() => route.path, () => {
+  const main = document.querySelector('.layout-content')
+  if (main) {
+    gsap.fromTo(main, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' })
+  }
+})
+
+// Initial sidebar entrance
+onMounted(() => {
+  gsap.from('.layout-sidebar', { x: -40, opacity: 0, duration: 0.6, ease: 'power3.out' })
+  gsap.from('.layout-topbar', { y: -20, opacity: 0, duration: 0.4, delay: 0.2, ease: 'power2.out' })
+})
 </script>
 
 <style scoped>

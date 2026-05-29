@@ -2,11 +2,11 @@
   <div class="waste-report">
     <div class="page-header">
       <div>
-        <h2 class="page-title">Waste Report</h2>
-        <p class="page-desc">Track and analyze food waste patterns</p>
+        <h2 class="page-title">浪费报告</h2>
+        <p class="page-desc">追踪和分析食物浪费情况</p>
       </div>
       <el-button type="primary" :icon="Refresh" @click="fetchData" :loading="loading">
-        Refresh
+        刷新
       </el-button>
     </div>
 
@@ -17,7 +17,7 @@
         <el-card shadow="never" class="chart-card">
           <template #header>
             <div class="card-header">
-              <span>Monthly Waste by Category (kg)</span>
+              <span>月度浪费分类（公斤）</span>
               <el-tag size="small" type="danger">kg</el-tag>
             </div>
           </template>
@@ -30,8 +30,8 @@
         <el-card shadow="never" class="chart-card">
           <template #header>
             <div class="card-header">
-              <span>Waste Reasons</span>
-              <el-tag size="small" type="info">Distribution</el-tag>
+              <span>浪费原因</span>
+              <el-tag size="small" type="info">分布</el-tag>
             </div>
           </template>
           <div ref="pieChartRef" class="chart-container"></div>
@@ -43,19 +43,19 @@
     <el-card shadow="never" class="table-card">
       <template #header>
         <div class="card-header">
-          <span>Waste Summary by Category</span>
+          <span>浪费分类汇总</span>
           <div>
             <el-tag size="small" type="warning" class="total-waste-tag">
-              Total Waste: {{ totalWaste }} kg
+              总浪费: {{ totalWaste }} 公斤
             </el-tag>
             <el-tag size="small" type="danger" style="margin-left: 8px;">
-              Total Cost: ${{ totalCost }}
+              总成本: ${{ totalCost }}
             </el-tag>
           </div>
         </div>
       </template>
       <el-table :data="wasteSummary" stripe style="width: 100%" v-if="wasteSummary.length > 0">
-        <el-table-column prop="category" label="Category" min-width="140">
+        <el-table-column prop="category" label="分类" min-width="140">
           <template #default="{ row }">
             <div class="cat-cell">
               <el-icon :size="18" :color="categoryColor(row.category)">
@@ -65,17 +65,17 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="waste" label="Total Waste (kg)" width="160" align="center" sortable>
+        <el-table-column prop="waste" label="总浪费（公斤）" width="160" align="center" sortable>
           <template #default="{ row }">
             <span class="waste-value">{{ row.waste }} kg</span>
           </template>
         </el-table-column>
-        <el-table-column prop="cost" label="Cost ($)" width="140" align="center" sortable>
+        <el-table-column prop="cost" label="成本（$）" width="140" align="center" sortable>
           <template #default="{ row }">
             <span class="cost-value">${{ row.cost.toFixed(2) }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Waste %" width="160" align="center">
+        <el-table-column label="浪费占比" width="160" align="center">
           <template #default="{ row }">
             <div class="progress-cell">
               <el-progress
@@ -88,14 +88,14 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-empty v-else description="No waste data available" :image-size="80" />
+      <el-empty v-else description="暂无浪费数据" :image-size="80" />
     </el-card>
 
     <!-- Waste Reduction Tips -->
     <el-card shadow="never" class="tips-card" style="margin-top: 20px;">
       <template #header>
         <div class="card-header">
-          <span>Waste Reduction Tips</span>
+          <span>减少浪费小贴士</span>
           <el-icon color="#4CAF50"><ColdDrink /></el-icon>
         </div>
       </template>
@@ -136,9 +136,9 @@ const wasteData = ref({
 })
 
 const wasteTips = [
-  { icon: DeleteIcon, color: '#4CAF50', title: 'Plan Your Meals', desc: 'Create a weekly meal plan to buy only what you need.' },
-  { icon: TimerIcon, color: '#409EFF', title: 'First In, First Out', desc: 'Use older items first. Check expiry dates when putting away groceries.' },
-  { icon: SortIcon, color: '#E6A23C', title: 'Proper Storage', desc: 'Store fruits and vegetables separately. Use airtight containers.' }
+  { icon: DeleteIcon, color: '#4CAF50', title: '规划膳食', desc: '制定每周膳食计划，只买所需食材。' },
+  { icon: TimerIcon, color: '#409EFF', title: '先进先出', desc: '优先使用较早购买的食材。存放时检查过期日期。' },
+  { icon: SortIcon, color: '#E6A23C', title: '正确储存', desc: '水果和蔬菜分开存放。使用密封容器。' }
 ]
 
 const wasteSummary = computed(() => wasteData.value.summary || [])
@@ -213,7 +213,7 @@ function initBarChart() {
     },
     yAxis: {
       type: 'value',
-      name: 'kg',
+      name: '公斤',
       nameTextStyle: { color: '#909399', fontSize: 11 },
       splitLine: { lineStyle: { color: '#f0f0f0', type: 'dashed' } },
       axisLabel: { color: '#909399', fontSize: 11 }
@@ -241,7 +241,7 @@ function initBarChart() {
           html += `${p.marker} ${p.seriesName}: ${p.value} kg<br/>`
           total += p.value
         })
-        html += `<hr style="margin:4px 0"/><span>Total: ${total.toFixed(1)} kg</span>`
+        html += `<hr style="margin:4px 0"/><span>总计: ${total.toFixed(1)} 公斤</span>`
         return html
       }
     }

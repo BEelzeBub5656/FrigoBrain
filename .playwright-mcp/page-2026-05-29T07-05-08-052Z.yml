@@ -1,0 +1,96 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e6] [cursor=pointer]:
+      - img [ref=e8]
+      - generic [ref=e10]: FrigoBrain
+    - menubar [ref=e11]:
+      - menuitem "Dashboard" [ref=e12] [cursor=pointer]:
+        - img [ref=e14]
+        - generic [ref=e18]: Dashboard
+      - menuitem "Inventory" [ref=e19] [cursor=pointer]:
+        - img [ref=e21]
+        - generic [ref=e23]: Inventory
+      - menuitem "Nutrition" [ref=e24] [cursor=pointer]:
+        - img [ref=e26]
+        - generic [ref=e28]: Nutrition
+      - menuitem "Recipes" [ref=e29] [cursor=pointer]:
+        - img [ref=e31]
+        - generic [ref=e34]: Recipes
+      - menuitem "Waste Report" [ref=e35] [cursor=pointer]:
+        - img [ref=e37]
+        - generic [ref=e39]: Waste Report
+      - menuitem "Devices" [ref=e40] [cursor=pointer]:
+        - img [ref=e42]
+        - generic [ref=e44]: Devices
+    - generic [ref=e46]: FrigoBrain v1.0
+  - generic [ref=e47]:
+    - generic [ref=e48]:
+      - generic [ref=e49]:
+        - img [ref=e51] [cursor=pointer]
+        - heading "Inventory" [level=2] [ref=e53]
+      - generic [ref=e54]:
+        - generic [ref=e55]:
+          - img [ref=e57] [cursor=pointer]
+          - superscript [ref=e61]: "3"
+        - button "A admin" [ref=e63] [cursor=pointer]:
+          - generic [ref=e64]: A
+          - generic [ref=e65]: admin
+          - img [ref=e67]
+    - main [ref=e69]:
+      - generic [ref=e70]:
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - heading "Inventory" [level=2] [ref=e73]
+            - paragraph [ref=e74]: Manage your fridge contents
+          - button "Add Food" [ref=e75] [cursor=pointer]:
+            - img [ref=e77]
+            - generic [ref=e79]: Add Food
+        - generic [ref=e82]:
+          - generic [ref=e84]:
+            - img [ref=e87]
+            - textbox "Search food items..." [ref=e89]
+          - radiogroup "radio-group" [ref=e92]:
+            - generic [ref=e93]:
+              - radio "All" [checked] [ref=e94]
+              - generic [ref=e95] [cursor=pointer]: All
+            - generic [ref=e96]:
+              - radio "Vegetable" [ref=e97]
+              - generic [ref=e98] [cursor=pointer]: Vegetable
+            - generic [ref=e99]:
+              - radio "Fruit" [ref=e100]
+              - generic [ref=e101] [cursor=pointer]: Fruit
+            - generic [ref=e102]:
+              - radio "Meat" [ref=e103]
+              - generic [ref=e104] [cursor=pointer]: Meat
+            - generic [ref=e105]:
+              - radio "Dairy" [ref=e106]
+              - generic [ref=e107] [cursor=pointer]: Dairy
+            - generic [ref=e108]:
+              - radio "Other" [ref=e109]
+              - generic [ref=e110] [cursor=pointer]: Other
+        - generic [ref=e113]:
+          - generic [ref=e114]:
+            - table [ref=e116]:
+              - rowgroup [ref=e124]:
+                - row "Name 按 Name 排序 Category Quantity Expiry Date 按 Expiry Date 排序 Status Actions" [ref=e125]:
+                  - columnheader "Name 按 Name 排序" [ref=e126] [cursor=pointer]:
+                    - generic [ref=e127]:
+                      - text: Name
+                      - button "按 Name 排序" [ref=e128]
+                  - columnheader "Category" [ref=e131]:
+                    - generic [ref=e132]: Category
+                  - columnheader "Quantity" [ref=e133]:
+                    - generic [ref=e134]: Quantity
+                  - columnheader "Expiry Date 按 Expiry Date 排序" [ref=e135] [cursor=pointer]:
+                    - generic [ref=e136]:
+                      - text: Expiry Date
+                      - button "按 Expiry Date 排序" [ref=e137]
+                  - columnheader "Status" [ref=e140]:
+                    - generic [ref=e141]: Status
+                  - columnheader "Actions" [ref=e142]:
+                    - generic [ref=e143]: Actions
+            - generic [ref=e147]:
+              - table:
+                - rowgroup
+              - generic [ref=e149]: No food items found
+          - img [ref=e152]

@@ -7,7 +7,7 @@
           <el-icon :size="40" color="#4CAF50"><ColdDrink /></el-icon>
         </div>
         <h1 class="login-title">FrigoBrain</h1>
-        <p class="login-subtitle">Smart Fridge Management Dashboard</p>
+        <p class="login-subtitle">智能冰箱管理控制台</p>
       </div>
       <el-form
         ref="formRef"
@@ -19,7 +19,7 @@
         <el-form-item prop="username">
           <el-input
             v-model="form.username"
-            placeholder="Username"
+            placeholder="用户名"
             :prefix-icon="User"
             size="large"
           />
@@ -28,7 +28,7 @@
           <el-input
             v-model="form.password"
             type="password"
-            placeholder="Password"
+            placeholder="密码"
             :prefix-icon="Lock"
             size="large"
             show-password
@@ -42,7 +42,7 @@
             :loading="loading"
             @click="handleLogin"
           >
-            {{ loading ? 'Signing in...' : 'Sign In' }}
+            {{ loading ? '登录中...' : '登录' }}
           </el-button>
         </el-form-item>
       </el-form>
@@ -69,8 +69,8 @@ const form = reactive({
 })
 
 const rules = {
-  username: [{ required: true, message: 'Please enter username', trigger: 'blur' }],
-  password: [{ required: true, message: 'Please enter password', trigger: 'blur' }]
+  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 }
 
 function handleLogin() {
@@ -82,10 +82,10 @@ function handleLogin() {
       if (form.username === 'admin' && form.password === 'frigo123') {
         localStorage.setItem('fb_token', 'demo-token-' + Date.now())
         localStorage.setItem('fb_user', JSON.stringify({ username: 'admin', avatar: '' }))
-        ElMessage.success('Welcome back, Admin!')
+        ElMessage.success('欢迎回来，管理员！')
         router.push('/dashboard')
       } else {
-        ElMessage.error('Invalid username or password')
+        ElMessage.error('用户名或密码错误')
         loading.value = false
       }
     }, 800)

@@ -2,11 +2,11 @@
   <div class="dashboard">
     <div class="page-header">
       <div>
-        <h2 class="page-title">Dashboard</h2>
-        <p class="page-desc">Overview of your smart fridge</p>
+        <h2 class="page-title">仪表盘</h2>
+        <p class="page-desc">智能冰箱概览</p>
       </div>
       <el-button type="primary" @click="refreshData" :icon="Refresh" :loading="loading">
-        Refresh
+        刷新
       </el-button>
     </div>
 
@@ -30,7 +30,7 @@
         <el-card shadow="never" class="chart-card">
           <template #header>
             <div class="card-header">
-              <span>7-Day Calorie Trend</span>
+              <span>7天热量趋势</span>
               <el-tag size="small" type="success">kcal</el-tag>
             </div>
           </template>
@@ -43,14 +43,14 @@
         <el-card shadow="never" class="expiring-card">
           <template #header>
             <div class="card-header">
-              <span>Expiring Soon</span>
+              <span>即将过期</span>
               <el-tag size="small" :type="expiringList.length > 3 ? 'warning' : 'info'">
-                {{ expiringList.length }} items
+                {{ expiringList.length }} 项
               </el-tag>
             </div>
           </template>
           <div v-if="expiringList.length === 0" class="empty-state">
-            <el-empty description="No items expiring soon" :image-size="80" />
+            <el-empty description="暂无即将过期食材" :image-size="80" />
           </div>
           <el-table
             v-else
@@ -60,18 +60,18 @@
             style="width: 100%"
             @row-click="goToInventory"
           >
-            <el-table-column prop="name" label="Item" min-width="120" />
-            <el-table-column prop="quantity" label="Qty" width="60" align="center">
+            <el-table-column prop="name" label="食材" min-width="120" />
+            <el-table-column prop="quantity" label="数量" width="60" align="center">
               <template #default="{ row }">
                 {{ row.quantity }}{{ row.unit }}
               </template>
             </el-table-column>
-            <el-table-column label="Status" width="120" align="center">
+            <el-table-column label="状态" width="120" align="center">
               <template #default="{ row }">
                 <FoodStatusTag :expiry-date="row.expiryDate" />
               </template>
             </el-table-column>
-            <el-table-column label="Expires" width="100" align="center">
+            <el-table-column label="过期时间" width="100" align="center">
               <template #default="{ row }">
                 <span class="expiry-date">{{ formatDate(row.expiryDate) }}</span>
               </template>
@@ -87,7 +87,7 @@
         <el-card shadow="never" class="chart-card">
           <template #header>
             <div class="card-header">
-              <span>Inventory by Category</span>
+              <span>分类库存</span>
             </div>
           </template>
           <div ref="categoryChartRef" class="chart-container chart-sm"></div>
@@ -97,7 +97,7 @@
         <el-card shadow="never" class="info-card">
           <template #header>
             <div class="card-header">
-              <span>Quick Tips</span>
+              <span>小贴士</span>
               <el-icon color="#E6A23C"><WarningFilled /></el-icon>
             </div>
           </template>
@@ -117,6 +117,7 @@
 import { ref, reactive, onMounted, onBeforeUnmount, nextTick, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { Refresh, WarningFilled, ColdDrink, Sunny, InfoFilled, Bell } from '@element-plus/icons-vue'
+import gsap from 'gsap'
 import * as echarts from 'echarts/core'
 import StatCard from '@/components/StatCard.vue'
 import FoodStatusTag from '@/components/FoodStatusTag.vue'
@@ -136,17 +137,17 @@ const summary = ref({ totalItems: 0, expiringSoon: 0, totalValue: 0, categoryDis
 const trendData = ref({ days: [], calories: [] })
 
 const statCards = reactive([
-  { icon: 'ColdDrink', value: '0', label: 'Total Items', subtext: 'In your fridge', color: '#4CAF50' },
-  { icon: 'Warning', value: '0', label: 'Expiring Soon', subtext: 'Within 3 days', color: '#E6A23C' },
-  { icon: 'Sunny', value: '0', label: 'Avg Daily Calories', subtext: 'This week', color: '#409EFF' },
-  { icon: 'Delete', value: '0', label: 'Monthly Waste', subtext: 'kg this month', color: '#F56C6C' }
+  { icon: 'ColdDrink', value: '0', label: '食材总数', subtext: '冰箱中', color: '#4CAF50' },
+  { icon: 'Warning', value: '0', label: '即将过期', subtext: '3天内', color: '#E6A23C' },
+  { icon: 'Sunny', value: '0', label: '日均热量', subtext: '本周', color: '#409EFF' },
+  { icon: 'Delete', value: '0', label: '本月浪费', subtext: '本月公斤数', color: '#F56C6C' }
 ])
 
 const tips = [
-  { icon: 'ColdDrink', iconColor: '#4CAF50', text: 'Set fridge to 4C for optimal food preservation' },
-  { icon: 'Bell', iconColor: '#E6A23C', text: '5 items expiring this week - plan meals accordingly' },
-  { icon: 'InfoFilled', iconColor: '#409EFF', text: 'Clean fridge interior once a month' },
-  { icon: 'Sunny', iconColor: '#909399', text: 'Keep fruits and vegetables in separate drawers' }
+  { icon: 'ColdDrink', iconColor: '#4CAF50', text: '将冰箱设置为4°C以获得最佳食品保存效果' },
+  { icon: 'Bell', iconColor: '#E6A23C', text: '本周有5件食材即将过期 - 请合理规划膳食' },
+  { icon: 'InfoFilled', iconColor: '#409EFF', text: '每月清洁冰箱内部一次' },
+  { icon: 'Sunny', iconColor: '#909399', text: '将水果和蔬菜分开存放' }
 ]
 
 function formatDate(dateStr) {
@@ -242,7 +243,7 @@ function initTrendChart() {
       borderWidth: 1,
       formatter: (params) => {
         const p = params[0]
-        return `<strong>${p.axisValue}</strong><br/>Calories: ${p.value} kcal`
+        return `<strong>${p.axisValue}</strong><br/>热量: ${p.value} kcal`
       }
     }
   })
@@ -307,6 +308,13 @@ onMounted(async () => {
   await fetchData()
   initCharts()
   window.addEventListener('resize', handleResize)
+  // GSAP staggered entrance animations
+  nextTick(() => {
+    gsap.from('.page-header', { y: -30, opacity: 0, duration: 0.5, ease: 'power3.out' })
+    gsap.from('.stat-row .el-col', { y: 40, opacity: 0, duration: 0.5, stagger: 0.1, delay: 0.15, ease: 'power2.out' })
+    gsap.from('.content-row .el-col', { y: 30, opacity: 0, duration: 0.5, stagger: 0.15, delay: 0.3, ease: 'power2.out' })
+    gsap.from('.chart-container', { scale: 0.95, opacity: 0, duration: 0.5, delay: 0.5, ease: 'power2.out' })
+  })
 })
 
 onBeforeUnmount(() => {

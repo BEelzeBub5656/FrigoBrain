@@ -2,11 +2,11 @@
   <div class="inventory">
     <div class="page-header">
       <div>
-        <h2 class="page-title">Inventory</h2>
-        <p class="page-desc">Manage your fridge contents</p>
+        <h2 class="page-title">库存管理</h2>
+        <p class="page-desc">管理冰箱食材</p>
       </div>
       <el-button type="primary" @click="showAddDialog = true" :icon="Plus">
-        Add Food
+        添加食材
       </el-button>
     </div>
 
@@ -15,7 +15,7 @@
       <div class="filter-bar">
         <el-input
           v-model="searchQuery"
-          placeholder="Search food items..."
+          placeholder="搜索食材..."
           :prefix-icon="Search"
           clearable
           class="search-input"
@@ -23,12 +23,12 @@
         />
         <div class="category-filters">
           <el-radio-group v-model="selectedCategory" @change="handleCategoryChange">
-            <el-radio-button value="">All</el-radio-button>
-            <el-radio-button value="Vegetable">Vegetable</el-radio-button>
-            <el-radio-button value="Fruit">Fruit</el-radio-button>
-            <el-radio-button value="Meat">Meat</el-radio-button>
-            <el-radio-button value="Dairy">Dairy</el-radio-button>
-            <el-radio-button value="Other">Other</el-radio-button>
+            <el-radio-button value="">全部</el-radio-button>
+            <el-radio-button value="Vegetable">蔬菜</el-radio-button>
+            <el-radio-button value="Fruit">水果</el-radio-button>
+            <el-radio-button value="Meat">肉类</el-radio-button>
+            <el-radio-button value="Dairy">乳制品</el-radio-button>
+            <el-radio-button value="Other">其他</el-radio-button>
           </el-radio-group>
         </div>
       </div>
@@ -41,10 +41,10 @@
         stripe
         style="width: 100%"
         v-loading="loading"
-        empty-text="No food items found"
+        empty-text="未找到食材"
         @sort-change="handleSortChange"
       >
-        <el-table-column prop="name" label="Name" min-width="160" sortable="custom">
+        <el-table-column prop="name" label="名称" min-width="160" sortable="custom">
           <template #default="{ row }">
             <div class="food-name-cell">
               <el-icon :size="18" :color="categoryColor(row.category)">
@@ -54,33 +54,33 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="category" label="Category" width="110" align="center">
+        <el-table-column prop="category" label="分类" width="110" align="center">
           <template #default="{ row }">
             <el-tag :color="categoryColor(row.category)" effect="dark" size="small" style="border: none;">
               {{ row.category }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="quantity" label="Quantity" width="100" align="center">
+        <el-table-column prop="quantity" label="数量" width="100" align="center">
           <template #default="{ row }">
             {{ row.quantity }} {{ row.unit }}
           </template>
         </el-table-column>
-        <el-table-column prop="expiryDate" label="Expiry Date" width="130" align="center" sortable="custom">
+        <el-table-column prop="expiryDate" label="过期日期" width="130" align="center" sortable="custom">
           <template #default="{ row }">
             {{ row.expiryDate }}
           </template>
         </el-table-column>
-        <el-table-column label="Status" width="140" align="center">
+        <el-table-column label="状态" width="140" align="center">
           <template #default="{ row }">
             <FoodStatusTag :expiry-date="row.expiryDate" />
           </template>
         </el-table-column>
-        <el-table-column label="Actions" width="100" align="center" fixed="right">
+        <el-table-column label="操作" width="100" align="center" fixed="right">
           <template #default="{ row }">
             <el-popconfirm
-              title="Delete this item?"
-              confirm-button-text="Delete"
+              title="确认删除？"
+              confirm-button-text="删除"
               @confirm="handleDelete(row)"
             >
               <template #reference>
@@ -95,7 +95,7 @@
     <!-- Add Food Dialog -->
     <el-dialog
       v-model="showAddDialog"
-      title="Add Food Item"
+      title="添加食材"
       width="520px"
       :close-on-click-modal="false"
       destroy-on-close
@@ -110,33 +110,33 @@
       >
         <el-row :gutter="20">
           <el-col :span="24">
-            <el-form-item label="Name" prop="name">
-              <el-input v-model="form.name" placeholder="e.g. Organic Carrots" />
+            <el-form-item label="名称" prop="name">
+              <el-input v-model="form.name" placeholder="例如：有机胡萝卜" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="Category" prop="category">
-              <el-select v-model="form.category" placeholder="Select" style="width: 100%">
-                <el-option label="Vegetable" value="Vegetable" />
-                <el-option label="Fruit" value="Fruit" />
-                <el-option label="Meat" value="Meat" />
-                <el-option label="Dairy" value="Dairy" />
-                <el-option label="Other" value="Other" />
+            <el-form-item label="分类" prop="category">
+              <el-select v-model="form.category" placeholder="请选择" style="width: 100%">
+                <el-option label="蔬菜" value="Vegetable" />
+                <el-option label="水果" value="Fruit" />
+                <el-option label="肉类" value="Meat" />
+                <el-option label="乳制品" value="Dairy" />
+                <el-option label="其他" value="Other" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="Quantity" prop="quantity">
+            <el-form-item label="数量" prop="quantity">
               <el-input-number v-model="form.quantity" :min="0.1" :step="0.5" :precision="1" style="width: 100%" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="Unit" prop="unit">
-              <el-select v-model="form.unit" placeholder="Select" style="width: 100%">
+            <el-form-item label="单位" prop="unit">
+              <el-select v-model="form.unit" placeholder="请选择" style="width: 100%">
                 <el-option label="kg" value="kg" />
                 <el-option label="g" value="g" />
                 <el-option label="L" value="L" />
@@ -149,25 +149,25 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="Expiry Date" prop="expiryDate">
+            <el-form-item label="过期日期" prop="expiryDate">
               <el-date-picker
                 v-model="form.expiryDate"
                 type="date"
-                placeholder="Select date"
+                placeholder="选择日期"
                 style="width: 100%"
                 value-format="YYYY-MM-DD"
               />
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item label="Price ($)" prop="price">
+        <el-form-item label="价格（$）" prop="price">
           <el-input-number v-model="form.price" :min="0" :step="0.5" :precision="2" style="width: 100%" />
         </el-form-item>
       </el-form>
       <template #footer>
-        <el-button @click="showAddDialog = false">Cancel</el-button>
+        <el-button @click="showAddDialog = false">取消</el-button>
         <el-button type="primary" :loading="submitting" @click="handleAdd">
-          {{ submitting ? 'Adding...' : 'Add Item' }}
+          {{ submitting ? '添加中...' : '添加食材' }}
         </el-button>
       </template>
     </el-dialog>
@@ -204,11 +204,11 @@ const form = reactive({
 })
 
 const formRules = {
-  name: [{ required: true, message: 'Please enter food name', trigger: 'blur' }],
-  category: [{ required: true, message: 'Please select category', trigger: 'change' }],
-  quantity: [{ required: true, message: 'Please enter quantity', trigger: 'blur' }],
-  unit: [{ required: true, message: 'Please select unit', trigger: 'change' }],
-  expiryDate: [{ required: true, message: 'Please select expiry date', trigger: 'change' }]
+  name: [{ required: true, message: '请输入食材名称', trigger: 'blur' }],
+  category: [{ required: true, message: '请选择分类', trigger: 'change' }],
+  quantity: [{ required: true, message: '请输入数量', trigger: 'blur' }],
+  unit: [{ required: true, message: '请选择单位', trigger: 'change' }],
+  expiryDate: [{ required: true, message: '请选择过期日期', trigger: 'change' }]
 }
 
 const filteredFoods = computed(() => {
@@ -295,12 +295,12 @@ async function handleAdd() {
     submitting.value = true
     try {
       await addFood({ ...form })
-      ElMessage.success('Food item added successfully!')
+      ElMessage.success('食材添加成功！')
       showAddDialog.value = false
       resetForm()
       await fetchFoods()
     } catch {
-      ElMessage.error('Failed to add food item')
+      ElMessage.error('添加食材失败')
     } finally {
       submitting.value = false
     }
@@ -310,10 +310,10 @@ async function handleAdd() {
 async function handleDelete(row) {
   try {
     await deleteFood(row.id)
-    ElMessage.success(`"${row.name}" deleted`)
+    ElMessage.success(`"${row.name}" 已删除`)
     await fetchFoods()
   } catch {
-    ElMessage.error('Failed to delete item')
+    ElMessage.error('删除失败')
   }
 }
 

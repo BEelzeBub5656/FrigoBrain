@@ -2,27 +2,27 @@
   <div class="device-manage">
     <div class="page-header">
       <div>
-        <h2 class="page-title">Device Management</h2>
-        <p class="page-desc">Monitor and manage your smart fridge devices</p>
+        <h2 class="page-title">设备管理</h2>
+        <p class="page-desc">监控和管理您的智能冰箱设备</p>
       </div>
       <el-button type="primary" :icon="Refresh" @click="fetchData" :loading="loading">
-        Refresh
+        刷新
       </el-button>
     </div>
 
     <!-- Device Stats Cards -->
     <el-row :gutter="20" class="stat-row">
       <el-col :xs="12" :sm="6">
-        <StatCard icon="Monitor" :value="devices.length" label="Total Devices" subtext="Registered devices" color="#4CAF50" />
+        <StatCard icon="Monitor" :value="devices.length" label="设备总数" subtext="已注册设备" color="#4CAF50" />
       </el-col>
       <el-col :xs="12" :sm="6">
-        <StatCard icon="CircleCheck" :value="onlineCount" label="Online" subtext="Active devices" color="#67C23A" />
+        <StatCard icon="CircleCheck" :value="onlineCount" label="在线" subtext="活跃设备" color="#67C23A" />
       </el-col>
       <el-col :xs="12" :sm="6">
-        <StatCard icon="CircleClose" :value="offlineCount" label="Offline" subtext="Inactive devices" color="#F56C6C" />
+        <StatCard icon="CircleClose" :value="offlineCount" label="离线" subtext="非活跃设备" color="#F56C6C" />
       </el-col>
       <el-col :xs="12" :sm="6">
-        <StatCard icon="ColdDrink" :value="avgTemp" label="Avg Temperature" subtext="Across all devices" color="#409EFF" />
+        <StatCard icon="ColdDrink" :value="avgTemp" label="平均温度" subtext="所有设备" color="#409EFF" />
       </el-col>
     </el-row>
 
@@ -36,7 +36,7 @@
         @row-click="showShadow"
         highlight-current-row
       >
-        <el-table-column prop="name" label="Device Name" min-width="160">
+        <el-table-column prop="name" label="设备名称" min-width="160">
           <template #default="{ row }">
             <div class="device-name-cell">
               <el-icon :size="22" :color="row.type === 'Freezer' ? '#409EFF' : row.type === 'Sensor' ? '#9C27B0' : '#4CAF50'">
@@ -48,45 +48,45 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="type" label="Type" width="120" align="center">
+        <el-table-column prop="type" label="类型" width="120" align="center">
           <template #default="{ row }">
             <el-tag :type="row.type === 'Freezer' ? 'primary' : row.type === 'Sensor' ? 'warning' : 'success'" size="small" effect="plain">
               {{ row.type }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="Status" width="110" align="center">
+        <el-table-column label="状态" width="110" align="center">
           <template #default="{ row }">
             <el-tag :type="row.status === 'online' ? 'success' : 'danger'" size="small" effect="dark" round>
               <el-icon style="margin-right: 4px;" :size="10">
                 <CircleCheck v-if="row.status === 'online'" />
                 <CircleClose v-else />
               </el-icon>
-              {{ row.status === 'online' ? 'Online' : 'Offline' }}
+              {{ row.status === 'online' ? '在线' : '离线' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="temperature" label="Temperature" width="130" align="center">
+        <el-table-column prop="temperature" label="温度" width="130" align="center">
           <template #default="{ row }">
             <span :style="{ color: tempColor(row.temperature, row.type), fontWeight: 600 }">
               {{ row.temperature }}°C
             </span>
           </template>
         </el-table-column>
-        <el-table-column prop="humidity" label="Humidity" width="110" align="center">
+        <el-table-column prop="humidity" label="湿度" width="110" align="center">
           <template #default="{ row }">
             {{ row.humidity }}%
           </template>
         </el-table-column>
-        <el-table-column prop="lastOnline" label="Last Online" min-width="170" align="center">
+        <el-table-column prop="lastOnline" label="最后在线" min-width="170" align="center">
           <template #default="{ row }">
             <span class="last-online">{{ row.lastOnline }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Action" width="100" align="center">
+        <el-table-column label="操作" width="100" align="center">
           <template #default="{ row }">
             <el-button type="primary" size="small" link @click.stop="showShadow(row)">
-              <el-icon><Search /></el-icon> View Shadow
+              <el-icon><Search /></el-icon> 查看影子
             </el-button>
           </template>
         </el-table-column>
@@ -96,31 +96,31 @@
     <!-- Device Shadow Dialog -->
     <el-dialog
       v-model="shadowDialogVisible"
-      :title="`Device Shadow: ${selectedDevice?.name}`"
+      :title="`设备影子: ${selectedDevice?.name}`"
       width="720px"
       top="5vh"
       destroy-on-close
     >
       <template v-if="selectedDevice?.shadow">
         <el-tabs v-model="activeShadowTab" type="border-card">
-          <el-tab-pane label="Reported State" name="reported">
+          <el-tab-pane label="已报告状态" name="reported">
             <pre class="shadow-json">{{ formatJSON(selectedDevice.shadow.state.reported) }}</pre>
           </el-tab-pane>
-          <el-tab-pane label="Desired State" name="desired">
+          <el-tab-pane label="期望状态" name="desired">
             <pre class="shadow-json">{{ formatJSON(selectedDevice.shadow.state.desired) }}</pre>
           </el-tab-pane>
-          <el-tab-pane label="Metadata" name="metadata">
+          <el-tab-pane label="元数据" name="metadata">
             <pre class="shadow-json">{{ formatJSON(selectedDevice.shadow.metadata) }}</pre>
           </el-tab-pane>
-          <el-tab-pane label="Full Shadow" name="full">
+          <el-tab-pane label="完整影子" name="full">
             <pre class="shadow-json">{{ formatJSON(selectedDevice.shadow) }}</pre>
           </el-tab-pane>
         </el-tabs>
 
         <div class="command-section">
-          <h4>Send Command</h4>
+          <h4>发送指令</h4>
           <div class="command-bar">
-            <el-select v-model="selectedCommand" placeholder="Select command" style="width: 200px;">
+            <el-select v-model="selectedCommand" placeholder="选择指令" style="width: 200px;">
               <el-option
                 v-for="cmd in availableCommands"
                 :key="cmd.value"
@@ -129,7 +129,7 @@
               />
             </el-select>
             <el-button type="primary" :loading="sendingCommand" @click="sendCommandToDevice">
-              Send
+              发送
             </el-button>
             <el-tag v-if="commandResult" :type="commandResult.success ? 'success' : 'danger'" effect="plain">
               {{ commandResult.message }}
@@ -138,7 +138,7 @@
         </div>
       </template>
       <div v-else class="empty-shadow">
-        <el-empty description="No shadow data available" :image-size="80" />
+        <el-empty description="暂无影子数据" :image-size="80" />
       </div>
     </el-dialog>
   </div>
@@ -177,20 +177,20 @@ const availableCommands = computed(() => {
   if (!selectedDevice.value) return []
   const type = selectedDevice.value.type
   const commands = [
-    { label: 'Sync Shadow', value: 'syncShadow' },
-    { label: 'Reboot Device', value: 'reboot' },
+    { label: '同步影子', value: 'syncShadow' },
+    { label: '重启设备', value: 'reboot' },
   ]
   if (type === 'Fridge' || type === 'Freezer') {
     commands.push(
-      { label: 'Set Temperature', value: 'setTemperature' },
-      { label: 'Toggle Eco Mode', value: 'toggleEcoMode' },
-      { label: 'Start Defrost', value: 'startDefrost' }
+      { label: '设置温度', value: 'setTemperature' },
+      { label: '切换节能模式', value: 'toggleEcoMode' },
+      { label: '开始除霜', value: 'startDefrost' }
     )
   }
   if (type === 'Sensor') {
     commands.push(
-      { label: 'Calibrate Sensors', value: 'calibrate' },
-      { label: 'Update Interval', value: 'updateInterval' }
+      { label: '校准传感器', value: 'calibrate' },
+      { label: '更新间隔', value: 'updateInterval' }
     )
   }
   return commands
@@ -225,7 +225,7 @@ function showShadow(device) {
 
 async function sendCommandToDevice() {
   if (!selectedCommand.value || !selectedDevice.value) {
-    ElMessage.warning('Please select a command')
+    ElMessage.warning('请选择指令')
     return
   }
   sendingCommand.value = true
@@ -236,10 +236,10 @@ async function sendCommandToDevice() {
       timestamp: new Date().toISOString()
     })
     commandResult.value = result
-    ElMessage.success(`Command sent: ${selectedCommand.value}`)
+    ElMessage.success(`指令已发送: ${selectedCommand.value}`)
   } catch {
-    commandResult.value = { success: false, message: 'Failed to send command' }
-    ElMessage.error('Failed to send command')
+    commandResult.value = { success: false, message: '发送指令失败' }
+    ElMessage.error('发送指令失败')
   } finally {
     sendingCommand.value = false
   }

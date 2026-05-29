@@ -1,5 +1,6 @@
 <template>
-  <div class="stat-card" :style="{ borderLeftColor: color }">
+  <div ref="cardRef" class="stat-card" :style="{ borderLeftColor: color }"
+       @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
     <div class="stat-card-icon" :style="{ backgroundColor: color + '18', color: color }">
       <el-icon :size="28">
         <component :is="iconComponent" />
@@ -14,7 +15,8 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
+import gsap from 'gsap'
 import * as Icons from '@element-plus/icons-vue'
 
 const props = defineProps({
@@ -25,9 +27,30 @@ const props = defineProps({
   color: { type: String, default: '#4CAF50' }
 })
 
-const iconComponent = computed(() => {
-  return Icons[props.icon] || Icons.InfoFilled
+const cardRef = ref(null)
+const iconComponent = computed(() => Icons[props.icon] || Icons.InfoFilled)
+
+// Hover animation
+function onMouseEnter() {
+  if (cardRef.value) {
+    gsap.to(cardRef.value, { scale: 1.03, duration: 0.25, ease: 'power2.out' })
+    gsap.to(cardRef.value, { boxShadow: '0 8px 30px rgba(0,0,0,0.15)', duration: 0.25 })
+  }
+}
+function onMouseLeave() {
+  if (cardRef.value) {
+    gsap.to(cardRef.value, { scale: 1, duration: 0.25, ease: 'power2.out' })
+    gsap.to(cardRef.value, { boxShadow: '0 1px 6px rgba(0,0,0,0.06)', duration: 0.25 })
+  }
+}
+
+// Entrance animation
+onMounted(() => {
+  if (cardRef.value) {
+    gsap.from(cardRef.value, { y: 30, opacity: 0, duration: 0.5, ease: 'power3.out' })
+  }
 })
+</script>
 </script>
 
 <style scoped>

@@ -1,0 +1,14 @@
+- generic [ref=e3]:
+  - generic [ref=e4]: "[plugin:vite:vue] Invalid end tag."
+  - generic [ref=e5]: D:/AAAend/lllen/Web开发/web/frontend/src/components/StatCard.vue:54:1
+  - generic [ref=e6]: "52 | }) 53 | </script> 54 | </script> | ^ 55 | 56 | <style scoped>"
+  - generic [ref=e7]: at createCompilerError (D:\AAAend\lllen\Web开发\web\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:1378:17) at emitError (D:\AAAend\lllen\Web开发\web\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3014:5) at Object.onclosetag (D:\AAAend\lllen\Web开发\web\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:2391:9) at Tokenizer.stateInClosingTagName (D:\AAAend\lllen\Web开发\web\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:799:16) at Tokenizer.parse (D:\AAAend\lllen\Web开发\web\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:1157:16) at Object.baseParse (D:\AAAend\lllen\Web开发\web\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3053:13) at Object.parse (D:\AAAend\lllen\Web开发\web\frontend\node_modules\@vue\compiler-dom\dist\compiler-dom.cjs.js:910:23) at Object.parse$1 [as parse] (D:\AAAend\lllen\Web开发\web\frontend\node_modules\@vue\compiler-sfc\dist\compiler-sfc.cjs.js:1824:24) at createDescriptor (file:///D:/AAAend/lllen/Web%E5%BC%80%E5%8F%91/web/frontend/node_modules/@vitejs/plugin-vue/dist/index.mjs:71:43) at handleHotUpdate (file:///D:/AAAend/lllen/Web%E5%BC%80%E5%8F%91/web/frontend/node_modules/@vitejs/plugin-vue/dist/index.mjs:2198:26
+  - generic [ref=e8]:
+    - text: Click outside, press Esc key, or fix the code to dismiss.
+    - text: You can also disable this overlay by setting
+    - code [ref=e9]: server.hmr.overlay
+    - text: to
+    - code [ref=e10]: "false"
+    - text: in
+    - code [ref=e11]: vite.config.js
+    - text: .

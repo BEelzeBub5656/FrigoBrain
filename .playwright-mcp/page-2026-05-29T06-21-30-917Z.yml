@@ -1,0 +1,740 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - link "Skip to content" [ref=e4] [cursor=pointer]:
+        - /url: "#start-of-content"
+      - banner [ref=e6]:
+        - heading "Navigation Menu" [level=2] [ref=e7]
+        - generic [ref=e9]:
+          - button "Toggle navigation" [ref=e11] [cursor=pointer]
+          - link "Homepage" [ref=e17] [cursor=pointer]:
+            - /url: /
+            - img [ref=e18]
+          - generic [ref=e20]:
+            - link "Sign in" [ref=e21] [cursor=pointer]:
+              - /url: /login?return_to=https%3A%2F%2Fgithub.com%2FBEelzeBub5656%2FFrigoBrain%2Fblob%2Fmain%2Fdocs%2F%25E8%25AF%25A6%25E7%25BB%2586%25E8%25AE%25BE%25E8%25AE%25A1%25E6%2596%2587%25E6%25A1%25A3.md
+            - button "Appearance settings" [ref=e24] [cursor=pointer]:
+              - img
+    - main [ref=e28]:
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - generic [ref=e32]:
+            - img [ref=e33]
+            - link "BEelzeBub5656" [ref=e36] [cursor=pointer]:
+              - /url: /BEelzeBub5656
+            - generic [ref=e37]: /
+            - strong [ref=e38]:
+              - link "FrigoBrain" [ref=e39] [cursor=pointer]:
+                - /url: /BEelzeBub5656/FrigoBrain
+            - generic [ref=e40]: Public
+          - generic [ref=e41]:
+            - list:
+              - listitem [ref=e42]:
+                - link "You must be signed in to change notification settings" [ref=e43] [cursor=pointer]:
+                  - /url: /login?return_to=%2FBEelzeBub5656%2FFrigoBrain
+                  - img [ref=e44]
+                  - text: Notifications
+              - listitem [ref=e46]:
+                - link "Fork 0" [ref=e47] [cursor=pointer]:
+                  - /url: /login?return_to=%2FBEelzeBub5656%2FFrigoBrain
+                  - img [ref=e48]
+                  - text: Fork
+                  - generic "0" [ref=e50]
+              - listitem [ref=e51]:
+                - link "You must be signed in to star a repository" [ref=e53] [cursor=pointer]:
+                  - /url: /login?return_to=%2FBEelzeBub5656%2FFrigoBrain
+                  - img [ref=e54]
+                  - text: Star
+                  - generic "0 users starred this repository" [ref=e56]: "0"
+        - navigation "Repository" [ref=e57]:
+          - list [ref=e58]:
+            - listitem [ref=e59]:
+              - link "Code" [ref=e60] [cursor=pointer]:
+                - /url: /BEelzeBub5656/FrigoBrain
+                - img [ref=e61]
+                - generic [ref=e63]: Code
+            - listitem [ref=e64]:
+              - link "Issues" [ref=e65] [cursor=pointer]:
+                - /url: /BEelzeBub5656/FrigoBrain/issues
+                - img [ref=e66]
+                - generic [ref=e69]: Issues
+            - listitem [ref=e70]:
+              - link "Pull requests" [ref=e71] [cursor=pointer]:
+                - /url: /BEelzeBub5656/FrigoBrain/pulls
+                - img [ref=e72]
+                - generic [ref=e74]: Pull requests
+            - listitem [ref=e75]:
+              - link "Actions" [ref=e76] [cursor=pointer]:
+                - /url: /BEelzeBub5656/FrigoBrain/actions
+                - img [ref=e77]
+                - generic [ref=e79]: Actions
+            - listitem [ref=e80]:
+              - link "Projects" [ref=e81] [cursor=pointer]:
+                - /url: /BEelzeBub5656/FrigoBrain/projects
+                - img [ref=e82]
+                - generic [ref=e84]: Projects
+            - listitem [ref=e85]:
+              - link "Security and quality" [ref=e86] [cursor=pointer]:
+                - /url: /BEelzeBub5656/FrigoBrain/security
+                - img [ref=e87]
+                - generic [ref=e89]: Security and quality
+            - listitem [ref=e90]
+          - button "Additional navigation options" [ref=e94] [cursor=pointer]:
+            - img
+      - generic [ref=e105]:
+        - generic [ref=e109]:
+          - generic [ref=e110]:
+            - heading "Expand file tree" [level=2] [ref=e112]:
+              - button "Expand file tree" [ref=e113] [cursor=pointer]:
+                - img [ref=e114]
+            - button "main branch" [ref=e118] [cursor=pointer]:
+              - generic [ref=e119]:
+                - generic [ref=e121]:
+                  - img [ref=e123]
+                  - generic [ref=e126]: main
+                - generic:
+                  - img
+            - generic [ref=e128]:
+              - navigation "Breadcrumbs" [ref=e129]:
+                - heading "Breadcrumbs" [level=2] [ref=e130]
+                - list [ref=e131]:
+                  - listitem [ref=e132]:
+                    - link "FrigoBrain" [ref=e133] [cursor=pointer]:
+                      - /url: /BEelzeBub5656/FrigoBrain/tree/main
+                  - listitem [ref=e134]:
+                    - text: /
+                    - link "docs" [ref=e135] [cursor=pointer]:
+                      - /url: /BEelzeBub5656/FrigoBrain/tree/main/docs
+              - generic [ref=e136]:
+                - text: /
+                - heading "详细设计文档.md" [level=1] [ref=e137]
+              - button "Copy path" [ref=e138] [cursor=pointer]:
+                - img [ref=e139]
+          - generic [ref=e144]:
+            - generic [ref=e147]:
+              - img [ref=e149]
+              - combobox "Go to file" [ref=e151]
+            - button "More file actions" [ref=e152] [cursor=pointer]:
+              - img [ref=e153]
+        - generic [ref=e155]:
+          - generic [ref=e157]:
+            - heading "Latest commit" [level=2] [ref=e158]
+            - generic [ref=e161]:
+              - heading "History" [level=2] [ref=e162]
+              - link "View commit history for this file." [ref=e164] [cursor=pointer]:
+                - /url: /BEelzeBub5656/FrigoBrain/commits/main/docs/%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3.md
+                - generic [ref=e165]:
+                  - generic:
+                    - img
+          - generic [ref=e167]:
+            - generic "15.4 KB" [ref=e171]: 435 lines (352 loc) · 15.4 KB
+            - generic [ref=e173]:
+              - heading "File metadata and controls" [level=2] [ref=e174]
+              - list "File view" [ref=e176]:
+                - listitem [ref=e177]:
+                  - button "Preview" [ref=e178] [cursor=pointer]:
+                    - generic [ref=e180]: Preview
+                - listitem [ref=e181]:
+                  - button "Code" [ref=e182] [cursor=pointer]:
+                    - generic [ref=e184]: Code
+                - listitem [ref=e185]:
+                  - button "Blame" [ref=e186] [cursor=pointer]:
+                    - generic [ref=e188]: Blame
+              - generic [ref=e189]:
+                - generic [ref=e190]:
+                  - generic [ref=e191]:
+                    - link "Raw" [ref=e193] [cursor=pointer]:
+                      - /url: https://github.com/BEelzeBub5656/FrigoBrain/raw/refs/heads/main/docs/%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3.md
+                      - generic [ref=e195]: Raw
+                    - button "Copy raw file" [ref=e197] [cursor=pointer]:
+                      - img [ref=e198]
+                    - button "Download raw file" [ref=e202] [cursor=pointer]:
+                      - img [ref=e203]
+                  - generic [ref=e206]:
+                    - button "You must be signed in to make or propose changes" [disabled] [ref=e208]:
+                      - img [ref=e209]
+                    - button "More edit options" [ref=e212] [cursor=pointer]:
+                      - img [ref=e213]
+                - button "Outline" [ref=e215] [cursor=pointer]:
+                  - img [ref=e216]
+            - region [ref=e219]:
+              - article [ref=e221]:
+                - generic [ref=e222]:
+                  - heading "智能冰箱管家 — 详细设计文档" [level=1] [ref=e223]
+                  - 'link "Permalink: 智能冰箱管家 — 详细设计文档" [ref=e224] [cursor=pointer]':
+                    - /url: "#智能冰箱管家--详细设计文档"
+                    - img [ref=e225]
+                - generic [ref=e227]:
+                  - heading "封面" [level=2] [ref=e228]
+                  - 'link "Permalink: 封面" [ref=e229] [cursor=pointer]':
+                    - /url: "#封面"
+                    - img [ref=e230]
+                - table [ref=e233]:
+                  - rowgroup [ref=e234]:
+                    - row "项目 内容" [ref=e235]:
+                      - columnheader "项目" [ref=e236]
+                      - columnheader "内容" [ref=e237]
+                  - rowgroup [ref=e238]:
+                    - row "课程 物联网工程应用" [ref=e239]:
+                      - cell "课程" [ref=e240]
+                      - cell "物联网工程应用" [ref=e241]
+                    - row "题目 智能冰箱管家——基于营养学的食材管理与菜谱推荐APP" [ref=e242]:
+                      - cell "题目" [ref=e243]
+                      - cell "智能冰箱管家——基于营养学的食材管理与菜谱推荐APP" [ref=e244]
+                    - row "学院 信息科技学院" [ref=e245]:
+                      - cell "学院" [ref=e246]
+                      - cell "信息科技学院" [ref=e247]
+                    - row "专业 物联网工程" [ref=e248]:
+                      - cell "专业" [ref=e249]
+                      - cell "物联网工程" [ref=e250]
+                    - row "班级 物联网231" [ref=e251]:
+                      - cell "班级" [ref=e252]
+                      - cell "物联网231" [ref=e253]
+                    - row "姓名 陈宇杰" [ref=e254]:
+                      - cell "姓名" [ref=e255]
+                      - cell "陈宇杰" [ref=e256]
+                    - row "学号 202305311115" [ref=e257]:
+                      - cell "学号" [ref=e258]
+                      - cell "202305311115" [ref=e259]
+                    - row "学期 2025/2026 学年第 2 学期" [ref=e260]:
+                      - cell "学期" [ref=e261]
+                      - cell "2025/2026 学年第 2 学期" [ref=e262]
+                    - row "日期 2026 年 6 月" [ref=e263]:
+                      - cell "日期" [ref=e264]
+                      - cell "2026 年 6 月" [ref=e265]
+                - separator [ref=e266]
+                - generic [ref=e267]:
+                  - heading "1. 需求分析" [level=2] [ref=e268]
+                  - 'link "Permalink: 1. 需求分析" [ref=e269] [cursor=pointer]':
+                    - /url: "#1-需求分析"
+                    - img [ref=e270]
+                - generic [ref=e272]:
+                  - heading "1.1 背景" [level=3] [ref=e273]
+                  - 'link "Permalink: 1.1 背景" [ref=e274] [cursor=pointer]':
+                    - /url: "#11-背景"
+                    - img [ref=e275]
+                - paragraph [ref=e277]: 现代家庭冰箱管理存在三个痛点：（1）食材买回来塞进冰箱后就忘了，过期浪费严重；（2）面对一冰箱食材不知道能做什么菜；（3）缺乏对家庭饮食营养的全局认知。本项目设计一款 Android APP，通过模拟视觉识别录入食材，结合营养学知识匹配菜谱并生成购物清单，帮助用户减少食物浪费、科学饮食。
+                - generic [ref=e278]:
+                  - heading "1.2 用户故事" [level=3] [ref=e279]
+                  - 'link "Permalink: 1.2 用户故事" [ref=e280] [cursor=pointer]':
+                    - /url: "#12-用户故事"
+                    - img [ref=e281]
+                - list [ref=e283]:
+                  - listitem [ref=e284]: 用户打开冰箱 → 手机拍照 → APP 识别食材 → 自动入库
+                  - listitem [ref=e285]: 食材即将过期 → 通知提醒 → 推荐含该食材的菜谱
+                  - listitem [ref=e286]: 用户说"今晚做什么吃？"→ APP 根据现有食材推荐菜谱
+                  - listitem [ref=e287]: 用户做了一道菜 → 记录摄入 → 营养报告自动更新
+                  - listitem [ref=e288]: 缺食材 → 一键生成购物清单
+                - generic [ref=e289]:
+                  - heading "1.3 技术约束" [level=3] [ref=e290]
+                  - 'link "Permalink: 1.3 技术约束" [ref=e291] [cursor=pointer]':
+                    - /url: "#13-技术约束"
+                    - img [ref=e292]
+                - list [ref=e294]:
+                  - listitem [ref=e295]: 平台：Android（最低 API 26）
+                  - listitem [ref=e296]: 本地存储：SQLite
+                  - listitem [ref=e297]: 云端：华为云 IoT 平台（模拟食材数据同步）
+                  - listitem [ref=e298]: 视觉识别：客户端模拟（拍照 → 识别动画 → 返回预设结果）
+                - separator [ref=e299]
+                - generic [ref=e300]:
+                  - heading "2. 总体方案" [level=2] [ref=e301]
+                  - 'link "Permalink: 2. 总体方案" [ref=e302] [cursor=pointer]':
+                    - /url: "#2-总体方案"
+                    - img [ref=e303]
+                - generic [ref=e305]:
+                  - heading "2.1 架构" [level=3] [ref=e306]
+                  - 'link "Permalink: 2.1 架构" [ref=e307] [cursor=pointer]':
+                    - /url: "#21-架构"
+                    - img [ref=e308]
+                - generic [ref=e310]:
+                  - code [ref=e312]: ┌──────────────────────────────────────┐ │ Android APP │ │ │ │ Activity1 Activity2 Activity3 │ │ 冰箱总览 食材录入 智能菜谱 │ │ │ │ Activity4 │ │ 营养报告 │ │ │ │ ┌─────────┐ ┌─────────┐ │ │ │ SQLite │ │HttpURL │ │ │ │ 本地DB │ │Connection│ │ │ └─────────┘ └────┬────┘ │ │ │ │ └────────────────────┼────────────────┘ │ ┌──────▼──────┐ │ 华为云 IoT │ │ (菜谱库同步)│ │ (数据备份) │ └─────────────┘
+                  - button "Copy code to clipboard" [ref=e314] [cursor=pointer]:
+                    - img [ref=e315]
+                - generic [ref=e318]:
+                  - heading "2.2 技术选型" [level=3] [ref=e319]
+                  - 'link "Permalink: 2.2 技术选型" [ref=e320] [cursor=pointer]':
+                    - /url: "#22-技术选型"
+                    - img [ref=e321]
+                - table [ref=e324]:
+                  - rowgroup [ref=e325]:
+                    - row "模块 技术 理由" [ref=e326]:
+                      - columnheader "模块" [ref=e327]
+                      - columnheader "技术" [ref=e328]
+                      - columnheader "理由" [ref=e329]
+                  - rowgroup [ref=e330]:
+                    - row "UI 框架 Android XML + RecyclerView 标准方案" [ref=e331]:
+                      - cell "UI 框架" [ref=e332]
+                      - cell "Android XML + RecyclerView" [ref=e333]
+                      - cell "标准方案" [ref=e334]
+                    - row "数据库 SQLite + Room 官方推荐 ORM" [ref=e335]:
+                      - cell "数据库" [ref=e336]
+                      - cell "SQLite + Room" [ref=e337]
+                      - cell "官方推荐 ORM" [ref=e338]
+                    - row "网络通信 HttpURLConnection + JSON 轻量，无需第三方库" [ref=e339]:
+                      - cell "网络通信" [ref=e340]
+                      - cell "HttpURLConnection + JSON" [ref=e341]
+                      - cell "轻量，无需第三方库" [ref=e342]
+                    - row "图表 MPAndroidChart 营养雷达图/折线图" [ref=e343]:
+                      - cell "图表" [ref=e344]
+                      - cell "MPAndroidChart" [ref=e345]
+                      - cell "营养雷达图/折线图" [ref=e346]
+                    - row "拍照 CameraX + FileProvider 兼容性好" [ref=e347]:
+                      - cell "拍照" [ref=e348]
+                      - cell "CameraX + FileProvider" [ref=e349]
+                      - cell "兼容性好" [ref=e350]
+                    - row "后台任务 Service + AlarmManager 定时检查到期食材" [ref=e351]:
+                      - cell "后台任务" [ref=e352]
+                      - cell "Service + AlarmManager" [ref=e353]
+                      - cell "定时检查到期食材" [ref=e354]
+                - separator [ref=e355]
+                - generic [ref=e356]:
+                  - heading "3. 功能设计" [level=2] [ref=e357]
+                  - 'link "Permalink: 3. 功能设计" [ref=e358] [cursor=pointer]':
+                    - /url: "#3-功能设计"
+                    - img [ref=e359]
+                - generic [ref=e361]:
+                  - heading "3.1 冰箱总览（MainActivity）" [level=3] [ref=e362]
+                  - 'link "Permalink: 3.1 冰箱总览（MainActivity）" [ref=e363] [cursor=pointer]':
+                    - /url: "#31-冰箱总览mainactivity"
+                    - img [ref=e364]
+                - list [ref=e366]:
+                  - listitem [ref=e367]: 食材 GridView 展示，按类别分组（蔬菜/水果/肉类/乳制品/其他）
+                  - listitem [ref=e368]: 三色过期标记：🟢 新鲜（>3天）、🟡 即将过期（1-3天）、🔴 已过期
+                  - listitem [ref=e369]: 搜索框实时过滤
+                  - listitem [ref=e370]: 点击食材查看详情/删除/标记用完
+                  - listitem [ref=e371]: 从其他 Activity 返回时自动刷新
+                - generic [ref=e372]:
+                  - heading "3.2 食材录入（ScanActivity）" [level=3] [ref=e373]
+                  - 'link "Permalink: 3.2 食材录入（ScanActivity）" [ref=e374] [cursor=pointer]':
+                    - /url: "#32-食材录入scanactivity"
+                    - img [ref=e375]
+                - list [ref=e377]:
+                  - listitem [ref=e378]: 拍照按钮 → 调用相机 → 拍摄后显示"AI 识别中..."3 秒动画
+                  - listitem [ref=e379]: 模拟识别结果：从预设库随机匹配食材（演示时模拟，正式可对接真实视觉 API）
+                  - listitem [ref=e380]: 手动修正食材名称、类别、数量、保质期
+                  - listitem [ref=e381]: 确认后写入 SQLite 并返回总览页
+                - generic [ref=e382]:
+                  - heading "3.3 智能菜谱（RecipeActivity）" [level=3] [ref=e383]
+                  - 'link "Permalink: 3.3 智能菜谱（RecipeActivity）" [ref=e384] [cursor=pointer]':
+                    - /url: "#33-智能菜谱recipeactivity"
+                    - img [ref=e385]
+                - list [ref=e387]:
+                  - listitem [ref=e388]: 根据当前冰箱食材自动匹配菜谱
+                  - listitem [ref=e389]: 匹配算法：菜谱所需食材 ∩ 现有食材 ≥ 80% → 可做
+                  - listitem [ref=e390]: 菜谱列表显示匹配度百分比 + 缺失食材
+                  - listitem [ref=e391]: 菜谱详情页：步骤、营养信息、缺失食材一键加入购物清单
+                  - listitem [ref=e392]: 搜索/浏览完整菜谱库（包含部分不匹配的，鼓励扩展食材）
+                - generic [ref=e393]:
+                  - heading "3.4 营养报告（NutritionActivity）" [level=3] [ref=e394]
+                  - 'link "Permalink: 3.4 营养报告（NutritionActivity）" [ref=e395] [cursor=pointer]':
+                    - /url: "#34-营养报告nutritionactivity"
+                    - img [ref=e396]
+                - list [ref=e398]:
+                  - listitem [ref=e399]: 本周摄入概览卡片（热量/蛋白质/脂肪/碳水化合物）
+                  - listitem [ref=e400]: 雷达图对比推荐摄入量
+                  - listitem [ref=e401]: 折线图展示 7 天热量变化趋势
+                  - listitem [ref=e402]: 智能建议（"本周蛋白质摄入偏低，推荐增加豆制品"）
+                  - listitem [ref=e403]: 购物清单管理：添加/勾选完成/清除
+                - generic [ref=e404]:
+                  - heading "3.5 后台服务" [level=3] [ref=e405]
+                  - 'link "Permalink: 3.5 后台服务" [ref=e406] [cursor=pointer]':
+                    - /url: "#35-后台服务"
+                    - img [ref=e407]
+                - list [ref=e409]:
+                  - listitem [ref=e410]: 每日 8:00 检查到期食材 → 通知栏提醒
+                  - listitem [ref=e411]: 每周日晚生成营养周报 → 通知用户查看
+                - separator [ref=e412]
+                - generic [ref=e413]:
+                  - heading "4. 数据库设计" [level=2] [ref=e414]
+                  - 'link "Permalink: 4. 数据库设计" [ref=e415] [cursor=pointer]':
+                    - /url: "#4-数据库设计"
+                    - img [ref=e416]
+                - generic [ref=e418]:
+                  - heading "4.1 ER 图（文字）" [level=3] [ref=e419]
+                  - 'link "Permalink: 4.1 ER 图（文字）" [ref=e420] [cursor=pointer]':
+                    - /url: "#41-er-图文字"
+                    - img [ref=e421]
+                - generic [ref=e423]:
+                  - code [ref=e425]: 食材类别 ──< 食材 >──< 食材-菜谱关联表 >──< 菜谱 │ │ (过期触发) ▼ 过期记录表 菜谱 >──< 营养摄入日志 食材类别 >──< 购物清单
+                  - button "Copy code to clipboard" [ref=e427] [cursor=pointer]:
+                    - img [ref=e428]
+                - generic [ref=e431]:
+                  - heading "4.2 表结构" [level=3] [ref=e432]
+                  - 'link "Permalink: 4.2 表结构" [ref=e433] [cursor=pointer]':
+                    - /url: "#42-表结构"
+                    - img [ref=e434]
+                - generic [ref=e436]:
+                  - heading "category（食材类别）" [level=4] [ref=e437]
+                  - 'link "Permalink: category（食材类别）" [ref=e438] [cursor=pointer]':
+                    - /url: "#category食材类别"
+                    - img [ref=e439]
+                - table [ref=e442]:
+                  - rowgroup [ref=e443]:
+                    - row "字段 类型 说明" [ref=e444]:
+                      - columnheader "字段" [ref=e445]
+                      - columnheader "类型" [ref=e446]
+                      - columnheader "说明" [ref=e447]
+                  - rowgroup [ref=e448]:
+                    - row "id INTEGER 主键" [ref=e449]:
+                      - cell "id" [ref=e450]
+                      - cell "INTEGER" [ref=e451]
+                      - cell "主键" [ref=e452]
+                    - row "name TEXT 类别名（蔬菜/水果/肉类/乳制品/其他）" [ref=e453]:
+                      - cell "name" [ref=e454]
+                      - cell "TEXT" [ref=e455]
+                      - cell "类别名（蔬菜/水果/肉类/乳制品/其他）" [ref=e456]
+                    - row "icon TEXT 图标资源名" [ref=e457]:
+                      - cell "icon" [ref=e458]
+                      - cell "TEXT" [ref=e459]
+                      - cell "图标资源名" [ref=e460]
+                - generic [ref=e461]:
+                  - heading "ingredient（食材）" [level=4] [ref=e462]
+                  - 'link "Permalink: ingredient（食材）" [ref=e463] [cursor=pointer]':
+                    - /url: "#ingredient食材"
+                    - img [ref=e464]
+                - table [ref=e467]:
+                  - rowgroup [ref=e468]:
+                    - row "字段 类型 说明" [ref=e469]:
+                      - columnheader "字段" [ref=e470]
+                      - columnheader "类型" [ref=e471]
+                      - columnheader "说明" [ref=e472]
+                  - rowgroup [ref=e473]:
+                    - row "id INTEGER 主键" [ref=e474]:
+                      - cell "id" [ref=e475]
+                      - cell "INTEGER" [ref=e476]
+                      - cell "主键" [ref=e477]
+                    - row "name TEXT 食材名" [ref=e478]:
+                      - cell "name" [ref=e479]
+                      - cell "TEXT" [ref=e480]
+                      - cell "食材名" [ref=e481]
+                    - row "category_id INTEGER 外键→category.id" [ref=e482]:
+                      - cell "category_id" [ref=e483]
+                      - cell "INTEGER" [ref=e484]
+                      - cell "外键→category.id" [ref=e485]
+                    - row "quantity REAL 数量" [ref=e486]:
+                      - cell "quantity" [ref=e487]
+                      - cell "REAL" [ref=e488]
+                      - cell "数量" [ref=e489]
+                    - row "unit TEXT 单位（个/g/ml/袋）" [ref=e490]:
+                      - cell "unit" [ref=e491]
+                      - cell "TEXT" [ref=e492]
+                      - cell "单位（个/g/ml/袋）" [ref=e493]
+                    - row "buy_date TEXT 购买日期 ISO8601" [ref=e494]:
+                      - cell "buy_date" [ref=e495]
+                      - cell "TEXT" [ref=e496]
+                      - cell "购买日期 ISO8601" [ref=e497]
+                    - row "expire_days INTEGER 保质期天数" [ref=e498]:
+                      - cell "expire_days" [ref=e499]
+                      - cell "INTEGER" [ref=e500]
+                      - cell "保质期天数" [ref=e501]
+                    - row "remark TEXT 备注" [ref=e502]:
+                      - cell "remark" [ref=e503]
+                      - cell "TEXT" [ref=e504]
+                      - cell "备注" [ref=e505]
+                - generic [ref=e506]:
+                  - heading "recipe（菜谱）" [level=4] [ref=e507]
+                  - 'link "Permalink: recipe（菜谱）" [ref=e508] [cursor=pointer]':
+                    - /url: "#recipe菜谱"
+                    - img [ref=e509]
+                - table [ref=e512]:
+                  - rowgroup [ref=e513]:
+                    - row "字段 类型 说明" [ref=e514]:
+                      - columnheader "字段" [ref=e515]
+                      - columnheader "类型" [ref=e516]
+                      - columnheader "说明" [ref=e517]
+                  - rowgroup [ref=e518]:
+                    - row "id INTEGER 主键" [ref=e519]:
+                      - cell "id" [ref=e520]
+                      - cell "INTEGER" [ref=e521]
+                      - cell "主键" [ref=e522]
+                    - row "name TEXT 菜名" [ref=e523]:
+                      - cell "name" [ref=e524]
+                      - cell "TEXT" [ref=e525]
+                      - cell "菜名" [ref=e526]
+                    - row "steps TEXT JSON 数组，制作步骤" [ref=e527]:
+                      - cell "steps" [ref=e528]
+                      - cell "TEXT" [ref=e529]
+                      - cell "JSON 数组，制作步骤" [ref=e530]
+                    - row "calories REAL 热量（kcal/份）" [ref=e531]:
+                      - cell "calories" [ref=e532]
+                      - cell "REAL" [ref=e533]
+                      - cell "热量（kcal/份）" [ref=e534]
+                    - row "protein REAL 蛋白质（g）" [ref=e535]:
+                      - cell "protein" [ref=e536]
+                      - cell "REAL" [ref=e537]
+                      - cell "蛋白质（g）" [ref=e538]
+                    - row "fat REAL 脂肪（g）" [ref=e539]:
+                      - cell "fat" [ref=e540]
+                      - cell "REAL" [ref=e541]
+                      - cell "脂肪（g）" [ref=e542]
+                    - row "carbs REAL 碳水（g）" [ref=e543]:
+                      - cell "carbs" [ref=e544]
+                      - cell "REAL" [ref=e545]
+                      - cell "碳水（g）" [ref=e546]
+                    - row "image TEXT 图片资源名" [ref=e547]:
+                      - cell "image" [ref=e548]
+                      - cell "TEXT" [ref=e549]
+                      - cell "图片资源名" [ref=e550]
+                    - row "difficulty INTEGER 难度 1-3" [ref=e551]:
+                      - cell "difficulty" [ref=e552]
+                      - cell "INTEGER" [ref=e553]
+                      - cell "难度 1-3" [ref=e554]
+                - generic [ref=e555]:
+                  - heading "recipe_ingredient（菜谱-食材关联）" [level=4] [ref=e556]
+                  - 'link "Permalink: recipe_ingredient（菜谱-食材关联）" [ref=e557] [cursor=pointer]':
+                    - /url: "#recipe_ingredient菜谱-食材关联"
+                    - img [ref=e558]
+                - table [ref=e561]:
+                  - rowgroup [ref=e562]:
+                    - row "字段 类型 说明" [ref=e563]:
+                      - columnheader "字段" [ref=e564]
+                      - columnheader "类型" [ref=e565]
+                      - columnheader "说明" [ref=e566]
+                  - rowgroup [ref=e567]:
+                    - row "id INTEGER 主键" [ref=e568]:
+                      - cell "id" [ref=e569]
+                      - cell "INTEGER" [ref=e570]
+                      - cell "主键" [ref=e571]
+                    - row "recipe_id INTEGER 外键→recipe.id" [ref=e572]:
+                      - cell "recipe_id" [ref=e573]
+                      - cell "INTEGER" [ref=e574]
+                      - cell "外键→recipe.id" [ref=e575]
+                    - row "ingredient_name TEXT 需要的食材名" [ref=e576]:
+                      - cell "ingredient_name" [ref=e577]
+                      - cell "TEXT" [ref=e578]
+                      - cell "需要的食材名" [ref=e579]
+                    - row "amount REAL 用量" [ref=e580]:
+                      - cell "amount" [ref=e581]
+                      - cell "REAL" [ref=e582]
+                      - cell "用量" [ref=e583]
+                    - row "unit TEXT 单位" [ref=e584]:
+                      - cell "unit" [ref=e585]
+                      - cell "TEXT" [ref=e586]
+                      - cell "单位" [ref=e587]
+                - generic [ref=e588]:
+                  - heading "intake_log（营养摄入日志）" [level=4] [ref=e589]
+                  - 'link "Permalink: intake_log（营养摄入日志）" [ref=e590] [cursor=pointer]':
+                    - /url: "#intake_log营养摄入日志"
+                    - img [ref=e591]
+                - table [ref=e594]:
+                  - rowgroup [ref=e595]:
+                    - row "字段 类型 说明" [ref=e596]:
+                      - columnheader "字段" [ref=e597]
+                      - columnheader "类型" [ref=e598]
+                      - columnheader "说明" [ref=e599]
+                  - rowgroup [ref=e600]:
+                    - row "id INTEGER 主键" [ref=e601]:
+                      - cell "id" [ref=e602]
+                      - cell "INTEGER" [ref=e603]
+                      - cell "主键" [ref=e604]
+                    - row "recipe_id INTEGER 外键→recipe.id" [ref=e605]:
+                      - cell "recipe_id" [ref=e606]
+                      - cell "INTEGER" [ref=e607]
+                      - cell "外键→recipe.id" [ref=e608]
+                    - row "date TEXT 食用日期" [ref=e609]:
+                      - cell "date" [ref=e610]
+                      - cell "TEXT" [ref=e611]
+                      - cell "食用日期" [ref=e612]
+                    - row "meal_type TEXT 餐别（早餐/午餐/晚餐/加餐）" [ref=e613]:
+                      - cell "meal_type" [ref=e614]
+                      - cell "TEXT" [ref=e615]
+                      - cell "餐别（早餐/午餐/晚餐/加餐）" [ref=e616]
+                - generic [ref=e617]:
+                  - heading "shopping_list（购物清单）" [level=4] [ref=e618]
+                  - 'link "Permalink: shopping_list（购物清单）" [ref=e619] [cursor=pointer]':
+                    - /url: "#shopping_list购物清单"
+                    - img [ref=e620]
+                - table [ref=e623]:
+                  - rowgroup [ref=e624]:
+                    - row "字段 类型 说明" [ref=e625]:
+                      - columnheader "字段" [ref=e626]
+                      - columnheader "类型" [ref=e627]
+                      - columnheader "说明" [ref=e628]
+                  - rowgroup [ref=e629]:
+                    - row "id INTEGER 主键" [ref=e630]:
+                      - cell "id" [ref=e631]
+                      - cell "INTEGER" [ref=e632]
+                      - cell "主键" [ref=e633]
+                    - row "ingredient_name TEXT 食材名" [ref=e634]:
+                      - cell "ingredient_name" [ref=e635]
+                      - cell "TEXT" [ref=e636]
+                      - cell "食材名" [ref=e637]
+                    - row "category_id INTEGER 外键→category.id" [ref=e638]:
+                      - cell "category_id" [ref=e639]
+                      - cell "INTEGER" [ref=e640]
+                      - cell "外键→category.id" [ref=e641]
+                    - row "checked INTEGER 0=未买 1=已买" [ref=e642]:
+                      - cell "checked" [ref=e643]
+                      - cell "INTEGER" [ref=e644]
+                      - cell "0=未买 1=已买" [ref=e645]
+                - generic [ref=e646]:
+                  - heading "4.3 关键查询示例" [level=3] [ref=e647]
+                  - 'link "Permalink: 4.3 关键查询示例" [ref=e648] [cursor=pointer]':
+                    - /url: "#43-关键查询示例"
+                    - img [ref=e649]
+                - paragraph [ref=e651]:
+                  - strong [ref=e652]: 查询即将过期的食材（48 小时内）：
+                - generic [ref=e653]:
+                  - generic [ref=e654]:
+                    - text: SELECT name, buy_date, expire_days, date(buy_date,
+                    - generic [ref=e655]: "'+'"
+                    - text: "|| expire_days ||"
+                    - generic [ref=e656]: "' days'"
+                    - text: ) AS expire_date FROM ingredient WHERE date(buy_date,
+                    - generic [ref=e657]: "'+'"
+                    - text: "|| expire_days ||"
+                    - generic [ref=e658]: "' days'"
+                    - text: ) <= date(
+                    - generic [ref=e659]: "'now'"
+                    - text: ","
+                    - generic [ref=e660]: "'+2 days'"
+                    - text: );
+                  - button "Copy code to clipboard" [ref=e662] [cursor=pointer]:
+                    - img [ref=e663]
+                - paragraph [ref=e666]:
+                  - strong [ref=e667]: 查询可用菜谱（匹配度 ≥ 80%）：
+                - generic [ref=e668]:
+                  - generic [ref=e669]: SELECT r.*, COUNT(ri.id) AS total_needed, SUM(CASE WHEN i.id IS NOT NULL THEN 1 ELSE 0 END) AS available, CAST(SUM(CASE WHEN i.id IS NOT NULL THEN 1 ELSE 0 END) AS REAL) / COUNT(ri.id) AS match_rate FROM recipe r JOIN recipe_ingredient ri ON r.id = ri.recipe_id LEFT JOIN ingredient i ON ri.ingredient_name = i.name GROUP BY r.id HAVING match_rate >= 0.8 ORDER BY match_rate DESC;
+                  - button "Copy code to clipboard" [ref=e671] [cursor=pointer]:
+                    - img [ref=e672]
+                - paragraph [ref=e675]:
+                  - strong [ref=e676]: 本周营养摄入统计：
+                - generic [ref=e677]:
+                  - generic [ref=e678]:
+                    - text: SELECT SUM(r.calories) AS total_cal, SUM(r.protein) AS total_protein, SUM(r.fat) AS total_fat, SUM(r.carbs) AS total_carbs FROM intake_log il JOIN recipe r ON il.recipe_id = r.id WHERE il.date >= date(
+                    - generic [ref=e679]: "'now'"
+                    - text: ","
+                    - generic [ref=e680]: "'weekday 1'"
+                    - text: ","
+                    - generic [ref=e681]: "'-7 days'"
+                    - text: );
+                  - button "Copy code to clipboard" [ref=e683] [cursor=pointer]:
+                    - img [ref=e684]
+                - separator [ref=e687]
+                - generic [ref=e688]:
+                  - heading "5. 界面实现" [level=2] [ref=e689]
+                  - 'link "Permalink: 5. 界面实现" [ref=e690] [cursor=pointer]':
+                    - /url: "#5-界面实现"
+                    - img [ref=e691]
+                - generic [ref=e693]:
+                  - heading "5.1 冰箱总览" [level=3] [ref=e694]
+                  - 'link "Permalink: 5.1 冰箱总览" [ref=e695] [cursor=pointer]':
+                    - /url: "#51-冰箱总览"
+                    - img [ref=e696]
+                - generic [ref=e698]:
+                  - code [ref=e700]: "┌──────────────────────────┐ │ 冰箱总览 🔍 搜索 │ ← Toolbar ├──────────────────────────┤ │ [蔬菜] [水果] [肉类] [乳品]│ ← TabLayout 分类 ├──────────────────────────┤ │ ┌─────┐ ┌─────┐ ┌─────┐ │ │ │🟢 │ │🟡 │ │🔴 │ │ ← GridView │ │番茄 │ │菠菜 │ │豆腐 │ │ 每格: 图片+名字+剩余天数 │ │3天 │ │1天 │ │-2天 │ │ │ └─────┘ └─────┘ └─────┘ │ │ ┌─────┐ │ │ │🟢 │ │ │ │鸡蛋 │ │ │ │10天 │ │ │ └─────┘ │ ├──────────────────────────┤ │ 📷录入 🍳菜谱 📊报告 │ ← BottomNavigationView └──────────────────────────┘"
+                  - button "Copy code to clipboard" [ref=e702] [cursor=pointer]:
+                    - img [ref=e703]
+                - generic [ref=e706]:
+                  - heading "5.2 食材录入" [level=3] [ref=e707]
+                  - 'link "Permalink: 5.2 食材录入" [ref=e708] [cursor=pointer]':
+                    - /url: "#52-食材录入"
+                    - img [ref=e709]
+                - generic [ref=e711]:
+                  - code [ref=e713]: "┌──────────────────────────┐ │ ← 返回 │ │ │ │ ┌──────────────────┐ │ │ │ │ │ │ │ 拍照预览区 │ │ │ │ │ │ │ │ [拍照/重拍] │ │ │ └──────────────────┘ │ │ │ │ 识别中... ⏳ │ │ │ │ 食材名: [番茄____________] │ ← 可手动修改 │ 类别: [蔬菜 ▼ ] │ ← Spinner │ 数量: [3 个] │ │ 保质期: [ 5 ] 天 │ │ │ │ [ 确认入库 ] │ └──────────────────────────┘"
+                  - button "Copy code to clipboard" [ref=e715] [cursor=pointer]:
+                    - img [ref=e716]
+                - generic [ref=e719]:
+                  - heading "5.3 智能菜谱" [level=3] [ref=e720]
+                  - 'link "Permalink: 5.3 智能菜谱" [ref=e721] [cursor=pointer]':
+                    - /url: "#53-智能菜谱"
+                    - img [ref=e722]
+                - generic [ref=e724]:
+                  - code [ref=e726]: ┌──────────────────────────┐ │ 🍳 推荐菜谱 🔍 │ ├──────────────────────────┤ │ ┌──────────────────────┐ │ │ │ 🍅 番茄炒蛋 匹配95% │ │ ← RecyclerView │ │ 缺:无 │ │ │ ├──────────────────────┤ │ │ │ 🥬 菠菜汤 匹配67% │ │ │ │ 缺:豆腐 │ │ [加入购物单] │ ├──────────────────────┤ │ │ │ 🥚 蛋炒饭 匹配50% │ │ │ │ 缺:米饭,火腿 │ │ [加入购物单] │ └──────────────────────┘ │ ├──────────────────────────┤ │ 📷录入 🏠冰箱 📊报告 │ └──────────────────────────┘
+                  - button "Copy code to clipboard" [ref=e728] [cursor=pointer]:
+                    - img [ref=e729]
+                - generic [ref=e732]:
+                  - heading "5.4 营养报告" [level=3] [ref=e733]
+                  - 'link "Permalink: 5.4 营养报告" [ref=e734] [cursor=pointer]':
+                    - /url: "#54-营养报告"
+                    - img [ref=e735]
+                - generic [ref=e737]:
+                  - code [ref=e739]: "┌──────────────────────────┐ │ 📊 本周营养报告 │ ├──────────────────────────┤ │ 热量: 2100 kcal/日 │ │ 推荐: 2000 kcal ▲5% │ │ │ │ ┌────────────────┐ │ │ │ 雷达图 │ │ ← 蛋白质/脂肪/碳水/纤维 │ │ 你的 vs 推荐 │ │ │ └────────────────┘ │ │ │ │ ┌────────────────┐ │ │ │ 7日折线图 │ │ ← 热量变化趋势 │ └────────────────┘ │ │ │ │ 💡 建议：本周蛋白质摄入 │ │ 偏低，推荐增加豆制品 │ ├──────────────────────────┤ │ 购物清单 │ │ ☐ 豆腐 │ │ ☑ 鸡蛋 (已买) │ │ ☐ 火腿 │ └──────────────────────────┘"
+                  - button "Copy code to clipboard" [ref=e741] [cursor=pointer]:
+                    - img [ref=e742]
+                - separator [ref=e745]
+                - generic [ref=e746]:
+                  - heading "6. 功能实现" [level=2] [ref=e747]
+                  - 'link "Permalink: 6. 功能实现" [ref=e748] [cursor=pointer]':
+                    - /url: "#6-功能实现"
+                    - img [ref=e749]
+                - generic [ref=e751]:
+                  - heading "6.1 食材过期预警 Service" [level=3] [ref=e752]
+                  - 'link "Permalink: 6.1 食材过期预警 Service" [ref=e753] [cursor=pointer]':
+                    - /url: "#61-食材过期预警-service"
+                    - img [ref=e754]
+                - generic [ref=e756]:
+                  - generic [ref=e757]: "public class ExpireCheckService extends Service { @Override public int onStartCommand(Intent intent, int flags, int startId) { // 查询 48 小时内到期食材 // 构建通知 → NotificationManager.notify() // 设置 AlarmManager 明日再检查 return START_STICKY; } }"
+                  - button "Copy code to clipboard" [ref=e759] [cursor=pointer]:
+                    - img [ref=e760]
+                - generic [ref=e763]:
+                  - heading "6.2 菜谱匹配算法" [level=3] [ref=e764]
+                  - 'link "Permalink: 6.2 菜谱匹配算法" [ref=e765] [cursor=pointer]':
+                    - /url: "#62-菜谱匹配算法"
+                    - img [ref=e766]
+                - generic [ref=e768]:
+                  - generic [ref=e769]: "public List<Recipe> matchRecipes(List<Ingredient> fridgeItems) { List<Recipe> allRecipes = recipeDao.getAll(); List<Recipe> matched = new ArrayList<>(); for (Recipe r : allRecipes) { List<String> needed = recipeDao.getIngredients(r.id); int available = 0; List<String> missing = new ArrayList<>(); for (String ing : needed) { if (fridgeItems.stream().anyMatch(i -> i.name.equals(ing))) { available++; } else { missing.add(ing); } } double rate = (double) available / needed.size(); if (rate >= 0.8) { r.matchRate = rate; r.missingIngredients = missing; matched.add(r); } } Collections.sort(matched, (a, b) -> Double.compare(b.matchRate, a.matchRate)); return matched; }"
+                  - button "Copy code to clipboard" [ref=e771] [cursor=pointer]:
+                    - img [ref=e772]
+                - generic [ref=e775]:
+                  - heading "6.3 华为云 IoT 同步" [level=3] [ref=e776]
+                  - 'link "Permalink: 6.3 华为云 IoT 同步" [ref=e777] [cursor=pointer]':
+                    - /url: "#63-华为云-iot-同步"
+                    - img [ref=e778]
+                - generic [ref=e780]:
+                  - generic [ref=e781]: "// 模拟同步菜谱库到华为云 // 使用 HttpURLConnection POST JSON 到华为云 IoT 设备影子 // 实际演示时用模拟数据展示通信流程 public void syncToCloud(List<Recipe> recipes) { new Thread(() -> { try { URL url = new URL(\"https://iot.cn-north-4.myhuaweicloud.com/v5/...\"); HttpURLConnection conn = (HttpURLConnection) url.openConnection(); conn.setRequestMethod(\"POST\"); conn.setRequestProperty(\"Content-Type\", \"application/json\"); // ...发送 JSON } catch (Exception e) { e.printStackTrace(); } }).start(); }"
+                  - button "Copy code to clipboard" [ref=e783] [cursor=pointer]:
+                    - img [ref=e784]
+                - separator [ref=e787]
+                - generic [ref=e788]:
+                  - heading "7. 开源/外部资源说明" [level=2] [ref=e789]
+                  - 'link "Permalink: 7. 开源/外部资源说明" [ref=e790] [cursor=pointer]':
+                    - /url: "#7-开源外部资源说明"
+                    - img [ref=e791]
+                - table [ref=e794]:
+                  - rowgroup [ref=e795]:
+                    - row "资源 来源 本项目用途" [ref=e796]:
+                      - columnheader "资源" [ref=e797]
+                      - columnheader "来源" [ref=e798]
+                      - columnheader "本项目用途" [ref=e799]
+                  - rowgroup [ref=e800]:
+                    - row "MPAndroidChart GitHub 开源 (Apache 2.0) 营养雷达图 + 折线图" [ref=e801]:
+                      - cell "MPAndroidChart" [ref=e802]
+                      - cell "GitHub 开源 (Apache 2.0)" [ref=e803]
+                      - cell "营养雷达图 + 折线图" [ref=e804]
+                    - row "Room Android Jetpack SQLite ORM" [ref=e805]:
+                      - cell "Room" [ref=e806]
+                      - cell "Android Jetpack" [ref=e807]
+                      - cell "SQLite ORM" [ref=e808]
+                    - row "CameraX Android Jetpack 相机调用" [ref=e809]:
+                      - cell "CameraX" [ref=e810]
+                      - cell "Android Jetpack" [ref=e811]
+                      - cell "相机调用" [ref=e812]
+                    - row "Material Design Icons Google UI 图标" [ref=e813]:
+                      - cell "Material Design Icons" [ref=e814]
+                      - cell "Google" [ref=e815]
+                      - cell "UI 图标" [ref=e816]
+                    - row "食材图片 部分来自 Unsplash (CC0) 食材/菜谱配图" [ref=e817]:
+                      - cell "食材图片" [ref=e818]
+                      - cell "部分来自 Unsplash (CC0)" [ref=e819]
+                      - cell "食材/菜谱配图" [ref=e820]
+                    - row "菜谱营养数据 中国食物成分表公开数据 菜谱库营养值" [ref=e821]:
+                      - cell "菜谱营养数据" [ref=e822]
+                      - cell "中国食物成分表公开数据" [ref=e823]
+                      - cell "菜谱库营养值" [ref=e824]
+                - paragraph [ref=e825]:
+                  - strong [ref=e826]: 个人编写部分
+                  - text: ：全部 Activity 逻辑、数据库表设计、菜谱匹配算法、过期预警 Service、营养建议生成逻辑、华为云通信层。
+                - separator [ref=e827]
+                - generic [ref=e828]:
+                  - heading "8. 工作小结" [level=2] [ref=e829]
+                  - 'link "Permalink: 8. 工作小结" [ref=e830] [cursor=pointer]':
+                    - /url: "#8-工作小结"
+                    - img [ref=e831]
+                - paragraph [ref=e833]:
+                  - text: 本项目以"家庭冰箱管理"为切入点，设计了基于 Android 的智能冰箱管家 APP。核心创新点在于将
+                  - strong [ref=e834]: 模拟视觉识别录入、营养学分析、菜谱智能匹配
+                  - text: 三个环节串联，形成"录入 → 管理 → 推荐 → 分析 → 采购"的完整闭环。
+                - paragraph [ref=e835]: 技术实现上使用了 SQLite（Room）做本地存储，Service + AlarmManager 做定时任务，MPAndroidChart 做数据可视化，华为云 IoT 做数据同步。数据库设计涵盖了 5 张关联表，包含多表联合查询、聚合统计、条件过滤等复杂 SQL 操作。
+                - paragraph [ref=e836]: 项目在演示时可完整展示拍照录入食材、食材过期预警、菜谱匹配推荐、营养报告生成等核心流程，满足课程考核的全部评分要求。
+  - alert [ref=e840]

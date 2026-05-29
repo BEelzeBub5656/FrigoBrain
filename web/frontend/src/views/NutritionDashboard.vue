@@ -2,14 +2,14 @@
   <div class="nutrition">
     <div class="page-header">
       <div>
-        <h2 class="page-title">Nutrition Dashboard</h2>
-        <p class="page-desc">Weekly nutrition intake and analysis</p>
+        <h2 class="page-title">营养仪表盘</h2>
+        <p class="page-desc">每周营养摄入与分析</p>
       </div>
       <el-date-picker
         v-model="weekRange"
         type="week"
         format="Week WW, YYYY"
-        placeholder="Select week"
+        placeholder="选择周"
         size="default"
         @change="fetchData"
       />
@@ -35,8 +35,8 @@
         <el-card shadow="never" class="chart-card">
           <template #header>
             <div class="card-header">
-              <span>Nutrition vs Recommended</span>
-              <el-tag size="small" type="success">Daily target</el-tag>
+              <span>营养与推荐值对比</span>
+              <el-tag size="small" type="success">每日目标</el-tag>
             </div>
           </template>
           <div ref="radarChartRef" class="chart-container"></div>
@@ -48,7 +48,7 @@
         <el-card shadow="never" class="chart-card">
           <template #header>
             <div class="card-header">
-              <span>7-Day Calorie Trend</span>
+              <span>7天热量趋势</span>
               <el-tag size="small" type="warning">kcal</el-tag>
             </div>
           </template>
@@ -63,8 +63,8 @@
         <el-card shadow="never" class="chart-card">
           <template #header>
             <div class="card-header">
-              <span>Daily Macro Breakdown</span>
-              <el-tag size="small" type="info">grams</el-tag>
+              <span>每日营养分解</span>
+              <el-tag size="small" type="info">克</el-tag>
             </div>
           </template>
           <div ref="macroChartRef" class="chart-container chart-macro"></div>
@@ -76,29 +76,29 @@
     <el-card shadow="never" class="table-card">
       <template #header>
         <div class="card-header">
-          <span>Daily Nutrition Log</span>
+          <span>每日营养记录</span>
         </div>
       </template>
       <el-table :data="dailyTable" stripe size="small" style="width: 100%">
-        <el-table-column prop="date" label="Day" width="120" />
-        <el-table-column prop="calories" label="Calories (kcal)" width="140" align="center">
+        <el-table-column prop="date" label="日期" width="120" />
+        <el-table-column prop="calories" label="热量（千卡）" width="140" align="center">
           <template #default="{ row }">
             <span :style="{ color: row.calories > 2200 ? '#F56C6C' : '#67C23A', fontWeight: 600 }">
               {{ row.calories }}
             </span>
           </template>
         </el-table-column>
-        <el-table-column prop="protein" label="Protein (g)" width="120" align="center" />
-        <el-table-column prop="fat" label="Fat (g)" width="120" align="center" />
-        <el-table-column prop="carbs" label="Carbs (g)" width="120" align="center" />
-        <el-table-column label="Status" min-width="140" align="center">
+        <el-table-column prop="protein" label="蛋白质（克）" width="120" align="center" />
+        <el-table-column prop="fat" label="脂肪（克）" width="120" align="center" />
+        <el-table-column prop="carbs" label="碳水（克）" width="120" align="center" />
+        <el-table-column label="状态" min-width="140" align="center">
           <template #default="{ row }">
             <el-tag
               :type="row.calories > 2200 ? 'warning' : 'success'"
               size="small"
               effect="plain"
             >
-              {{ row.calories > 2200 ? 'Over target' : 'Within target' }}
+              {{ row.calories > 2200 ? '超出目标' : '在目标内' }}
             </el-tag>
           </template>
         </el-table-column>
@@ -125,10 +125,10 @@ const nutritionData = ref({ dates: [], calories: [], protein: [], fat: [], carbs
 const recommended = ref({})
 
 const nutritionStats = reactive([
-  { icon: 'Sunny', value: '0', label: 'Avg Calories', subtext: 'kcal / day', color: '#4CAF50' },
-  { icon: 'Goblet', value: '0', label: 'Avg Protein', subtext: 'g / day', color: '#409EFF' },
-  { icon: 'Coin', value: '0', label: 'Avg Fat', subtext: 'g / day', color: '#E6A23C' },
-  { icon: 'Grape', value: '0', label: 'Avg Carbs', subtext: 'g / day', color: '#F56C6C' }
+  { icon: 'Sunny', value: '0', label: '日均热量', subtext: '千卡/天', color: '#4CAF50' },
+  { icon: 'Goblet', value: '0', label: '日均蛋白质', subtext: '克/天', color: '#409EFF' },
+  { icon: 'Coin', value: '0', label: '日均脂肪', subtext: '克/天', color: '#E6A23C' },
+  { icon: 'Grape', value: '0', label: '日均碳水', subtext: '克/天', color: '#F56C6C' }
 ])
 
 const dailyTable = computed(() => {
@@ -158,10 +158,10 @@ async function fetchData() {
     nutritionStats[2].value = avgFat
     nutritionStats[3].value = avgCarb
 
-    nutritionStats[0].subtext = `Target: ${recommended.value.calories || 2200} kcal`
-    nutritionStats[1].subtext = `Target: ${recommended.value.protein || 80} g`
-    nutritionStats[2].subtext = `Target: ${recommended.value.fat || 65} g`
-    nutritionStats[3].subtext = `Target: ${recommended.value.carbs || 260} g`
+    nutritionStats[0].subtext = `目标: ${recommended.value.calories || 2200} 千卡`
+    nutritionStats[1].subtext = `目标: ${recommended.value.protein || 80} 克`
+    nutritionStats[2].subtext = `目标: ${recommended.value.fat || 65} 克`
+    nutritionStats[3].subtext = `目标: ${recommended.value.carbs || 260} 克`
   } catch {
     // mock data handled in api
   }
@@ -190,12 +190,12 @@ function initRadarChart() {
   radarChart.setOption({
     radar: {
       indicator: [
-        { name: 'Calories', max: (rec.calories || 2200) * 1.5 },
-        { name: 'Protein', max: (rec.protein || 80) * 1.5 },
-        { name: 'Fat', max: (rec.fat || 65) * 1.5 },
-        { name: 'Carbs', max: (rec.carbs || 260) * 1.5 },
-        { name: 'Fiber', max: (rec.fiber || 30) * 1.5 },
-        { name: 'Sugar', max: (rec.sugar || 36) * 1.5 }
+        { name: '热量', max: (rec.calories || 2200) * 1.5 },
+        { name: '蛋白质', max: (rec.protein || 80) * 1.5 },
+        { name: '脂肪', max: (rec.fat || 65) * 1.5 },
+        { name: '碳水', max: (rec.carbs || 260) * 1.5 },
+        { name: '膳食纤维', max: (rec.fiber || 30) * 1.5 },
+        { name: '糖分', max: (rec.sugar || 36) * 1.5 }
       ],
       shape: 'circle',
       splitNumber: 4,
@@ -220,14 +220,14 @@ function initRadarChart() {
         data: [
           {
             value: [avgCal, avgPro, avgFat, avgCarb],
-            name: 'Actual Average',
+            name: '实际平均值',
             areaStyle: { color: 'rgba(76, 175, 80, 0.3)' },
             lineStyle: { color: '#4CAF50', width: 2 },
             itemStyle: { color: '#4CAF50' }
           },
           {
             value: [rec.calories || 2200, rec.protein || 80, rec.fat || 65, rec.carbs || 260, rec.fiber || 30, rec.sugar || 36],
-            name: 'Recommended',
+            name: '推荐值',
             areaStyle: { color: 'rgba(64, 158, 255, 0.2)' },
             lineStyle: { color: '#409EFF', width: 2, type: 'dashed' },
             itemStyle: { color: '#409EFF' }
@@ -246,7 +246,7 @@ function initRadarChart() {
     },
     legend: {
       bottom: 0,
-      data: ['Actual Average', 'Recommended'],
+      data: ['实际平均值', '推荐值'],
       textStyle: { color: '#909399', fontSize: 12 }
     }
   })
@@ -291,7 +291,7 @@ function initLineChart() {
           silent: true,
           data: [{ yAxis: recommended.value.calories || 2200 }],
           label: {
-            formatter: 'Target: {c} kcal',
+            formatter: '目标: {c} 千卡',
             color: '#909399',
             fontSize: 11,
             position: 'end'
@@ -307,7 +307,7 @@ function initLineChart() {
       borderWidth: 1,
       formatter: (params) => {
         const p = params[0]
-        return `<strong>${p.axisValue}</strong><br/>Calories: ${p.value} kcal`
+        return `<strong>${p.axisValue}</strong><br/>热量: ${p.value} 千卡`
       }
     }
   })
@@ -335,7 +335,7 @@ function initMacroChart() {
     },
     series: [
       {
-        name: 'Protein',
+        name: '蛋白质',
         type: 'bar',
         stack: 'macro',
         data: nd.protein,
@@ -343,14 +343,14 @@ function initMacroChart() {
         barWidth: 40
       },
       {
-        name: 'Fat',
+        name: '脂肪',
         type: 'bar',
         stack: 'macro',
         data: nd.fat,
         itemStyle: { color: '#E6A23C', borderRadius: 0 }
       },
       {
-        name: 'Carbs',
+        name: '碳水',
         type: 'bar',
         stack: 'macro',
         data: nd.carbs,
@@ -369,13 +369,13 @@ function initMacroChart() {
           html += `${p.marker} ${p.seriesName}: ${p.value}g<br/>`
           total += p.value
         })
-        html += `<hr style="margin:4px 0"/><span>Total: ${total}g</span>`
+        html += `<hr style="margin:4px 0"/><span>总计: ${total}克</span>`
         return html
       }
     },
     legend: {
       bottom: 0,
-      data: ['Protein', 'Fat', 'Carbs'],
+      data: ['蛋白质', '脂肪', '碳水'],
       textStyle: { color: '#909399', fontSize: 12 }
     }
   })

@@ -2,8 +2,8 @@
   <div class="recipes">
     <div class="page-header">
       <div>
-        <h2 class="page-title">Recipe Library</h2>
-        <p class="page-desc">Discover recipes based on your fridge contents</p>
+        <h2 class="page-title">菜谱库</h2>
+        <p class="page-desc">根据冰箱食材发现菜谱</p>
       </div>
     </div>
 
@@ -12,7 +12,7 @@
       <div class="filter-bar">
         <el-input
           v-model="searchQuery"
-          placeholder="Search recipes by name, ingredient, or tag..."
+          placeholder="按名称、食材或标签搜索菜谱..."
           :prefix-icon="Search"
           clearable
           class="search-input"
@@ -20,23 +20,30 @@
         />
         <div class="filter-row">
           <div class="filter-group">
-            <span class="filter-label">Cuisine:</span>
+            <span class="filter-label">菜系：</span>
             <el-radio-group v-model="cuisineFilter" @change="fetchRecipes" size="small">
-              <el-radio-button value="">All</el-radio-button>
-              <el-radio-button value="Western">Western</el-radio-button>
-              <el-radio-button value="Asian">Asian</el-radio-button>
-              <el-radio-button value="Italian">Italian</el-radio-button>
-              <el-radio-button value="Mexican">Mexican</el-radio-button>
-              <el-radio-button value="International">International</el-radio-button>
+              <el-radio-button value="">全部</el-radio-button>
+              <el-radio-button value="川菜">川菜</el-radio-button>
+              <el-radio-button value="鲁菜">鲁菜</el-radio-button>
+              <el-radio-button value="粤菜">粤菜</el-radio-button>
+              <el-radio-button value="苏菜">苏菜</el-radio-button>
+              <el-radio-button value="浙菜">浙菜</el-radio-button>
+              <el-radio-button value="闽菜">闽菜</el-radio-button>
+              <el-radio-button value="湘菜">湘菜</el-radio-button>
+              <el-radio-button value="徽菜">徽菜</el-radio-button>
+              <el-radio-button value="东北菜">东北菜</el-radio-button>
+              <el-radio-button value="家常菜">家常菜</el-radio-button>
+              <el-radio-button value="轻食">轻食</el-radio-button>
+              <el-radio-button value="早餐">早餐</el-radio-button>
             </el-radio-group>
           </div>
           <div class="filter-group">
-            <span class="filter-label">Difficulty:</span>
+            <span class="filter-label">难度：</span>
             <el-radio-group v-model="difficultyFilter" @change="fetchRecipes" size="small">
-              <el-radio-button value="">All</el-radio-button>
-              <el-radio-button value="Easy">Easy</el-radio-button>
-              <el-radio-button value="Medium">Medium</el-radio-button>
-              <el-radio-button value="Hard">Hard</el-radio-button>
+              <el-radio-button value="">全部</el-radio-button>
+              <el-radio-button value="Easy">简单</el-radio-button>
+              <el-radio-button value="Medium">中等</el-radio-button>
+              <el-radio-button value="Hard">困难</el-radio-button>
             </el-radio-group>
           </div>
         </div>
@@ -48,7 +55,7 @@
       <el-skeleton :rows="3" animated />
     </div>
     <div v-else-if="recipes.length === 0" class="empty-state">
-      <el-empty description="No recipes found" :image-size="120" />
+      <el-empty description="未找到菜谱" :image-size="120" />
     </div>
     <el-row v-else :gutter="20" class="recipe-grid">
       <el-col
@@ -108,7 +115,7 @@
     <!-- Recipe Detail Drawer -->
     <el-drawer
       v-model="showDrawer"
-      :title="selectedRecipe?.name || 'Recipe Detail'"
+      :title="selectedRecipe?.name || '菜谱详情'"
       size="500px"
       destroy-on-close
     >
@@ -119,25 +126,25 @@
             <el-col :span="6">
               <div class="drawer-stat">
                 <span class="drawer-stat-value">{{ selectedRecipe.calories }}</span>
-                <span class="drawer-stat-label">Calories</span>
+                <span class="drawer-stat-label">热量</span>
               </div>
             </el-col>
             <el-col :span="6">
               <div class="drawer-stat">
                 <span class="drawer-stat-value">{{ selectedRecipe.nutrition?.protein || '-' }}</span>
-                <span class="drawer-stat-label">Protein (g)</span>
+                <span class="drawer-stat-label">蛋白质（克）</span>
               </div>
             </el-col>
             <el-col :span="6">
               <div class="drawer-stat">
                 <span class="drawer-stat-value">{{ selectedRecipe.nutrition?.fat || '-' }}</span>
-                <span class="drawer-stat-label">Fat (g)</span>
+                <span class="drawer-stat-label">脂肪（克）</span>
               </div>
             </el-col>
             <el-col :span="6">
               <div class="drawer-stat">
                 <span class="drawer-stat-value">{{ selectedRecipe.nutrition?.carbs || '-' }}</span>
-                <span class="drawer-stat-label">Carbs (g)</span>
+                <span class="drawer-stat-label">碳水（克）</span>
               </div>
             </el-col>
           </el-row>
@@ -175,7 +182,7 @@
           <div class="drawer-section">
             <h4 class="drawer-section-title">
               <el-icon :size="18"><ShoppingTrolley /></el-icon>
-              Ingredients
+              食材
             </h4>
             <ul class="ingredient-list">
               <li v-for="(ing, idx) in selectedRecipe.ingredients" :key="idx" class="ingredient-item">
@@ -188,7 +195,7 @@
           <div class="drawer-section">
             <h4 class="drawer-section-title">
               <el-icon :size="18"><List /></el-icon>
-              Instructions
+              步骤
             </h4>
             <ol class="step-list">
               <li v-for="(step, idx) in selectedRecipe.steps" :key="idx" class="step-item">

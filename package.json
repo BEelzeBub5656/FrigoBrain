@@ -1,0 +1,9 @@
+{
+  "name": "web-training",
+  "version": "1.0.0",
+  "description": "Web开发实训项目",
+  "private": true,
+  "dependencies": {
+    "gsap": "^3.15.0"
+  }
+}

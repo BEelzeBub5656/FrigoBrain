@@ -23,7 +23,7 @@ public class StatisticsController {
         this.foodService = foodService;
     }
 
-    @GetMapping("/waste/monthly")
+    @GetMapping({"/waste/monthly", "/waste-monthly"})
     public ResponseEntity<List<WasteTrendDTO>> getMonthlyWaste() {
         List<WasteTrendDTO> wasteData = statisticsService.getMonthlyWasteByCategory();
         return ResponseEntity.ok(wasteData);
@@ -37,13 +37,14 @@ public class StatisticsController {
         return ResponseEntity.ok(stats);
     }
 
-    @GetMapping("/nutrition/trend")
-    public ResponseEntity<List<NutritionStatsDTO>> getNutritionTrend() {
+    @GetMapping({"/nutrition/trend", "/trend"})
+    public ResponseEntity<List<NutritionStatsDTO>> getNutritionTrend(
+            @RequestParam(required = false, defaultValue = "7") int days) {
         List<NutritionStatsDTO> trend = statisticsService.getNutritionTrend();
         return ResponseEntity.ok(trend);
     }
 
-    @GetMapping("/inventory/summary")
+    @GetMapping({"/inventory/summary", "/inventory-summary"})
     public ResponseEntity<InventorySummaryDTO> getInventorySummary() {
         InventorySummaryDTO summary = foodService.getInventorySummary();
         return ResponseEntity.ok(summary);
