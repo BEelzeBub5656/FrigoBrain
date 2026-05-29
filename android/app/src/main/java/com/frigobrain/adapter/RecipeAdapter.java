@@ -1,7 +1,7 @@
 package com.frigobrain.adapter;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
+import android.widget.Toast;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.frigobrain.R;
 import com.frigobrain.data.db.entity.Recipe;
-import com.frigobrain.ui.recipe.RecipeDetailActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,16 +61,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 (int)recipe.getProtein() + "g | 碳水" + (int)recipe.getCarbs() + "g");
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), RecipeDetailActivity.class);
-            intent.putExtra("recipeId", recipe.getRecipeId());
-            intent.putExtra("recipeName", recipe.getName());
-            intent.putExtra("instructions", recipe.getInstructions());
-            intent.putExtra("calories", recipe.getCalories());
-            intent.putExtra("protein", recipe.getProtein());
-            intent.putExtra("fat", recipe.getFat());
-            intent.putExtra("carbs", recipe.getCarbs());
-            intent.putExtra("tags", recipe.getTags());
-            v.getContext().startActivity(intent);
+            Toast.makeText(v.getContext(),
+                recipe.getName() + " · " + recipe.getCalories() + "kcal",
+                Toast.LENGTH_SHORT).show();
         });
     }
 

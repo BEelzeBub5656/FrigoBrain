@@ -1,7 +1,7 @@
 package com.frigobrain.adapter;
 
-import android.content.Intent;
 import android.graphics.Color;
+import android.widget.Toast;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,6 @@ import com.frigobrain.R;
 import com.frigobrain.data.db.entity.FoodCategory;
 import com.frigobrain.data.db.entity.FoodItem;
 import com.frigobrain.data.model.FoodWithCategory;
-import com.frigobrain.ui.inventory.FoodDetailActivity;
 import com.frigobrain.util.DateUtils;
 
 import java.util.ArrayList;
@@ -61,9 +60,8 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.ViewHo
         holder.vStatus.setBackgroundColor(statusColor);
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), FoodDetailActivity.class);
-            intent.putExtra("foodId", food.getFoodId());
-            v.getContext().startActivity(intent);
+            String msg = food.getName() + " · " + statusText;
+            Toast.makeText(v.getContext(), msg, Toast.LENGTH_SHORT).show();
         });
     }
 
