@@ -13,7 +13,10 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+
 import com.frigobrain.FrigoBrainApp;
+import com.frigobrain.MainActivity;
 import com.frigobrain.R;
 import com.frigobrain.data.db.AppDatabase;
 import com.frigobrain.data.db.entity.FoodItem;
@@ -52,6 +55,7 @@ public class FoodAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_add);
+        setupHeader("录入食材");
 
         db = AppDatabase.getInstance(this);
         userId = FrigoBrainApp.getCurrentUserId();
@@ -209,6 +213,15 @@ public class FoodAddActivity extends AppCompatActivity {
                 Toast.makeText(this, "食材 " + name + " 已入库", Toast.LENGTH_SHORT).show();
                 finish();
             });
+        });
+    }
+
+    private void setupHeader(String title) {
+        TextView tv = findViewById(R.id.tv_page_title);
+        if (tv != null) tv.setText(title);
+        findViewById(R.id.btn_home).setOnClickListener(v -> {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
         });
     }
 }

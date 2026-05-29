@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- Top Bar -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/primary"
+        android:layout_height="52dp"
+        android:background="@color/primaryDark"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="16dp">
@@ -17,20 +18,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/app_name_cn"
+            android:text="FrigoBrain · 仪表盘"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_user_name"
+            android:id="@+id/tv_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:text="v0.0.3"
+            android:textColor="#AAFFFFFF"
+            android:textSize="11sp" />
     </LinearLayout>
 
-    <!-- Expiry alert banner -->
+    <!-- Expiry Alert -->
     <LinearLayout
         android:id="@+id/banner_expiry"
         android:layout_width="match_parent"
@@ -38,7 +40,7 @@
         android:background="#FFF3E0"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="12dp"
+        android:padding="10dp"
         android:visibility="gone">
 
         <TextView
@@ -49,28 +51,187 @@
             android:textColor="#E65100"
             android:textSize="13sp" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_view_expiring"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:backgroundTint="@color/accent"
+            android:layout_height="30dp"
+            android:background="#FF9800"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
             android:text="查看"
             android:textColor="@android:color/white"
             android:textSize="12sp" />
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="#F1F8E9">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Quick Stats Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/card_total"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/surface"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:elevation="2dp"
+                    android:outlineProvider="background">
+                    <TextView android:id="@+id/tv_total_count"
+                        android:text="0" android:textColor="@color/primary"
+                        android:textSize="28sp" android:textStyle="bold" />
+                    <TextView android:text="食材总数" android:textColor="#999" android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/card_expiring"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@color/surface"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:elevation="2dp">
+                    <TextView android:id="@+id/tv_expiring_count"
+                        android:text="0" android:textColor="#FF9800"
+                        android:textSize="28sp" android:textStyle="bold" />
+                    <TextView android:text="即将过期" android:textColor="#999" android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/card_weekly"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:background="@color/surface"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:elevation="2dp">
+                    <TextView android:id="@+id/tv_weekly_cal"
+                        android:text="0" android:textColor="@color/protein"
+                        android:textSize="28sp" android:textStyle="bold" />
+                    <TextView android:text="本周热量" android:textColor="#999" android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Feature Buttons -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="快捷功能"
+                android:textColor="@color/primaryDark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/btn_quick_add"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:background="@color/surface"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:elevation="2dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <TextView android:text="📷" android:textSize="32sp" />
+                    <TextView android:text="录入食材" android:textColor="@color/onBackground"
+                        android:textSize="14sp" android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_quick_recipe"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:background="@color/surface"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:elevation="2dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <TextView android:text="🍳" android:textSize="32sp" />
+                    <TextView android:text="智能菜谱" android:textColor="@color/onBackground"
+                        android:textSize="14sp" android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_quick_nutrition"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:background="@color/surface"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:elevation="2dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <TextView android:text="📊" android:textSize="32sp" />
+                    <TextView android:text="营养报告" android:textColor="@color/onBackground"
+                        android:textSize="14sp" android:layout_marginTop="4dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Recent Foods -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="冰箱食材"
+                android:textColor="@color/primaryDark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_food_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/surface"
+                android:elevation="1dp"
+                android:padding="12dp"
+                android:text="暂无食材，点击上方录入"
+                android:textColor="#999"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Nav -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/surface"
-        app:menu="@menu/nav_menu"
-        app:labelVisibilityMode="labeled" />
+        app:menu="@menu/nav_menu" />
 
 </LinearLayout>

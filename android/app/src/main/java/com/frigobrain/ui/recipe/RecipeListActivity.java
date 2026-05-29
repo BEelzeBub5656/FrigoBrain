@@ -16,7 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+
 import com.frigobrain.FrigoBrainApp;
+import com.frigobrain.MainActivity;
 import com.frigobrain.R;
 import com.frigobrain.adapter.RecipeAdapter;
 import com.frigobrain.data.db.AppDatabase;
@@ -46,6 +49,7 @@ public class RecipeListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
+        setupHeader("智能菜谱");
 
         db = AppDatabase.getInstance(this);
         apiClient = new RecipeApiClient();
@@ -196,6 +200,15 @@ public class RecipeListActivity extends AppCompatActivity {
                     Toast.makeText(RecipeListActivity.this, message, Toast.LENGTH_SHORT).show();
                 });
             }
+        });
+    }
+
+    private void setupHeader(String title) {
+        TextView tv = findViewById(R.id.tv_page_title);
+        if (tv != null) tv.setText(title);
+        findViewById(R.id.btn_home).setOnClickListener(v -> {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
         });
     }
 }

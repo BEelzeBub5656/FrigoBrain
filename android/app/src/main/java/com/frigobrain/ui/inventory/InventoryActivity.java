@@ -15,7 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.Intent;
+
 import com.frigobrain.FrigoBrainApp;
+import com.frigobrain.MainActivity;
 import com.frigobrain.R;
 import com.frigobrain.adapter.FoodItemAdapter;
 import com.frigobrain.data.db.AppDatabase;
@@ -44,6 +47,8 @@ public class InventoryActivity extends AppCompatActivity {
 
         db = AppDatabase.getInstance(this);
         userId = FrigoBrainApp.getCurrentUserId();
+
+        setupHeader("冰箱总览");
 
         etSearch = findViewById(R.id.et_search);
         btnAdd = findViewById(R.id.btn_add);
@@ -157,5 +162,14 @@ public class InventoryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadFoods();
+    }
+
+    private void setupHeader(String title) {
+        TextView tv = findViewById(R.id.tv_page_title);
+        if (tv != null) tv.setText(title);
+        findViewById(R.id.btn_home).setOnClickListener(v -> {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        });
     }
 }

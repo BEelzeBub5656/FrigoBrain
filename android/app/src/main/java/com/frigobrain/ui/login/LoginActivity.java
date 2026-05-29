@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etUsername, etPassword;
-    private Button btnLogin;
+    private Button btnLogin, btnAdmin;
     private TextView tvRegister;
     private AppDatabase db;
     private boolean isRegistering = false;
@@ -35,10 +35,30 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
         btnLogin = findViewById(R.id.btn_login);
+        btnAdmin = findViewById(R.id.btn_admin_login);
         tvRegister = findViewById(R.id.tv_register);
 
         btnLogin.setOnClickListener(v -> handleLogin());
+        btnAdmin.setOnClickListener(v -> adminLogin());
         tvRegister.setOnClickListener(v -> toggleMode());
+    }
+
+    private void adminLogin() {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            // Auto-create admin if not exists
+            String hash = sha256("admin");
+            User admin = db.userDao().login("admin", hash);
+            if (admin == null) {
+                admin = new User("admin", hash, "管理员", "OWNER");
+                db.userDao().insert(admin);
+                admin = db.userDao().login("admin", hash);
+            }
+            com.frigobrain.FrigoBrainApp.setCurrentUserId(admin.getUserId());
+            runOnUiThread(() -> {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            });
+        });
     }
 
     private void handleLogin() {

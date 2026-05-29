@@ -8,7 +8,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+
 import com.frigobrain.FrigoBrainApp;
+import com.frigobrain.MainActivity;
 import com.frigobrain.R;
 import com.frigobrain.data.db.AppDatabase;
 import com.frigobrain.util.Constants;
@@ -38,6 +41,7 @@ public class NutritionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         try {
             setContentView(R.layout.activity_nutrition);
+            setupHeader("营养报告");
 
             db = AppDatabase.getInstance(this);
             userId = FrigoBrainApp.getCurrentUserId();
@@ -125,5 +129,14 @@ public class NutritionActivity extends AppCompatActivity {
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(
                 new String[]{"周一", "周二", "周三", "周四", "周五", "周六", "周日"}));
         chart.animateX(800);
+    }
+
+    private void setupHeader(String title) {
+        TextView tv = findViewById(R.id.tv_page_title);
+        if (tv != null) tv.setText(title);
+        findViewById(R.id.btn_home).setOnClickListener(v -> {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        });
     }
 }

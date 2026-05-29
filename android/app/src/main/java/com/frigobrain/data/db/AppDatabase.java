@@ -230,6 +230,75 @@ public abstract class AppDatabase extends RoomDatabase {
         for (RecipeIngredient[] arr : recipeIngredients) {
             for (RecipeIngredient ri : arr) recipeDao().insertIngredient(ri);
         }
+
+        // === 演示数据 ===
+        long d = System.currentTimeMillis();
+        long day = 24 * 60 * 60 * 1000L;
+
+        // 内置管理员
+        User admin = new User("admin", sha256("admin"), "管理员", "OWNER");
+        userDao().insert(admin);
+
+        // 演示食材（各种过期状态）
+        FoodItem[] demos = {
+            item(1, 1, "番茄", 3, "个", d - 2*day, d + 5*day, 5.0),
+            item(1, 1, "菠菜", 1, "把", d - 1*day, d + 1*day, 3.5),
+            item(1, 2, "苹果", 5, "个", d - 3*day, d + 10*day, 12.0),
+            item(1, 1, "西兰花", 1, "颗", d - 4*day, d + 2*day, 8.0),
+            item(1, 3, "鸡胸肉", 500, "g", d - 1*day, d + 3*day, 15.0),
+            item(1, 4, "牛奶", 2, "L", d - 1*day, d + 6*day, 18.0),
+            item(1, 3, "鸡蛋", 10, "个", d - 5*day, d + 20*day, 8.0),
+            item(1, 1, "黄瓜", 2, "根", d, d + 7*day, 4.0),
+        };
+        for (FoodItem fi : demos) foodItemDao().insert(fi);
+
+        // 营养日志（过去7天）
+        NutritionLog[] logs = {
+            log(1, 1L, "BREAKFAST", d-6*day, 350, 12, 15, 28),
+            log(1, null, "LUNCH", d-6*day, 620, 28, 22, 60),
+            log(1, 1L, "DINNER", d-6*day, 180, 10, 12, 8),
+            log(1, null, "BREAKFAST", d-5*day, 240, 12, 14, 18),
+            log(1, 7L, "LUNCH", d-5*day, 280, 18, 20, 8),
+            log(1, 5L, "DINNER", d-5*day, 220, 28, 8, 6),
+            log(1, 1L, "BREAKFAST", d-4*day, 180, 10, 12, 8),
+            log(1, 11L, "LUNCH", d-4*day, 260, 20, 16, 5),
+            log(1, null, "DINNER", d-4*day, 450, 25, 18, 30),
+            log(1, 6L, "BREAKFAST", d-3*day, 240, 12, 14, 18),
+            log(1, null, "LUNCH", d-3*day, 550, 22, 18, 50),
+            log(1, 16L, "DINNER", d-3*day, 85, 3, 5, 8),
+            log(1, 10L, "BREAKFAST", d-2*day, 220, 8, 5, 35),
+            log(1, 5L, "LUNCH", d-2*day, 220, 28, 8, 6),
+            log(1, 3L, "DINNER", d-2*day, 95, 6, 5, 4),
+            log(1, 1L, "BREAKFAST", d-1*day, 180, 10, 12, 8),
+            log(1, 7L, "LUNCH", d-1*day, 280, 18, 20, 8),
+            log(1, 19L, "DINNER", d-1*day, 180, 25, 6, 2),
+            log(1, 6L, "BREAKFAST", d, 240, 12, 14, 18),
+        };
+        for (NutritionLog l : logs) nutritionLogDao().insert(l);
+    }
+
+    private String sha256(String input) {
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(input.getBytes("UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hash) sb.append(String.format("%02x", b));
+            return sb.toString();
+        } catch (Exception e) { return input; }
+    }
+
+    private FoodItem item(long uid, long cid, String name, double qty, String unit,
+                          long buy, long exp, double price) {
+        FoodItem f = new FoodItem(uid, cid, name, qty, unit, buy, exp);
+        f.setPrice(price);
+        return f;
+    }
+
+    private NutritionLog log(long uid, Long recipeId, String meal, long date,
+                             int cal, double pro, double fat, double carb) {
+        NutritionLog l = new NutritionLog(uid, meal, date, cal, pro, fat, carb);
+        l.setRecipeId(recipeId);
+        return l;
     }
 
     private Recipe createRecipe(String name, String cuisine, String meal, String diff,

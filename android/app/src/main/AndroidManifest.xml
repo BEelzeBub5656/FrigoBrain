@@ -60,52 +60,17 @@
             android:name=".ui.inventory.FoodAddActivity"
             android:exported="false"
             android:label="@string/title_add_food" />
-        <activity
-            android:name=".ui.inventory.FoodDetailActivity"
-            android:exported="false"
-            android:label="@string/title_food_detail" />
-
         <!-- 菜谱 -->
         <activity
             android:name=".ui.recipe.RecipeListActivity"
             android:exported="false"
             android:label="@string/title_recipes" />
-        <activity
-            android:name=".ui.recipe.RecipeDetailActivity"
-            android:exported="false"
-            android:label="@string/title_recipe_detail" />
 
-        <!-- 膳食计划 -->
-        <activity
-            android:name=".ui.mealplan.MealPlanActivity"
-            android:exported="false"
-            android:label="@string/title_meal_plan" />
-
-        <!-- 统计 -->
-        <activity
-            android:name=".ui.stats.WasteStatsActivity"
-            android:exported="false"
-            android:label="@string/title_waste_stats" />
+        <!-- 营养 -->
         <activity
             android:name=".ui.stats.NutritionActivity"
             android:exported="false"
             android:label="@string/title_nutrition" />
-
-        <!-- 用户/偏好 -->
-        <activity
-            android:name=".ui.profile.UserProfileActivity"
-            android:exported="false"
-            android:label="@string/title_profile" />
-        <activity
-            android:name=".ui.profile.PreferenceActivity"
-            android:exported="false"
-            android:label="@string/title_preferences" />
-
-        <!-- 设置 -->
-        <activity
-            android:name=".ui.settings.SettingsActivity"
-            android:exported="false"
-            android:label="@string/title_settings" />
 
         <!-- 后台服务 -->
         <service
