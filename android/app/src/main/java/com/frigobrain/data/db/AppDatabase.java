@@ -13,6 +13,7 @@ import com.frigobrain.data.db.converter.DateConverter;
 import com.frigobrain.data.db.dao.FoodCategoryDao;
 import com.frigobrain.data.db.dao.FoodItemDao;
 import com.frigobrain.data.db.dao.FoodWasteRecordDao;
+import com.frigobrain.data.db.dao.DietaryPreferenceDao;
 import com.frigobrain.data.db.dao.MealPlanDao;
 import com.frigobrain.data.db.dao.NutritionLogDao;
 import com.frigobrain.data.db.dao.RecipeDao;
@@ -52,6 +53,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract NutritionLogDao nutritionLogDao();
     public abstract ShoppingListDao shoppingListDao();
     public abstract MealPlanDao mealPlanDao();
+    public abstract DietaryPreferenceDao dietaryPreferenceDao();
 
     private static volatile AppDatabase INSTANCE;
 

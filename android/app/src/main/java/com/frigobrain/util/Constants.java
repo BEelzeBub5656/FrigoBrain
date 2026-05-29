@@ -65,4 +65,15 @@ public final class Constants {
     public static final double RDA_PROTEIN = 60.0;
     public static final double RDA_FAT = 60.0;
     public static final double RDA_CARBS = 300.0;
+
+    // Common allergens / ingredients to exclude
+    public static final String[] COMMON_ALLERGENS = {
+        "花生", "花生油", "海鲜", "虾", "螃蟹", "鱼", "贝类",
+        "辣椒", "花椒", "大蒜", "洋葱", "生姜",
+        "牛奶", "奶酪", "黄油", "酸奶",
+        "鸡蛋", "豆腐", "豆制品",
+        "猪肉", "牛肉", "羊肉", "鸡肉",
+        "小麦", "面粉", "麸质",
+        "芝麻", "香油", "芥末"
+    };
 }
