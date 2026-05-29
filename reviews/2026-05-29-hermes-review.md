@@ -55,7 +55,26 @@
 
 getExpiringFoodsWithRecipes() 被调用两次, 第一次结果未使用。
 
-### 4. 评分对齐检查
+### 4. 华为云 IoT 状态
+
+**当前**: `IotMqttClient.java` 为 Mock 实现 — connect() 直接返回 true, reportProperties() 仅输出日志。
+
+**真实端点** (已确认):
+| 项目 | 值 |
+|------|-----|
+| 接入地址 | `21158429fd.st1.iotda-device.cn-north-4.myhuaweicloud.com` |
+| 端口 | `443` |
+| 协议 | MQTT over WebSocket |
+| 认证 | 设备密钥 (DeviceSecret) |
+
+**待实现**: 引入 Eclipse Paho MQTT 客户端，替换 Mock 为真实 TLS WebSocket 连接。
+
+```gradle
+// app/build.gradle 需添加:
+implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
+```
+
+### 5. 评分对齐检查
 
 | 评分项 | 状态 |
 |--------|------|
@@ -75,6 +94,6 @@ getExpiringFoodsWithRecipes() 被调用两次, 第一次结果未使用。
 - [ ] 更新详细设计文档
 - [ ] 修复 MainActivity 重复查询
 - [ ] 录制演示视频
-- [ ] 验证华为云 IoT
+- [ ] 验证华为云 IoT (MQTT WebSocket 443, 地址已确认)
 
 > *Hermes Agent 自动审阅*
