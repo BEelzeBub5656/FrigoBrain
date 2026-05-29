@@ -1,7 +1,6 @@
 package com.frigobrain.ui.inventory;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ArrayAdapter;
@@ -11,14 +10,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.frigobrain.FrigoBrainApp;
 import com.frigobrain.R;
 import com.frigobrain.data.db.AppDatabase;
 import com.frigobrain.data.db.entity.FoodItem;
 import com.frigobrain.util.Constants;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.Calendar;
 import java.util.concurrent.Executors;
@@ -33,6 +34,7 @@ public class FoodAddActivity extends AppCompatActivity {
     private long userId;
     private long purchaseDate = System.currentTimeMillis();
     private long[] categoryIds;
+    private ActivityResultLauncher<ScanOptions> barcodeLauncher;
 
     // Common preset food names for autocomplete
     private static final String[] PRESET_FOODS = {
@@ -115,10 +117,26 @@ public class FoodAddActivity extends AppCompatActivity {
         // Save
         btnSave.setOnClickListener(v -> saveFood());
 
-        // Scan button - placeholder for ZXing integration
-        btnScan.setOnClickListener(v ->
-                Toast.makeText(this, "扫码功能开发中，请暂用手动输入", Toast.LENGTH_SHORT).show()
-        );
+        // ZXing barcode scanner
+        barcodeLauncher = registerForActivityResult(new ScanContract(), result -> {
+            if (result.getContents() != null) {
+                actvFoodName.setText(result.getContents());
+                Toast.makeText(this, "扫码结果: " + result.getContents(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "扫码已取消", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Scan button - launch ZXing barcode scanner
+        btnScan.setOnClickListener(v -> {
+            ScanOptions options = new ScanOptions();
+            options.setDesiredBarcodeFormats(ScanOptions.ALL_CODE_TYPES);
+            options.setPrompt("扫描商品条码自动录入");
+            options.setCameraId(0);
+            options.setBeepEnabled(true);
+            options.setBarcodeImageEnabled(false);
+            barcodeLauncher.launch(options);
+        });
     }
 
     private void loadCategories() {
