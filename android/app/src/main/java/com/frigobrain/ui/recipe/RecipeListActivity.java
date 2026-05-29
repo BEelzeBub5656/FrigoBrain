@@ -159,9 +159,9 @@ public class RecipeListActivity extends AppCompatActivity {
 
     private void loadMatchedRecipes() {
         Executors.newSingleThreadExecutor().execute(() -> {
-            List<Recipe> recipes = db.recipeDao().getAllSync();
-            if (recipes == null) recipes = new ArrayList<>();
-            runOnUiThread(() -> adapter.setRecipes(recipes));
+            final List<Recipe> recipes = db.recipeDao().getAllSync();
+            runOnUiThread(() -> adapter.setRecipes(
+                recipes != null ? recipes : new ArrayList<>()));
         });
     }
 
