@@ -85,8 +85,8 @@ public class SettingsActivity extends AppCompatActivity {
         boolean iotEnabled = prefs.getBoolean(Constants.KEY_IOT_ENABLED, false);
         tvIotStatus.setText(iotEnabled ? R.string.iot_connected : R.string.iot_disconnected);
         tvIotStatus.setTextColor(iotEnabled
-                ? getColor(android.R.color.holo_green_dark)
-                : getColor(android.R.color.darker_gray));
+                ? getColor(R.color.primaryDark)
+                : getColor(R.color.statusExpired));
 
         // Set spinner selection based on saved frequency
         for (int i = 0; i < SYNC_FREQ_VALUES.length; i++) {
@@ -117,7 +117,7 @@ public class SettingsActivity extends AppCompatActivity {
                 .apply();
 
         tvIotStatus.setText(R.string.iot_connected);
-        tvIotStatus.setTextColor(getColor(android.R.color.holo_green_dark));
+        tvIotStatus.setTextColor(getColor(R.color.primaryDark));
 
         // Start the IoT data sync service
         Intent intent = new Intent(this, IotDataSyncService.class);

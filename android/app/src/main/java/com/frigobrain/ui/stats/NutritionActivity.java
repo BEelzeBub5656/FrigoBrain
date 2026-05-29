@@ -2,6 +2,7 @@ package com.frigobrain.ui.stats;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
