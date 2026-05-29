@@ -46,16 +46,9 @@ public class IotDataSyncService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "IotDataSyncService started");
 
-        // 检查华为云是否已配置
-        boolean iotEnabled = prefs.getBoolean(Constants.KEY_IOT_ENABLED, false);
-        if (!iotEnabled) {
-            Log.d(TAG, "IoT not enabled, skipping sync");
-            return START_STICKY;
-        }
-
-        // 建立连接
-        String deviceId = prefs.getString("iot_device_id", "");
-        String deviceSecret = prefs.getString("iot_device_secret", "");
+        // 使用内置设备凭证自动连接
+        String deviceId = Constants.IOT_DEVICE_ID;
+        String deviceSecret = Constants.IOT_DEVICE_SECRET;
 
         if (mqttClient == null && !deviceId.isEmpty()) {
             String wsUri = "wss://" + Constants.IOT_MQTT_HOST + ":" + Constants.IOT_MQTT_PORT + "/mqtt";

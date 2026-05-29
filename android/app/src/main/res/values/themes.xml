@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base theme -->
+    <!-- Base theme - refined mint green -->
     <style name="Theme.FrigoBrain" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="colorPrimaryVariant">@color/primaryDark</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
         <item name="android:colorBackground">@color/background</item>
         <item name="android:statusBarColor">@color/primaryDark</item>
         <item name="colorSurface">@color/surface</item>
@@ -13,24 +14,22 @@
         <item name="bottomNavigationStyle">@style/BottomNav</item>
     </style>
 
-    <!-- Splash theme (no action bar, full screen) -->
     <style name="Theme.FrigoBrain.Splash" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="android:windowBackground">@color/surface</item>
         <item name="android:statusBarColor">@color/primaryDark</item>
     </style>
 
-    <!-- Bottom Navigation -->
     <style name="BottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemIconTint">@color/primary</item>
         <item name="itemTextColor">@color/primary</item>
         <item name="android:background">@color/surface</item>
+        <item name="elevation">8dp</item>
     </style>
 
-    <!-- Card -->
     <style name="CardStyle" parent="Widget.MaterialComponents.CardView">
-        <item name="cardCornerRadius">12dp</item>
-        <item name="cardElevation">4dp</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">2dp</item>
         <item name="contentPadding">16dp</item>
     </style>
 </resources>
