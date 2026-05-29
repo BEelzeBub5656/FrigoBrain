@@ -3,13 +3,15 @@ package com.frigobrain;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.frigobrain.data.db.AppDatabase;
+import com.frigobrain.ui.inventory.FoodAddActivity;
 import com.frigobrain.ui.inventory.InventoryActivity;
 import com.frigobrain.ui.mealplan.MealPlanActivity;
 import com.frigobrain.ui.profile.UserProfileActivity;
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvUserName, tvExpiryAlert;
     private LinearLayout bannerExpiry;
     private AppDatabase db;
+    private Class<?> currentPage;
+    private long backPressedTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,33 +54,36 @@ public class MainActivity extends AppCompatActivity {
         // Check expiring foods
         checkExpiringFoods();
 
-        // Bottom navigation
+        // Bottom navigation: launch activities with FLAG_ACTIVITY_SINGLE_TOP
         bottomNav.setOnItemSelectedListener(item -> {
-            Intent intent = null;
             int id = item.getItemId();
+            Class<?> target = null;
             if (id == R.id.nav_fridge) {
-                intent = new Intent(this, InventoryActivity.class);
+                target = InventoryActivity.class;
             } else if (id == R.id.nav_recipes) {
-                intent = new Intent(this, RecipeListActivity.class);
+                target = RecipeListActivity.class;
             } else if (id == R.id.nav_plan) {
-                intent = new Intent(this, MealPlanActivity.class);
+                target = MealPlanActivity.class;
             } else if (id == R.id.nav_stats) {
-                intent = new Intent(this, NutritionActivity.class);
+                target = NutritionActivity.class;
             } else if (id == R.id.nav_profile) {
-                intent = new Intent(this, UserProfileActivity.class);
+                target = UserProfileActivity.class;
             }
-            if (intent != null) {
+            if (target != null && target != currentPage) {
+                currentPage = target;
+                Intent intent = new Intent(this, target);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;
             }
-            return false;
+            return target != null;
         });
 
         // Default: go to inventory
-        findViewById(R.id.fragment_container).setOnClickListener(v -> {
-            startActivity(new Intent(this, InventoryActivity.class));
-        });
-        startActivity(new Intent(this, InventoryActivity.class));
+        Intent intent = new Intent(this, InventoryActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        currentPage = InventoryActivity.class;
     }
 
     private void checkExpiringFoods() {
@@ -89,9 +96,13 @@ public class MainActivity extends AppCompatActivity {
                     if (foods != null && !foods.isEmpty()) {
                         bannerExpiry.setVisibility(View.VISIBLE);
                         tvExpiryAlert.setText(foods.size() + " 种食材将在3天内过期，建议尽快使用");
-                        bannerExpiry.setOnClickListener(v ->
-                                startActivity(new Intent(this, InventoryActivity.class))
-                        );
+                        bannerExpiry.setOnClickListener(v -> {
+                            Intent intent = new Intent(this, InventoryActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            startActivity(intent);
+                        });
+                    } else {
+                        bannerExpiry.setVisibility(View.GONE);
                     }
                 });
     }
@@ -100,5 +111,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         checkExpiringFoods();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Double-tap back to exit
+        long now = System.currentTimeMillis();
+        if (now - backPressedTime < 2000) {
+            finishAffinity();
+        } else {
+            backPressedTime = now;
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+        }
     }
 }

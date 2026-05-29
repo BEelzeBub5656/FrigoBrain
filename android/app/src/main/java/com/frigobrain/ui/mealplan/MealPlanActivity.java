@@ -80,37 +80,42 @@ public class MealPlanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meal_plan);
+        try {
+            setContentView(R.layout.activity_meal_plan);
 
-        db = FrigoBrainApp.getDatabase();
-        userId = FrigoBrainApp.getCurrentUserId();
+            db = FrigoBrainApp.getDatabase();
+            userId = FrigoBrainApp.getCurrentUserId();
 
-        weekGrid = findViewById(R.id.week_grid);
-        btnGenerateList = findViewById(R.id.btn_generate_shopping_list);
-        rvShoppingList = findViewById(R.id.rv_shopping_list);
+            weekGrid = findViewById(R.id.week_grid);
+            btnGenerateList = findViewById(R.id.btn_generate_shopping_list);
+            rvShoppingList = findViewById(R.id.rv_shopping_list);
 
-        // Setup shopping list RecyclerView
-        shoppingAdapter = new ShoppingListAdapter(shoppingItems);
-        rvShoppingList.setLayoutManager(new LinearLayoutManager(this));
-        rvShoppingList.setAdapter(shoppingAdapter);
+            // Setup shopping list RecyclerView
+            shoppingAdapter = new ShoppingListAdapter(shoppingItems);
+            rvShoppingList.setLayoutManager(new LinearLayoutManager(this));
+            rvShoppingList.setAdapter(shoppingAdapter);
 
-        // Initialize slot contents
-        for (int d = 1; d <= 7; d++) {
-            Map<String, Long> daySlots = new HashMap<>();
-            daySlots.put("早餐", null);
-            daySlots.put("午餐", null);
-            daySlots.put("晚餐", null);
-            slotContents.put(d, daySlots);
+            // Initialize slot contents
+            for (int d = 1; d <= 7; d++) {
+                Map<String, Long> daySlots = new HashMap<>();
+                daySlots.put("早餐", null);
+                daySlots.put("午餐", null);
+                daySlots.put("晚餐", null);
+                slotContents.put(d, daySlots);
+            }
+
+            // Build the week grid programmatically
+            buildWeekGrid();
+
+            // Load recipes and meal plan from DB
+            loadData();
+
+            // Generate shopping list button
+            btnGenerateList.setOnClickListener(v -> generateShoppingList());
+        } catch (Exception e) {
+            Toast.makeText(this, "加载失败: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            finish();
         }
-
-        // Build the week grid programmatically
-        buildWeekGrid();
-
-        // Load recipes and meal plan from DB
-        loadData();
-
-        // Generate shopping list button
-        btnGenerateList.setOnClickListener(v -> generateShoppingList());
     }
 
     /**
