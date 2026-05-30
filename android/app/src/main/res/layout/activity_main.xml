@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="6dp"
-            android:text="华为云：未连接，点击连接"
+            android:text="☁️ 华为云：点击同步库存"
             android:textColor="#1565C0"
             android:textSize="12sp" />
     </LinearLayout>

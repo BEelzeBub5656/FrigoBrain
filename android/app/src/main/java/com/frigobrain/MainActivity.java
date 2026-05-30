@@ -46,13 +46,19 @@ public class MainActivity extends AppCompatActivity {
             if (btnRecipe != null) btnRecipe.setOnClickListener(v -> navigateTo(RecipeListActivity.class));
             if (btnNutrition != null) btnNutrition.setOnClickListener(v -> navigateTo(InventoryActivity.class));
 
-            // IoT connection
+            // IoT connection — auto-start after 3s
+            new android.os.Handler().postDelayed(() ->
+                startService(new Intent(this, com.frigobrain.service.IotDataSyncService.class)), 3000);
+
             View iotBar = findViewById(R.id.iot_bar);
             TextView iotStatus = findViewById(R.id.iot_status_text);
             if (iotBar != null) {
                 iotBar.setOnClickListener(v -> {
-                    if (iotStatus != null) iotStatus.setText("华为云：连接中…");
+                    if (iotStatus != null) iotStatus.setText("☁️ 华为云：同步中…");
                     startService(new Intent(this, com.frigobrain.service.IotDataSyncService.class));
+                    iotBar.postDelayed(() -> {
+                        if (iotStatus != null) iotStatus.setText("☁️ 华为云：已同步(查看控制台)");
+                    }, 5000);
                 });
             }
 
