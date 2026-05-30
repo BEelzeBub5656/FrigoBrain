@@ -52,7 +52,7 @@ public class IotDataSyncService extends Service {
 
         if (mqttClient == null && !deviceId.isEmpty()) {
             String wsUri = "ssl://" + Constants.IOT_MQTT_HOST + ":" + Constants.IOT_MQTT_PORT;
-            mqttClient = new IotMqttClient(wsUri, deviceId, deviceSecret);
+            mqttClient = new IotMqttClient(wsUri, deviceId, deviceSecret, IotDataSyncService.this);
             mqttClient.connect();
         }
 

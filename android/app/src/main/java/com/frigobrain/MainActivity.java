@@ -1,9 +1,13 @@
 package com.frigobrain;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -171,11 +175,29 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception ignored) {}
     }
 
+    private BroadcastReceiver iotReceiver = new BroadcastReceiver() {
+        @Override public void onReceive(Context c, Intent i) {
+            TextView tv = findViewById(R.id.iot_status_text);
+            if (tv == null) return;
+            String s = i.getStringExtra("status");
+            if ("CONNECTED".equals(s)) tv.setText("☁️ 华为云：已连接 ✅");
+            else if ("AUTH_FAILED".equals(s)) tv.setText("☁️ 华为云：鉴权失败 ❌");
+        }
+    };
+
     @Override
     protected void onResume() {
         super.onResume();
         currentPage = null;
         showRecipeNote();
+        LocalBroadcastManager.getInstance(this)
+            .registerReceiver(iotReceiver, new IntentFilter("com.frigobrain.IOT_STATUS"));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try { LocalBroadcastManager.getInstance(this).unregisterReceiver(iotReceiver); } catch (Exception e) {}
     }
 
     @Override

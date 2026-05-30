@@ -41,17 +41,19 @@ public class IotMqttClient {
     private final String serverUri;
 
     private MqttClient mqttClient;
-    private boolean isConnected = false;
+    private volatile boolean isConnected = false;
+    private android.content.Context appContext;
 
     /**
      * @param serverUri    MQTT Broker 地址 (格式: wss://host:port/mqtt)
      * @param deviceId     华为云设备ID
      * @param deviceSecret 华为云设备密钥
      */
-    public IotMqttClient(String serverUri, String deviceId, String deviceSecret) {
+    public IotMqttClient(String serverUri, String deviceId, String deviceSecret, android.content.Context ctx) {
         this.serverUri = serverUri;
         this.deviceId = deviceId;
         this.deviceSecret = deviceSecret;
+        this.appContext = ctx.getApplicationContext();
     }
 
     /**
@@ -106,8 +108,10 @@ public class IotMqttClient {
             if (mqttClient.isConnected()) {
                 isConnected = true;
                 Log.i(TAG, "Connected to Huawei Cloud IoTDA");
-
+                sendBroadcast("CONNECTED");
                 return true;
+            } else {
+                sendBroadcast("AUTH_FAILED");
             }
         } catch (Exception e) {
             Log.e(TAG, "MQTT connect failed: " + e.getMessage(), e);
@@ -218,6 +222,14 @@ public class IotMqttClient {
             for (byte b : raw) sb.append(String.format("%02x", b));
             return sb.toString();
         } catch (Exception e) { return secret; }
+    }
+
+    private void sendBroadcast(String status) {
+        if (appContext != null) {
+            android.content.Intent i = new android.content.Intent("com.frigobrain.IOT_STATUS");
+            i.putExtra("status", status);
+            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(appContext).sendBroadcast(i);
+        }
     }
 
     public void disconnect() {
