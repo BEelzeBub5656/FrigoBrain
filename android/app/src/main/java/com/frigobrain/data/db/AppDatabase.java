@@ -64,13 +64,6 @@ public abstract class AppDatabase extends RoomDatabase {
                         AppDatabase.class,
                         "frigobrain.db"
                     )
-                    .addCallback(new RoomDatabase.Callback() {
-                        @Override
-                        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                            super.onCreate(db);
-                            getInstance(context).seedDatabase();
-                        }
-                    })
                     .fallbackToDestructiveMigration()
                     .build();
                 }
@@ -83,7 +76,7 @@ public abstract class AppDatabase extends RoomDatabase {
      * 种子数据：预置分类、常见食材、菜谱和营养参考
      * 数据来源：中国食物成分表公开数据 + 中国居民膳食指南
      */
-    private void seedDatabase() {
+    public void seedDatabase() {
         // --- 食材分类（5类）---
         FoodCategory[] categories = {
             new FoodCategory("蔬菜", "FRIDGE", 1),
@@ -339,6 +332,7 @@ public abstract class AppDatabase extends RoomDatabase {
         r.setServings(servings);
         r.setTags(tags);
         r.setIsSystem(1);
+        r.setCreatedBy(1);
         return r;
     }
 
