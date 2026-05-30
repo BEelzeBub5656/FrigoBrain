@@ -46,6 +46,16 @@ public class MainActivity extends AppCompatActivity {
             if (btnRecipe != null) btnRecipe.setOnClickListener(v -> navigateTo(RecipeListActivity.class));
             if (btnNutrition != null) btnNutrition.setOnClickListener(v -> navigateTo(InventoryActivity.class));
 
+            // IoT connection
+            View iotBar = findViewById(R.id.iot_bar);
+            TextView iotStatus = findViewById(R.id.iot_status_text);
+            if (iotBar != null) {
+                iotBar.setOnClickListener(v -> {
+                    if (iotStatus != null) iotStatus.setText("华为云：连接中…");
+                    startService(new Intent(this, com.frigobrain.service.IotDataSyncService.class));
+                });
+            }
+
             // Bottom nav
             if (bottomNav != null) {
                 bottomNav.setOnItemSelectedListener(item -> {
