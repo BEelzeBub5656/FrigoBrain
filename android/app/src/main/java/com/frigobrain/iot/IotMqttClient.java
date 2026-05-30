@@ -107,11 +107,6 @@ public class IotMqttClient {
                 isConnected = true;
                 Log.i(TAG, "Connected to Huawei Cloud IoTDA");
 
-                // Subscribe to commands
-                String cmdTopic = "$oc/devices/" + deviceId + "/sys/commands/request/#";
-                mqttClient.subscribe(cmdTopic, 1);
-                Log.d(TAG, "Subscribed to: " + cmdTopic);
-
                 return true;
             }
         } catch (Exception e) {
