@@ -87,6 +87,11 @@ public abstract class AppDatabase extends RoomDatabase {
         };
         for (FoodCategory c : categories) foodCategoryDao().insert(c);
 
+        // 管理员和偏好必须在食谱之前（Recipe.created_by → users FK）
+        User admin = new User("admin", sha256("admin"), "管理员", "OWNER");
+        userDao().insert(admin);
+        dietaryPreferenceDao().insert(new DietaryPreference(1, "PESCATARIAN"));
+
         // --- 预置菜谱库（20道，含完整营养数据）---
         long now = System.currentTimeMillis();
         Recipe[] recipes = {
@@ -223,14 +228,6 @@ public abstract class AppDatabase extends RoomDatabase {
         // === 演示数据（首次安装即有的冰箱内容） ===
         long d = System.currentTimeMillis();
         long day = 24 * 60 * 60 * 1000L;
-
-        // 内置管理员
-        User admin = new User("admin", sha256("admin"), "管理员", "OWNER");
-        userDao().insert(admin);
-
-        // 饮食偏好
-        dietaryPreferenceDao().insert(new DietaryPreference(1, "PESCATARIAN"));
-
         // 演示食材（18种，覆盖5个类别，每种有过期状态变化）
         FoodItem[] demos = {
             // 蔬菜类 (6种)
