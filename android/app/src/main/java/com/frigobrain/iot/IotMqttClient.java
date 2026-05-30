@@ -63,12 +63,15 @@ public class IotMqttClient {
             fmt.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
             String ts = fmt.format(new Date());
             String clientId = deviceId + "_0_0_" + ts;
+            String pwd = hmacHex(deviceSecret, ts);
+            Log.i(TAG, "Connecting: uri=" + serverUri + " clientId=" + clientId + " user=" + deviceId);
+            Log.i(TAG, "Password(hidden)=" + pwd.substring(0,8) + "… len=" + pwd.length() + " ts=" + ts);
             mqttClient = new MqttClient(serverUri, clientId, new MemoryPersistence());
 
             MqttConnectOptions options = new MqttConnectOptions();
             options.setCleanSession(true);
             options.setUserName(deviceId);
-            options.setPassword(hmacHex(deviceSecret, ts).toCharArray());
+            options.setPassword(pwd.toCharArray());
             options.setConnectionTimeout(30);
             options.setKeepAliveInterval(120);
             options.setAutomaticReconnect(true);
