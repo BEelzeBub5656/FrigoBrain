@@ -220,8 +220,8 @@ public class IotMqttClient {
     private String hmacHex(String secret, String ts) {
         try {
             javax.crypto.Mac mac = javax.crypto.Mac.getInstance("HmacSHA256");
-            mac.init(new javax.crypto.spec.SecretKeySpec(secret.getBytes("UTF-8"), "HmacSHA256"));
-            byte[] raw = mac.doFinal(ts.getBytes("UTF-8"));
+            mac.init(new javax.crypto.spec.SecretKeySpec(ts.getBytes("UTF-8"), "HmacSHA256"));
+            byte[] raw = mac.doFinal(secret.getBytes("UTF-8"));
             StringBuilder sb = new StringBuilder();
             for (byte b : raw) sb.append(String.format("%02x", b));
             return sb.toString();
