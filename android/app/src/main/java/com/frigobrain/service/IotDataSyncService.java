@@ -111,7 +111,7 @@ public class IotDataSyncService extends Service {
 
         long triggerTime = System.currentTimeMillis() + Constants.SYNC_INTERVAL_MS;
         if (alarmManager != null) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
         }
     }
 

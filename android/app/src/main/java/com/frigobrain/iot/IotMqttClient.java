@@ -59,7 +59,9 @@ public class IotMqttClient {
      */
     public boolean connect() {
         try {
-            String ts = new SimpleDateFormat("yyyyMMddHH").format(new Date());
+            SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMddHH", java.util.Locale.US);
+            fmt.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
+            String ts = fmt.format(new Date());
             String clientId = deviceId + "_0_0_" + ts;
             mqttClient = new MqttClient(serverUri, clientId, new MemoryPersistence());
 
