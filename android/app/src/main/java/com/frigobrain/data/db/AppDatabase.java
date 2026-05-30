@@ -231,7 +231,7 @@ public abstract class AppDatabase extends RoomDatabase {
             for (RecipeIngredient ri : arr) recipeDao().insertIngredient(ri);
         }
 
-        // === 演示数据 ===
+        // === 演示数据（首次安装即有的冰箱内容） ===
         long d = System.currentTimeMillis();
         long day = 24 * 60 * 60 * 1000L;
 
@@ -239,39 +239,69 @@ public abstract class AppDatabase extends RoomDatabase {
         User admin = new User("admin", sha256("admin"), "管理员", "OWNER");
         userDao().insert(admin);
 
-        // 演示食材（各种过期状态）
+        // 饮食偏好
+        dietaryPreferenceDao().insert(new DietaryPreference(1, "PESCATARIAN"));
+
+        // 演示食材（18种，覆盖5个类别，每种有过期状态变化）
         FoodItem[] demos = {
+            // 蔬菜类 (6种)
             item(1, 1, "番茄", 3, "个", d - 2*day, d + 5*day, 5.0),
-            item(1, 1, "菠菜", 1, "把", d - 1*day, d + 1*day, 3.5),
-            item(1, 2, "苹果", 5, "个", d - 3*day, d + 10*day, 12.0),
+            item(1, 1, "菠菜", 1, "把", d - 1*day, d + 1*day, 3.5),        // 明天过期
             item(1, 1, "西兰花", 1, "颗", d - 4*day, d + 2*day, 8.0),
-            item(1, 3, "鸡胸肉", 500, "g", d - 1*day, d + 3*day, 15.0),
-            item(1, 4, "牛奶", 2, "L", d - 1*day, d + 6*day, 18.0),
-            item(1, 3, "鸡蛋", 10, "个", d - 5*day, d + 20*day, 8.0),
             item(1, 1, "黄瓜", 2, "根", d, d + 7*day, 4.0),
+            item(1, 1, "白菜", 1, "颗", d - 3*day, d + 6*day, 3.0),
+            item(1, 1, "青椒", 4, "个", d - 2*day, d + 8*day, 5.0),
+            item(1, 1, "胡萝卜", 3, "根", d - 5*day, d + 9*day, 2.5),      // 最长保鲜
+            item(1, 1, "生菜", 1, "颗", d - 1*day, d + 0*day, 4.0),        // 今天到期
+            // 水果类 (3种)
+            item(1, 2, "苹果", 5, "个", d - 3*day, d + 10*day, 12.0),
+            item(1, 2, "香蕉", 3, "根", d - 2*day, d + 3*day, 4.5),         // 后天到期
+            item(1, 2, "葡萄", 1, "串", d, d + 4*day, 15.0),
+            // 肉类 (3种)
+            item(1, 3, "鸡胸肉", 500, "g", d - 1*day, d + 3*day, 15.0),
+            item(1, 3, "鸡蛋", 10, "个", d - 5*day, d + 20*day, 8.0),
+            item(1, 3, "猪肉", 300, "g", d, d + 2*day, 12.0),               // 后天到期
+            item(1, 3, "排骨", 400, "g", d - 2*day, d + 1*day, 22.0),       // 明天到期
+            // 乳制品 (2种)
+            item(1, 4, "牛奶", 2, "L", d - 1*day, d + 6*day, 18.0),
+            item(1, 4, "酸奶", 6, "杯", d - 3*day, d + 8*day, 14.0),
+            // 其他 (2种)
+            item(1, 5, "豆腐", 1, "块", d - 1*day, d + 1*day, 2.0),         // 明天过期
+            item(1, 5, "燕麦", 1, "袋", d - 10*day, d + 90*day, 10.0),      // 干货, 长期保存
         };
         for (FoodItem fi : demos) foodItemDao().insert(fi);
 
-        // 营养日志（过去7天）
+        // 购物清单（2条未完成的）
+        shoppingListDao().insert(new ShoppingList(1, "香菇", 1, 6, "朵"));
+        shoppingListDao().insert(new ShoppingList(1, "鲈鱼", 3, 1, "条"));
+
+        // 营养日志（过去7天完整三餐记录，模拟真实使用痕迹）
         NutritionLog[] logs = {
-            log(1, 1L, "BREAKFAST", d-6*day, 350, 12, 15, 28),
-            log(1, null, "LUNCH", d-6*day, 620, 28, 22, 60),
-            log(1, 1L, "DINNER", d-6*day, 180, 10, 12, 8),
-            log(1, null, "BREAKFAST", d-5*day, 240, 12, 14, 18),
+            // 第-6天（周日）
+            log(1, 10L, "BREAKFAST", d-6*day, 220, 8, 5, 35),
+            log(1, 5L, "LUNCH", d-6*day, 220, 28, 8, 6),
+            log(1, 12L, "DINNER", d-6*day, 310, 22, 18, 10),
+            // 第-5天（周一）
+            log(1, 6L, "BREAKFAST", d-5*day, 240, 12, 14, 18),
             log(1, 7L, "LUNCH", d-5*day, 280, 18, 20, 8),
-            log(1, 5L, "DINNER", d-5*day, 220, 28, 8, 6),
+            log(1, 14L, "DINNER", d-5*day, 80, 3, 4, 8),
+            // 第-4天（周二）
             log(1, 1L, "BREAKFAST", d-4*day, 180, 10, 12, 8),
             log(1, 11L, "LUNCH", d-4*day, 260, 20, 16, 5),
-            log(1, null, "DINNER", d-4*day, 450, 25, 18, 30),
+            log(1, 17L, "DINNER", d-4*day, 180, 20, 8, 5),
+            // 第-3天（周三）
             log(1, 6L, "BREAKFAST", d-3*day, 240, 12, 14, 18),
-            log(1, null, "LUNCH", d-3*day, 550, 22, 18, 50),
+            log(1, 13L, "LUNCH", d-3*day, 320, 25, 18, 12),
             log(1, 16L, "DINNER", d-3*day, 85, 3, 5, 8),
+            // 第-2天（周四）
             log(1, 10L, "BREAKFAST", d-2*day, 220, 8, 5, 35),
             log(1, 5L, "LUNCH", d-2*day, 220, 28, 8, 6),
             log(1, 3L, "DINNER", d-2*day, 95, 6, 5, 4),
+            // 第-1天（周五）
             log(1, 1L, "BREAKFAST", d-1*day, 180, 10, 12, 8),
             log(1, 7L, "LUNCH", d-1*day, 280, 18, 20, 8),
             log(1, 19L, "DINNER", d-1*day, 180, 25, 6, 2),
+            // 今天（周六）
             log(1, 6L, "BREAKFAST", d, 240, 12, 14, 18),
         };
         for (NutritionLog l : logs) nutritionLogDao().insert(l);
