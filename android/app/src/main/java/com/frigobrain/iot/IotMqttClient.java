@@ -73,13 +73,7 @@ public class IotMqttClient {
             options.setKeepAliveInterval(120);
             options.setAutomaticReconnect(true);
 
-            // Trust all certificates for development (生产环境应使用华为云CA证书)
-            SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, new TrustManager[]{new TrustAllManager()}, new SecureRandom());
-            options.setSocketFactory(sslContext.getSocketFactory());
-
-            // Set WebSocket headers required by Huawei IoTDA
-            options.setServerURIs(new String[]{serverUri});
+            // Paho ssl:// 协议原生处理 TLS，无需手动 SSL
 
             mqttClient.setCallback(new MqttCallback() {
                 @Override
