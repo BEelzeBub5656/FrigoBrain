@@ -32,8 +32,6 @@ import com.frigobrain.data.db.entity.RecipeIngredient;
 import com.frigobrain.data.db.entity.ShoppingList;
 import com.frigobrain.data.db.entity.User;
 
-import java.util.concurrent.Executors;
-
 @Database(entities = {
     User.class, FoodCategory.class, FoodItem.class,
     Recipe.class, RecipeIngredient.class,
@@ -41,7 +39,7 @@ import java.util.concurrent.Executors;
     MealPlan.class, MealPlanRecipe.class,
     FoodWasteRecord.class, NutritionLog.class,
     ShoppingList.class, DeviceInfo.class
-}, version = 2, exportSchema = false)
+}, version = 3, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -70,9 +68,7 @@ public abstract class AppDatabase extends RoomDatabase {
                         @Override
                         public void onCreate(@NonNull SupportSQLiteDatabase db) {
                             super.onCreate(db);
-                            Executors.newSingleThreadExecutor().execute(() ->
-                                getInstance(context).seedDatabase()
-                            );
+                            getInstance(context).seedDatabase();
                         }
                     })
                     .fallbackToDestructiveMigration()
