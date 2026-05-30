@@ -58,16 +58,33 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
 
-            refreshDashboard();
+            startDataObservers();
         } catch (Exception e) {
             Toast.makeText(this, "仪表盘加载失败: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
+        showRecipeNote();
         // Dynamic version
         try {
             PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), 0);
             TextView tvVer = findViewById(R.id.tv_version);
             if (tvVer != null) tvVer.setText("v" + pi.versionName);
         } catch (PackageManager.NameNotFoundException ignored) {}
+    }
+
+    private void showRecipeNote() {
+        Recipe recipe = RecipeHolder.selected;
+        if (recipe == null) return;
+        TextView tvFood = findViewById(R.id.tv_food_list);
+        if (tvFood != null) {
+            String steps = recipe.getInstructions();
+            if (steps.length() > 200) steps = steps.substring(0, 200) + "…";
+            tvFood.setText("🍳 " + recipe.getName() + "\n\n"
+                + recipe.getCalories() + "kcal | 蛋白" + (int)recipe.getProtein()
+                + "g | 脂肪" + (int)recipe.getFat() + "g | 碳水" + (int)recipe.getCarbs() + "g\n\n"
+                + steps);
+            tvFood.setTextColor(0xFF263238);
+        }
+        RecipeHolder.selected = null;
     }
 
     private void navigateTo(Class<?> target) {
@@ -80,21 +97,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings("unchecked")
-    private void refreshDashboard() {
-        // Show mounted recipe if available
-        Recipe recipe = RecipeHolder.selected;
-        if (recipe != null) {
-            TextView tvFood = findViewById(R.id.tv_food_list);
-            if (tvFood != null) {
-                tvFood.setText("🍳 " + recipe.getName() + "\n"
-                    + recipe.getCalories() + "kcal | 蛋白" + (int)recipe.getProtein()
-                    + "g | 脂肪" + (int)recipe.getFat() + "g | 碳水" + (int)recipe.getCarbs() + "g\n\n"
-                    + recipe.getInstructions());
-                tvFood.setTextColor(0xFF263238);
-            }
-            RecipeHolder.selected = null; // consume once
-            return;
-        }
+    private void startDataObservers() {
         try {
             // Food stats
             db.foodItemDao().getActiveByUser(userId).observe(this, list -> {
@@ -156,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         currentPage = null;
+        showRecipeNote();
     }
 
     @Override

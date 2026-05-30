@@ -41,7 +41,7 @@ import java.util.concurrent.Executors;
     MealPlan.class, MealPlanRecipe.class,
     FoodWasteRecord.class, NutritionLog.class,
     ShoppingList.class, DeviceInfo.class
-}, version = 1, exportSchema = false)
+}, version = 2, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
