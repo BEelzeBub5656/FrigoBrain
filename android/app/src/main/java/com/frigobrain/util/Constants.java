@@ -53,7 +53,7 @@ public final class Constants {
 
     // Huawei IoT (已确认真实端点)
     public static final String IOT_MQTT_HOST = "21158429fd.st1.iotda-device.cn-north-4.myhuaweicloud.com";
-    public static final int IOT_MQTT_PORT = 443; // WebSocket
+    public static final int IOT_MQTT_PORT = 8883; // MQTTS
     public static final long SYNC_INTERVAL_MS = 30 * 60 * 1000; // 30 minutes
     // 已注册设备凭证（内置）
     public static final String IOT_DEVICE_ID = "FrigoBrain5656_BEEL";

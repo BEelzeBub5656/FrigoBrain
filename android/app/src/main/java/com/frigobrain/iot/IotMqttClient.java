@@ -59,13 +59,14 @@ public class IotMqttClient {
      */
     public boolean connect() {
         try {
-            String clientId = deviceId + "_0_0_" + System.currentTimeMillis();
+            String ts = new SimpleDateFormat("yyyyMMddHH").format(new Date());
+            String clientId = deviceId + "_0_0_" + ts;
             mqttClient = new MqttClient(serverUri, clientId, new MemoryPersistence());
 
             MqttConnectOptions options = new MqttConnectOptions();
             options.setCleanSession(true);
             options.setUserName(deviceId);
-            options.setPassword(deviceSecret.toCharArray());
+            options.setPassword(hmacHex(deviceSecret, ts).toCharArray());
             options.setConnectionTimeout(30);
             options.setKeepAliveInterval(120);
             options.setAutomaticReconnect(true);
@@ -211,6 +212,18 @@ public class IotMqttClient {
 
     public boolean isConnected() {
         return isConnected;
+    }
+
+    /** hex(hmac_sha256(secret, timestamp)) — 匹配华为云 MQTTS 密码格式 */
+    private String hmacHex(String secret, String ts) {
+        try {
+            javax.crypto.Mac mac = javax.crypto.Mac.getInstance("HmacSHA256");
+            mac.init(new javax.crypto.spec.SecretKeySpec(secret.getBytes("UTF-8"), "HmacSHA256"));
+            byte[] raw = mac.doFinal(ts.getBytes("UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            for (byte b : raw) sb.append(String.format("%02x", b));
+            return sb.toString();
+        } catch (Exception e) { return secret; }
     }
 
     public void disconnect() {
